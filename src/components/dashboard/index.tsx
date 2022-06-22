@@ -8,43 +8,56 @@ import React, {
   useCallback,
   HTMLAttributes,
 } from 'react';
-import { ElementEntity } from '../../types';
-import Elementsbuilder from '../elements-builder';
-import { mockData } from '../../mock';
-
+import { ComponentMetadata, ElementEntity } from '../../types';
+import ElementsBuilder from '../elements-builder';
+import RenderContext, { RenderContextProvider } from '../render-context';
+import MaterialManager from '../material-manager';
 export interface DashboardProps extends HTMLAttributes<HTMLDivElement> {
-  data: ElementEntity<ElementType>[];
+  data: ElementEntity[];
+  components: ComponentMetadata[];
 }
 
 export type DashboardRef = {};
 
 const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
-  { data = mockData, style, ...others },
+  { data, components, style, ...others },
   ref
 ) => {
-  const [builder, setBuilder] = useState<Elementsbuilder>(null);
+  const [context] = useState<RenderContext>(() => new RenderContext());
+  const [builder, setBuilder] = useState<ElementsBuilder>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const createBuilder = useCallback<
-    (data: ElementEntity<ElementType>[]) => Elementsbuilder
-  >((data) => {
-    return new Elementsbuilder({
-      data,
-      containerRef,
-    });
-  }, []);
+
+  const createBuilder = useCallback<(data: ElementEntity[]) => ElementsBuilder>(
+    (data) => {
+      const materialManager = new MaterialManager({
+        components,
+      });
+      const b = new ElementsBuilder({
+        data,
+        materialManager,
+        containerRef,
+        context,
+      });
+      context.setBuilder(b);
+      return b;
+    },
+    [containerRef, context]
+  );
 
   useEffect(() => {
     setBuilder(createBuilder(data));
   }, [data]);
 
   return (
-    <div
-      {...others}
-      style={{ ...style, height: 1000, position: 'relative' }}
-      ref={containerRef}
-    >
-      {builder ? builder.render() : null}
-    </div>
+    <RenderContextProvider value={context}>
+      <div
+        {...others}
+        style={{ ...style, height: 1000, position: 'relative' }}
+        ref={containerRef}
+      >
+        {builder ? builder.render() : null}
+      </div>
+    </RenderContextProvider>
   );
 };
 

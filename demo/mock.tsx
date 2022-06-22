@@ -1,5 +1,4 @@
-import { ElementType } from 'react';
-import { ElementEntity } from '../types';
+import { ElementEntity, ComponentMetadata } from '../src/types';
 
 const Item1 = ({ text = '测试拖控内容 测试拖控内容 测试拖控内容' }) => {
   return <div>{text}</div>;
@@ -14,9 +13,20 @@ const Item2 = () => {
   );
 };
 
-export const mockData: ElementEntity<ElementType>[] = [
+export const mockComMetas: ComponentMetadata[] = [
   {
-    component: Item1,
+    componentName: 'Item1',
+    componentClass: Item1,
+  },
+  {
+    componentName: 'Item2',
+    componentClass: Item2,
+  },
+];
+
+export const mockData: ElementEntity[] = [
+  {
+    componentName: 'Item1',
     props: {},
     bounds: {
       x: 0,
@@ -27,7 +37,7 @@ export const mockData: ElementEntity<ElementType>[] = [
   },
 
   {
-    component: Item1,
+    componentName: 'Item1',
     props: {
       text: '元素2',
     },
@@ -39,7 +49,7 @@ export const mockData: ElementEntity<ElementType>[] = [
     },
   },
   {
-    component: Item2,
+    componentName: 'Item2',
     props: {},
     bounds: {
       x: 220,
