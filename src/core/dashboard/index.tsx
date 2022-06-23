@@ -7,20 +7,30 @@ import React, {
   useCallback,
   HTMLAttributes,
 } from 'react';
-import { ComponentMetadata, ElementEntity } from '../../types';
+import { ComponentMetadata, ElementEntity, DashBoardConfig } from '../../types';
 import ElementsBuilder from '../elements-builder';
 import RenderContext, { RenderContextProvider } from '../render-context';
 import MaterialManager from '../material-manager';
-export interface DashboardProps extends HTMLAttributes<HTMLDivElement> {
+export interface DashboardProps
+  extends HTMLAttributes<HTMLDivElement>,
+    DashBoardConfig {
   data: ElementEntity[];
   components: ComponentMetadata[];
-  editable: boolean;
 }
 
 export type DashboardRef = {};
 
 const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
-  { data, components, style, editable, ...others },
+  {
+    data,
+    components,
+    style,
+    editable,
+    enableMagnet = true,
+    magnetSpace = 16,
+    magnetThreshold = 10,
+    ...others
+  },
   ref
 ) => {
   const [context] = useState<RenderContext>(() => new RenderContext());
@@ -28,6 +38,9 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
   const containerRef = useRef<HTMLDivElement>(null);
   context.setConfig({
     editable,
+    enableMagnet,
+    magnetSpace,
+    magnetThreshold,
   });
 
   const createBuilder = useCallback<(data: ElementEntity[]) => ElementsBuilder>(

@@ -4,7 +4,22 @@ import { ElementType } from 'react';
  * 上下文中的全局设置类参数
  */
 export type DashBoardConfig = {
+  /**
+   * 是否可编辑
+   */
   editable?: boolean;
+  /**
+   * 是否开启磁吸
+   */
+  enableMagnet?: boolean;
+  /**
+   * 触发吸附的距离阀值
+   */
+  magnetThreshold?: number;
+  /**
+   * 吸附时模块元素间距
+   */
+  magnetSpace?: number;
 }
 
 export type Bounds = {

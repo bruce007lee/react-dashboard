@@ -1,4 +1,4 @@
-import { FC, createContext, useContext, ElementType } from 'react';
+import { FC, createContext, useContext } from 'react';
 import ElementController from '../element-controller';
 import ElementsBuilder from '../elements-builder';
 import { ElementEntity, DashBoardConfig } from '../../types';
@@ -24,8 +24,8 @@ export default class RenderContext {
     }
   }
 
-  getConfig(key: keyof DashBoardConfig) {
-    return this.config[key];
+  getConfig(): DashBoardConfig {
+    return this.config;
   }
 
   setBuilder(builder: ElementsBuilder) {
@@ -41,7 +41,7 @@ export default class RenderContext {
   }
 
   getEditable(): boolean {
-    return this.getConfig('editable');
+    return this.getConfig().editable;
   }
 
   setEditable(editable: boolean) {

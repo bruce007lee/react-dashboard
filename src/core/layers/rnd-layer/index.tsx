@@ -8,16 +8,11 @@ import React, {
   useRef,
   useCallback,
 } from 'react';
-import { Rnd, RndDragEvent, DraggableData } from 'react-rnd';
+import { Rnd, DraggableData } from 'react-rnd';
 import { useRenderContext } from '../../render-context';
 import { useElementController } from '../../element-controller';
 import { Bounds } from '../../../types';
 import { createPortal } from 'react-dom';
-
-//触发吸附的间距
-const DISTANCE_THRESHOLD = 15;
-//吸附的组件间附加间距
-const SPACE = 20;
 export interface RndLayerProps {
   containerRef: MutableRefObject<HTMLDivElement>;
   bounds?: Bounds;
@@ -64,6 +59,10 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
   const forceUpdate = () => {
     setTicket(Math.random());
   };
+  const config = context.getConfig();
+  const enableManget = config.enableMagnet;
+  const SPACE = config.magnetSpace;
+  const THRESHOLD = config.magnetThreshold;
 
   const getOffset = useCallback((e: MouseEvent, bounds: Bounds) => {
     const { clientX, clientY } = e;
@@ -85,7 +84,7 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
   }, [bounds]);
 
   useEffect(() => {
-    if (dragging && context && curMouseOffset && mouseOffset) {
+    if (enableManget && dragging && context && curMouseOffset && mouseOffset) {
       // 吸附的功能处理
       const elements = context.getElements();
       const newBounds = {
@@ -189,9 +188,9 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
       x_ruler.sort(sort);
       y_ruler.sort(sort);
 
-      if (Math.abs(offsetX) < DISTANCE_THRESHOLD) {
+      if (Math.abs(offsetX) < THRESHOLD) {
         x_ruler.some((d) => {
-          if (Math.abs(d[0]) < DISTANCE_THRESHOLD) {
+          if (Math.abs(d[0]) < THRESHOLD) {
             needX = true;
             newBounds.x = d[1];
             return true;
@@ -199,9 +198,9 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
           return false;
         });
       }
-      if (Math.abs(offsetY) < DISTANCE_THRESHOLD) {
+      if (Math.abs(offsetY) < THRESHOLD) {
         y_ruler.some((d) => {
-          if (Math.abs(d[0]) < DISTANCE_THRESHOLD) {
+          if (Math.abs(d[0]) < THRESHOLD) {
             needY = true;
             newBounds.y = d[1];
             return true;
