@@ -1,0 +1,47 @@
+@import '../../styles/index.scss';
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+#{$css-prefix}-toast {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  animation: fade-in 0.8s;
+
+  .main {
+    background-color: #333;
+    border-radius: 3px;
+    padding: 5px 10px;
+    white-space: nowrap;
+    color: #fff;
+  }
+
+  .hide {
+    animation: fade-out 0.5s;
+    opacity: 0;
+  }
+}

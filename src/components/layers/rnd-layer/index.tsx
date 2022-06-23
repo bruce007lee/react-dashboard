@@ -151,38 +151,22 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
           //固定间隔距离的吸附
           if (curBounds.x > bounds.x + bounds.width) {
             // 左面
-            x_ruler.push([
-              d_l_r[0] - SPACE,
-              d_l_r[1] + SPACE,
-              d_l_r[2],
-            ]);
+            x_ruler.push([d_l_r[0] - SPACE, d_l_r[1] + SPACE, d_l_r[2]]);
           }
 
           if (curBounds.x + curBounds.width < bounds.x) {
             // 右面
-            x_ruler.push([
-              d_r_l[0] + SPACE,
-              d_r_l[1] - SPACE,
-              d_r_l[2],
-            ]);
+            x_ruler.push([d_r_l[0] + SPACE, d_r_l[1] - SPACE, d_r_l[2]]);
           }
 
           if (curBounds.y > bounds.y + bounds.height) {
             // 上面
-            y_ruler.push([
-              d_t_b[0] - SPACE,
-              d_t_b[1] + SPACE,
-              d_t_b[2],
-            ]);
+            y_ruler.push([d_t_b[0] - SPACE, d_t_b[1] + SPACE, d_t_b[2]]);
           }
 
           if (curBounds.y + curBounds.height < bounds.y) {
             // 下面
-            y_ruler.push([
-              d_b_t[0] + SPACE,
-              d_b_t[1] - SPACE,
-              d_b_t[2],
-            ]);
+            y_ruler.push([d_b_t[0] + SPACE, d_b_t[1] - SPACE, d_b_t[2]]);
           }
         }
       });
@@ -255,6 +239,7 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
     ? createPortal(
         <Rnd
           ref={rndRef}
+          bounds="parent"
           size={{
             width: curBounds.width,
             height: curBounds.height,
@@ -279,7 +264,6 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
               x: position.x,
               y: position.y,
             });
-            */
             setBounds({
               ...bounds,
               width: ref.offsetWidth,
@@ -287,6 +271,7 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
               x: position.x,
               y: position.y,
             });
+             */
           }}
           onDragStart={(e: MouseEvent, d) => {
             if (onDragStart) {

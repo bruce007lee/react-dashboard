@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, {
   ForwardRefRenderFunction,
   forwardRef,
@@ -6,8 +7,13 @@ import React, {
   useState,
   useImperativeHandle,
 } from 'react';
-import { Bounds, ElementEntity, ComponentMetadata } from '../../types';
 import { RndLayer } from '../layers';
+import { useRenderContext } from '../render-context';
+import { Bounds, ElementEntity, ComponentMetadata, ElementStatus } from '../../types';
+import { sn } from '../../utils';
+
+import './index.scss';
+import { useElementController } from '../element-controller';
 
 export interface ElementViewProps {
   containerRef: MutableRefObject<HTMLDivElement>;
@@ -36,14 +42,19 @@ const ElementView: ForwardRefRenderFunction<
     bounds: b = { x: 0, y: 0, width: 100, height: 100 },
     props: comProps,
   } = data;
+  const controller = useElementController();
   let { width, height, x, y } = b;
   let { width: w, height: h, ...others } = style;
   w = (w || width) as number;
   h = (h || height) as number;
   const [bounds, setBounds] = useState<Bounds>({ width: w, height: h, x, y });
-  const [dragging, setDragging] = useState<boolean>(false);
-  const [resizing, setResizing] = useState<boolean>(false);
+  const [status, setOriStatus] = useState<ElementStatus>(() => controller.getStatus());
+  const setStatus = (status: ElementStatus) => {
+    setOriStatus(status);
+    controller.setStatus(status);
+  }
   const Com = componentMetadata?.componentClass;
+  const ctx = useRenderContext();
 
   useImperativeHandle(ref, () => ({
     getData: () => {
@@ -64,14 +75,17 @@ const ElementView: ForwardRefRenderFunction<
 
   return (
     <div
+      className={classNames(
+        sn('element-view'),
+        status.dragging ? sn('element-view-dragging') : null,
+        status.resizing ? sn('element-view-resizing') : null
+      )}
       style={{
-        border: '1px solid red',
         position: 'absolute',
         width: bounds.width,
         height: bounds.height,
         left: bounds.x,
         top: bounds.y,
-        opacity: dragging ? 0.5 : 1,
       }}
     >
       {Com ? (
@@ -79,15 +93,17 @@ const ElementView: ForwardRefRenderFunction<
       ) : (
         <div>{`组件类型 [${componentName}] 不存在`}</div>
       )}
-      <RndLayer
-        containerRef={containerRef}
-        bounds={bounds}
-        onBoundsChange={handleBoundsChange}
-        onDragStart={() => setDragging(true)}
-        onDragStop={() => setDragging(false)}
-        onResizeStart={() => setResizing(true)}
-        onResizeStop={() => setResizing(false)}
-      />
+      {ctx.getEditable() ? (
+        <RndLayer
+          containerRef={containerRef}
+          bounds={bounds}
+          onBoundsChange={handleBoundsChange}
+          onDragStart={() => setStatus({dragging: true})}
+          onDragStop={() => setStatus({dragging: false})}
+          onResizeStart={() => setStatus({resizing: true})}
+          onResizeStop={() => setStatus({resizing: false})}
+        />
+      ) : null}
     </div>
   );
 };

@@ -1,16 +1,31 @@
 import { FC, createContext, useContext, ElementType } from 'react';
 import ElementController from '../element-controller';
 import ElementsBuilder from '../elements-builder';
-import { ElementEntity } from '../../types';
+import { ElementEntity, DashBoardConfig } from '../../types';
 
 export type RenderContextProps = {
-  builder: ElementsBuilder;
+  builder?: ElementsBuilder;
+  config?: DashBoardConfig;
 };
 
 export default class RenderContext {
   private builder: ElementsBuilder;
+  private config: DashBoardConfig;
   constructor(props?: RenderContextProps) {
     this.builder = props?.builder;
+    this.config = props?.config || {};
+  }
+
+  setConfig(config: DashBoardConfig, replace?: boolean) {
+    if (replace) {
+      this.config = { ...config };
+    } else {
+      this.config = { ...this.config, ...config };
+    }
+  }
+
+  getConfig(key: keyof DashBoardConfig) {
+    return this.config[key];
   }
 
   setBuilder(builder: ElementsBuilder) {
@@ -23,6 +38,16 @@ export default class RenderContext {
 
   getElements(): ElementController[] {
     return this.builder?.getElements() || [];
+  }
+
+  getEditable(): boolean {
+    return this.getConfig('editable');
+  }
+
+  setEditable(editable: boolean) {
+    return this.setConfig({
+      editable,
+    });
   }
 }
 

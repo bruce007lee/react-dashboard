@@ -1,13 +1,11 @@
+import { createContext, useContext, MutableRefObject } from 'react';
 import {
-  createContext,
-  useContext,
-  ElementType,
-  MutableRefObject,
-  ReactNode,
-} from 'react';
-import { Bounds, ElementEntity, ComponentMetadata } from '../../types';
+  Bounds,
+  ElementEntity,
+  ComponentMetadata,
+  ElementStatus,
+} from '../../types';
 import RenderContext from '../render-context';
-import ElementView from '../element-view';
 
 export type ElementControllerProps = {
   index: number;
@@ -33,13 +31,30 @@ export const useElementController = (): ElementController => {
 export default class ElementController {
   private props: ElementControllerProps;
   private data: ElementEntity;
+  private status: ElementStatus;
   constructor(props: ElementControllerProps) {
     this.props = props;
     this.data = { ...props.data };
+    this.status = {
+      dragging: false,
+      resizing: false,
+    };
   }
 
   getData(): ElementEntity {
     return this.data;
+  }
+
+  getStatus(): ElementStatus {
+    return this.status;
+  }
+
+  setStatus(status: ElementStatus, replace: boolean = false): void {
+    if (replace) {
+      this.status = status;
+    } else {
+      this.status = { ...this.status, ...status };
+    }
   }
 
   handleBoundsChange = (bounds: Bounds): void => {

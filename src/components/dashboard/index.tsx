@@ -3,7 +3,6 @@ import React, {
   forwardRef,
   useRef,
   useState,
-  ElementType,
   useEffect,
   useCallback,
   HTMLAttributes,
@@ -15,17 +14,21 @@ import MaterialManager from '../material-manager';
 export interface DashboardProps extends HTMLAttributes<HTMLDivElement> {
   data: ElementEntity[];
   components: ComponentMetadata[];
+  editable: boolean;
 }
 
 export type DashboardRef = {};
 
 const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
-  { data, components, style, ...others },
+  { data, components, style, editable, ...others },
   ref
 ) => {
   const [context] = useState<RenderContext>(() => new RenderContext());
   const [builder, setBuilder] = useState<ElementsBuilder>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  context.setConfig({
+    editable,
+  });
 
   const createBuilder = useCallback<(data: ElementEntity[]) => ElementsBuilder>(
     (data) => {
@@ -52,10 +55,25 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
     <RenderContextProvider value={context}>
       <div
         {...others}
-        style={{ ...style, height: 1000, position: 'relative' }}
-        ref={containerRef}
+        style={{
+          height: 100,
+          overflow: 'hidden',
+          ...style,
+          position: 'relative',
+        }}
       >
-        {builder ? builder.render() : null}
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+          }}
+          ref={containerRef}
+        >
+          {builder ? builder.render() : null}
+        </div>
       </div>
     </RenderContextProvider>
   );

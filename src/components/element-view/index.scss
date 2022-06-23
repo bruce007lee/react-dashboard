@@ -1,0 +1,12 @@
+@import '../../styles/index.scss';
+
+#{$css-prefix}-element-view {
+  border: 1px solid red;
+  &-dragging {
+    opacity: 0.5;
+  }
+
+  &-resizing {
+    opacity: 0.5;
+  }
+}

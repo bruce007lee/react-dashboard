@@ -1,4 +1,5 @@
-import { ElementEntity, ComponentMetadata } from '../src/types';
+import { ElementEntity, ComponentMetadata } from '../src/index';
+import DemoChart from './chart';
 
 const Item1 = ({ text = '测试拖控内容 测试拖控内容 测试拖控内容' }) => {
   return <div>{text}</div>;
@@ -22,6 +23,10 @@ export const mockComMetas: ComponentMetadata[] = [
     componentName: 'Item2',
     componentClass: Item2,
   },
+  {
+    componentName: 'Chart',
+    componentClass: DemoChart,
+  },
 ];
 
 export const mockData: ElementEntity[] = [
@@ -37,7 +42,7 @@ export const mockData: ElementEntity[] = [
   },
 
   {
-    componentName: 'Item1',
+    componentName: 'Item2',
     props: {
       text: '元素2',
     },
@@ -49,13 +54,13 @@ export const mockData: ElementEntity[] = [
     },
   },
   {
-    componentName: 'Item2',
+    componentName: 'Chart',
     props: {},
     bounds: {
       x: 220,
       y: 110,
-      width: 100,
-      height: 100,
+      width: 400,
+      height: 300,
     },
   },
 ];

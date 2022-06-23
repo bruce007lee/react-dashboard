@@ -1,3 +1,10 @@
+import { prefix } from './variables';
+import domUtil from './dom';
+
+export const sn = (styleName) => `${prefix}-${styleName}`;
+
+export { domUtil };
+
 const util = {
   /**
    *  比较2个对象指定的key值是否相同
