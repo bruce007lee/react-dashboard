@@ -1,0 +1,11 @@
+@import '../../styles/index.scss';
+
+#{$css-prefix}-element-toolbar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1000;
+  background-color: #1890ff;
+  color: #fff;
+  display: flex;
+}

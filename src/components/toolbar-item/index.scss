@@ -1,0 +1,8 @@
+@import '../../styles/index.scss';
+
+#{$css-prefix}-toolbar-item {
+  &-default{
+    cursor: pointer;
+    padding: 0 5px;
+  }
+}

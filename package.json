@@ -41,5 +41,6 @@
     "typedoc": "~0.20.25",
     "typedoc-plugin-markdown": "~3.5.0",
     "typescript": "^3.7.5"
-  }
+  },
+  "homepage": "https://unpkg.com/tiny-ui@0.1.0/build/index.html"
 }

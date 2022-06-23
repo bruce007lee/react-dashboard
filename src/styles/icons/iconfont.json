@@ -1,0 +1,23 @@
+{
+  "id": "3480931",
+  "name": "react-dashboard",
+  "font_family": "react-dashboard-icons",
+  "css_prefix_text": "icon-react-dashboard-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "7008959",
+      "name": "lock_fill",
+      "font_class": "lock_fill",
+      "unicode": "e70a",
+      "unicode_decimal": 59146
+    },
+    {
+      "icon_id": "7009035",
+      "name": "unlock",
+      "font_class": "unlock",
+      "unicode": "e73a",
+      "unicode_decimal": 59194
+    }
+  ]
+}

@@ -1,40 +1,72 @@
 import { ReactNode, MutableRefObject } from 'react';
-import { ElementEntity } from '../../types';
+import { ElementSchema, IDispatcher, IElementsBuilder } from '../../types';
 import MaterialManager from '../material-manager';
 import RenderContext from '../render-context';
 import ElementController from '../element-controller';
+import ActionManager from '../action-manager';
+import ElementManager from '../element-manager';
 
 export type ElementsBuilderProps = {
-  data: ElementEntity[];
-  materialManager: MaterialManager;
+  data: ElementSchema[];
+  materialManager?: MaterialManager;
+  actionManager?: ActionManager;
+  elementManager?: ElementManager;
   containerRef: MutableRefObject<HTMLDivElement>;
   context: RenderContext;
 };
 
-export default class ElementsBuilder {
+export default class ElementsBuilder implements IElementsBuilder {
   private props: ElementsBuilderProps;
-  private elements: ElementController[] = [];
+  private elementManager: ElementManager;
   private materialManager: MaterialManager;
+  private actionManager: ActionManager;
+  private dispacher: IDispatcher;
 
   constructor(props: ElementsBuilderProps) {
     this.props = props;
     this.materialManager = this.props.materialManager || new MaterialManager();
+    this.actionManager = this.props.actionManager || new ActionManager();
+    this.elementManager = this.props.elementManager || new ElementManager();
     this.setData(this.props.data);
   }
 
-  handleElementChange = (data: ElementEntity) => {
+  handleElementChange = (data: ElementSchema) => {
     console.log('[DEBUG]element change:', data.bounds);
   };
 
-  setData(data: ElementEntity[]): void {
-    this.elements.splice(0, this.elements.length);
+  getMaterialManager(): MaterialManager {
+    return this.materialManager;
+  }
+
+  getActionManager(): ActionManager {
+    return this.actionManager;
+  }
+
+  getElementManager(): ElementManager {
+    return this.elementManager;
+  }
+
+  setDispatcher(dispacher: IDispatcher): void {
+    this.dispacher = dispacher;
+  }
+
+  getDispatcher():IDispatcher {
+    return this.dispacher;
+  }
+
+  updateView(): void{
+    this.dispacher?.updateView();
+  }
+
+  setData(data: ElementSchema[]): void {
+    this.elementManager.removeAll();
     if (data) {
       data.forEach((element, index) => {
-        this.elements.push(
+        this.elementManager.add(
           new ElementController({
             index,
             data: element,
-            componentMetadata: this.materialManager.findComponentByName(
+            componentMetadata: this.materialManager.findByName(
               element.componentName
             ),
             context: this.props.context,
@@ -46,28 +78,14 @@ export default class ElementsBuilder {
     }
   }
 
-  getData(): ElementEntity[] {
-    const elements = this.elements;
-    const data = [];
-    elements.forEach((item) => {
-      data.push(item.getData());
-    });
-    return data;
-  }
+  getData = (): ElementSchema[] =>
+    this.elementManager.map((item) => item.getData());
 
-  getElements(): ElementController[] {
-    return this.elements;
-  }
+  getElements = (): ElementController[] => this.elementManager.getAll();
 
-  createElementView(element: ElementController): ReactNode {
-    return element.render();
-  }
+  createElementView = (element: ElementController): ReactNode =>
+    element.render();
 
-  render(): ReactNode {
-    const elements = this.elements;
-    if (elements) {
-      return elements.map((item) => this.createElementView(item));
-    }
-    return null;
-  }
+  render = (): ReactNode =>
+    this.elementManager.getAll().map((item) => this.createElementView(item));
 }

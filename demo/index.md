@@ -9,7 +9,7 @@ import './index.scss';
 Toast.show('toast 测试');
 
 const App = () => {
-  const [editable, setEditable] = useState(false);
+  const [editable, setEditable] = useState(true);
   const dashboardRef = useRef(null);
 
   return (

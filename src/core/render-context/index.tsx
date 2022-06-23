@@ -1,15 +1,13 @@
 import { FC, createContext, useContext } from 'react';
-import ElementController from '../element-controller';
-import ElementsBuilder from '../elements-builder';
-import { ElementEntity, DashBoardConfig } from '../../types';
+import { ElementSchema, DashBoardConfig, IElementsBuilder, IElementController, IRenderContext } from '../../types';
 
 export type RenderContextProps = {
-  builder?: ElementsBuilder;
+  builder?: IElementsBuilder;
   config?: DashBoardConfig;
 };
 
-export default class RenderContext {
-  private builder: ElementsBuilder;
+export default class RenderContext implements IRenderContext {
+  private builder: IElementsBuilder;
   private config: DashBoardConfig;
   constructor(props?: RenderContextProps) {
     this.builder = props?.builder;
@@ -28,16 +26,24 @@ export default class RenderContext {
     return this.config;
   }
 
-  setBuilder(builder: ElementsBuilder) {
+  setBuilder(builder: IElementsBuilder) {
     this.builder = builder;
   }
 
-  getEditData(): ElementEntity[] {
+  getBuilder():IElementsBuilder {
+    return this.builder;
+  }
+
+  getEditData(): ElementSchema[] {
     return this.builder?.getData() || [];
   }
 
-  getElements(): ElementController[] {
+  getElements(): IElementController[] {
     return this.builder?.getElements() || [];
+  }
+
+  updateView(): void {
+    this.builder?.updateView();
   }
 
   getEditable(): boolean {
@@ -51,7 +57,7 @@ export default class RenderContext {
   }
 }
 
-const AppContext = createContext<RenderContext>(null);
+const AppContext = createContext<IRenderContext>(null);
 
 export type RenderContextProviderProps = {
   value: RenderContext;
@@ -64,6 +70,6 @@ export const RenderContextProvider: FC<RenderContextProviderProps> = ({
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
 
-export const useRenderContext = (): RenderContext => {
+export const useRenderContext = (): IRenderContext => {
   return useContext(AppContext);
 };

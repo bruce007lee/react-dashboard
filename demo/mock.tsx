@@ -1,4 +1,4 @@
-import { ElementEntity, ComponentMetadata } from '../src/index';
+import { ElementSchema, ComponentMetadata } from '../src/index';
 import DemoChart from './chart';
 
 const Item1 = ({ text = '测试拖控内容 测试拖控内容 测试拖控内容' }) => {
@@ -29,7 +29,7 @@ export const mockComMetas: ComponentMetadata[] = [
   },
 ];
 
-export const mockData: ElementEntity[] = [
+export const mockData: ElementSchema[] = [
   {
     componentName: 'Item1',
     props: {},

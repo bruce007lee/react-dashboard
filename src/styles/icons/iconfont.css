@@ -1,0 +1,23 @@
+@font-face {
+  font-family: "react-dashboard-icons"; /* Project id 3480931 */
+  src: url('iconfont.woff2?t=1655979840787') format('woff2'),
+       url('iconfont.woff?t=1655979840787') format('woff'),
+       url('iconfont.ttf?t=1655979840787') format('truetype');
+}
+
+.react-dashboard-icons {
+  font-family: "react-dashboard-icons" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-react-dashboard-lock_fill:before {
+  content: "\e70a";
+}
+
+.icon-react-dashboard-unlock:before {
+  content: "\e73a";
+}
+

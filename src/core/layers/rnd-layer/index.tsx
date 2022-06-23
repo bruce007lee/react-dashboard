@@ -13,6 +13,7 @@ import { useRenderContext } from '../../render-context';
 import { useElementController } from '../../element-controller';
 import { Bounds } from '../../../types';
 import { createPortal } from 'react-dom';
+import { useForceUpdate } from '../../../hooks';
 export interface RndLayerProps {
   containerRef: MutableRefObject<HTMLDivElement>;
   bounds?: Bounds;
@@ -41,7 +42,7 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
 ) => {
   const context = useRenderContext();
   const controller = useElementController();
-  const [ticket, setTicket] = useState<any>();
+  const forceUpdate = useForceUpdate();
   const [bounds, setBounds] = useState<Bounds>(b);
   const rndRef = useRef<Rnd>(null);
   const [dragging, setDragging] = useState<boolean>(false);
@@ -56,9 +57,6 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
     x: number;
     y: number;
   }>(b);
-  const forceUpdate = () => {
-    setTicket(Math.random());
-  };
   const config = context.getConfig();
   const enableManget = config.enableMagnet;
   const SPACE = config.magnetSpace;

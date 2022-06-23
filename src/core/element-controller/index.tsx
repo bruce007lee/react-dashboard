@@ -1,23 +1,32 @@
-import { createContext, useContext, MutableRefObject, ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  MutableRefObject,
+  ReactNode,
+  createRef,
+  RefObject,
+} from 'react';
 import {
   Bounds,
-  ElementEntity,
+  ElementSchema,
   ComponentMetadata,
   ElementStatus,
+  IElementController,
 } from '../../types';
-import ElementView from '../element-view';
+import { genId } from '../../utils';
+import ElementView, { ElementViewRef } from '../element-view';
 import RenderContext from '../render-context';
 
 export type ElementControllerProps = {
   index: number;
   containerRef: MutableRefObject<HTMLDivElement>;
   componentMetadata: ComponentMetadata;
-  data: ElementEntity;
-  onChange?: (data: ElementEntity) => void;
+  data: ElementSchema;
+  onChange?: (data: ElementSchema) => void;
   context: RenderContext;
 };
 
-const ElementContext = createContext<ElementController>(null);
+const ElementContext = createContext<IElementController>(null);
 
 export type ElementContextProps = {
   value: ElementController;
@@ -26,13 +35,16 @@ export type ElementContextProps = {
 /**
  * 获取当前对应的 ElementController对象
  */
-export const useElementController = (): ElementController => {
+export const useElementController = (): IElementController => {
   return useContext(ElementContext);
 };
-export default class ElementController {
+export default class ElementController implements IElementController {
   private props: ElementControllerProps;
-  private data: ElementEntity;
+  private data: ElementSchema;
   private status: ElementStatus;
+  private viewRef: RefObject<ElementViewRef>;
+  private context: RenderContext;
+  public id = genId();
   constructor(props: ElementControllerProps) {
     this.props = props;
     this.data = { ...props.data };
@@ -40,9 +52,13 @@ export default class ElementController {
       dragging: false,
       resizing: false,
     };
+    this.context = props.context;
+    this.viewRef = createRef<ElementViewRef>();
   }
 
-  getData(): ElementEntity {
+  getId = () => this.id;
+
+  getData(): ElementSchema {
     return this.data;
   }
 
@@ -50,15 +66,34 @@ export default class ElementController {
     return this.status;
   }
 
-  setStatus(status: ElementStatus, replace: boolean = false): void {
-    if (replace) {
+  setStatus(
+    status: ElementStatus,
+    options?: { replace: boolean; updateView: boolean }
+  ): void {
+    options = {
+      replace: false,
+      updateView: true,
+      ...options,
+    };
+    if (options.replace) {
       this.status = status;
     } else {
       this.status = { ...this.status, ...status };
     }
+    if (options.updateView) {
+      this.updateView();
+    }
   }
 
-  handleBoundsChange = (bounds: Bounds): void => {
+  remove(): void {
+    this.context
+  }
+
+  updateView(): void {
+    this.viewRef.current?.forceUpdate();
+  }
+
+  private handleBoundsChange = (bounds: Bounds): void => {
     const { onChange } = this.props;
     this.data.bounds = bounds;
     if (onChange) {
@@ -71,6 +106,7 @@ export default class ElementController {
     return (
       <ElementContext.Provider key={`element-${index}`} value={this}>
         <ElementView
+          ref={this.viewRef}
           containerRef={containerRef}
           data={data}
           componentMetadata={componentMetadata}

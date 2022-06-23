@@ -8,18 +8,25 @@ import React, {
   useImperativeHandle,
 } from 'react';
 import { RndLayer } from '../layers';
+import ElementToolbar from '../element-toolbar';
 import { useRenderContext } from '../render-context';
-import { Bounds, ElementEntity, ComponentMetadata, ElementStatus } from '../../types';
+import { useElementController } from '../element-controller';
+import {
+  Bounds,
+  ElementSchema,
+  ComponentMetadata,
+  ElementStatus,
+} from '../../types';
 import { sn } from '../../utils';
 
 import './index.scss';
-import { useElementController } from '../element-controller';
+import { useForceUpdate } from '../../hooks';
 
 export interface ElementViewProps {
   containerRef: MutableRefObject<HTMLDivElement>;
   style?: CSSProperties;
   componentMetadata: ComponentMetadata;
-  data: ElementEntity;
+  data: ElementSchema;
   onBoundsChange?: (bounds: Bounds) => void;
 }
 
@@ -27,7 +34,17 @@ export type ElementViewRef = {
   /**
    * 获取当前编辑的元素数据
    */
-  getData(): ElementEntity;
+  getData(): ElementSchema;
+
+  /**
+   * 获取当前的尺寸信息
+   */
+  getBounds(): Bounds;
+
+  /**
+   * 强制刷新
+   */
+  forceUpdate(): void;
 };
 
 const ElementView: ForwardRefRenderFunction<
@@ -43,25 +60,29 @@ const ElementView: ForwardRefRenderFunction<
     props: comProps,
   } = data;
   const controller = useElementController();
+  const forceUpdate = useForceUpdate();
   let { width, height, x, y } = b;
   let { width: w, height: h, ...others } = style;
   w = (w || width) as number;
   h = (h || height) as number;
   const [bounds, setBounds] = useState<Bounds>({ width: w, height: h, x, y });
-  const [status, setOriStatus] = useState<ElementStatus>(() => controller.getStatus());
+  const status = controller.getStatus();
   const setStatus = (status: ElementStatus) => {
-    setOriStatus(status);
     controller.setStatus(status);
-  }
+  };
   const Com = componentMetadata?.componentClass;
   const ctx = useRenderContext();
 
   useImperativeHandle(ref, () => ({
-    getData: () => {
+    forceUpdate() {
+      forceUpdate();
+    },
+
+    getData() {
       return { ...data, bounds };
     },
 
-    getBounds: () => {
+    getBounds() {
       return bounds;
     },
   }));
@@ -94,15 +115,20 @@ const ElementView: ForwardRefRenderFunction<
         <div>{`组件类型 [${componentName}] 不存在`}</div>
       )}
       {ctx.getEditable() ? (
-        <RndLayer
-          containerRef={containerRef}
-          bounds={bounds}
-          onBoundsChange={handleBoundsChange}
-          onDragStart={() => setStatus({dragging: true})}
-          onDragStop={() => setStatus({dragging: false})}
-          onResizeStart={() => setStatus({resizing: true})}
-          onResizeStop={() => setStatus({resizing: false})}
-        />
+        <>
+          {status.locked ? null : (
+            <RndLayer
+              containerRef={containerRef}
+              bounds={bounds}
+              onBoundsChange={handleBoundsChange}
+              onDragStart={() => setStatus({ dragging: true })}
+              onDragStop={() => setStatus({ dragging: false })}
+              onResizeStart={() => setStatus({ resizing: true })}
+              onResizeStop={() => setStatus({ resizing: false })}
+            />
+          )}
+          <ElementToolbar />
+        </>
       ) : null}
     </div>
   );
