@@ -16,7 +16,12 @@ export type ToastFC<T> = {
   show: (msg: ReactNode) => void;
 } & FC<T>;
 
-const Toast: ToastFC<ToastProps> = ({ onHide, content, animDuring = 500, during = 2000 }) => {
+const Toast: ToastFC<ToastProps> = ({
+  onHide,
+  content,
+  animDuring = 500,
+  during = 2000,
+}) => {
   const [visible, setVisible] = useState<boolean>(true);
   const [startHide, setStartHide] = useState<boolean>(false);
   useEffect(() => {
@@ -55,8 +60,11 @@ const Toast: ToastFC<ToastProps> = ({ onHide, content, animDuring = 500, during 
 /**
  * 展示toast
  */
-Toast.show = (props: ToastProps = {}) => {
+Toast.show = (props: ToastProps | string = {}) => {
   const root = domUtil.createNode();
+  if (typeof props === 'string') {
+    props = { content: props };
+  }
   const { onHide, ...others } = props;
   const handleHide = () => {
     unmountComponentAtNode(root);

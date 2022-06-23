@@ -6,6 +6,7 @@ import React, {
   useEffect,
   useCallback,
   HTMLAttributes,
+  useImperativeHandle,
 } from 'react';
 import { ComponentMetadata, ElementEntity, DashBoardConfig } from '../../types';
 import ElementsBuilder from '../elements-builder';
@@ -18,7 +19,12 @@ export interface DashboardProps
   components: ComponentMetadata[];
 }
 
-export type DashboardRef = {};
+export type DashboardRef = {
+  /**
+   * 获取编辑的数据
+   */
+  getEditData: () => ElementEntity[];
+};
 
 const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
   {
@@ -63,6 +69,10 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
   useEffect(() => {
     setBuilder(createBuilder(data));
   }, [data]);
+
+  useImperativeHandle(ref, () => ({
+    getEditData: () => context.getEditData(),
+  }));
 
   return (
     <RenderContextProvider value={context}>
