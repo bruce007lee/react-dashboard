@@ -1,5 +1,10 @@
 import { ReactNode, MutableRefObject } from 'react';
-import { ElementSchema, IDispatcher, IElementsBuilder } from '../../types';
+import {
+  ElementSchema,
+  IDispatcher,
+  IElementController,
+  IElementsBuilder,
+} from '../../types';
 import MaterialManager from '../material-manager';
 import RenderContext from '../render-context';
 import ElementController from '../element-controller';
@@ -50,11 +55,11 @@ export default class ElementsBuilder implements IElementsBuilder {
     this.dispacher = dispacher;
   }
 
-  getDispatcher():IDispatcher {
+  getDispatcher(): IDispatcher {
     return this.dispacher;
   }
 
-  updateView(): void{
+  updateView(): void {
     this.dispacher?.updateView();
   }
 
@@ -81,10 +86,32 @@ export default class ElementsBuilder implements IElementsBuilder {
   getData = (): ElementSchema[] =>
     this.elementManager.map((item) => item.getData());
 
-  getElements = (): ElementController[] => this.elementManager.getAll();
+  getElements = (): IElementController[] => this.elementManager.getAll();
 
-  createElementView = (element: ElementController): ReactNode =>
-    element.render();
+  removeElement(element: IElementController): void {
+    this.removeElements([element]);
+  }
+
+  removeElements(elements: IElementController[]): void {
+    if (elements) {
+      elements.forEach((el) => this.elementManager.remove(el));
+    }
+    this.updateView();
+  }
+
+  addElement(element: IElementController): void {
+    this.removeElements([element]);
+  }
+
+  addElements(elements: IElementController[]): void {
+    if (elements) {
+      elements.forEach((el) => this.elementManager.add(el));
+    }
+    this.updateView();
+  }
+
+  createElementView = (element: IElementController): ReactNode =>
+    (element as ElementController).render();
 
   render = (): ReactNode =>
     this.elementManager.getAll().map((item) => this.createElementView(item));

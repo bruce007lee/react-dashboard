@@ -32,5 +32,9 @@ export interface IElementsBuilder {
   setData(data: ElementSchema[]): void;
   getData(): ElementSchema[];
   getElements(): IElementController[];
+  removeElement(element: IElementController): void;
+  removeElements(element: IElementController[]): void;
+  addElement(element: IElementController): void;
+  addElements(element: IElementController[]): void;
   updateView(): void;
 }

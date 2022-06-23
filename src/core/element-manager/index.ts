@@ -1,8 +1,8 @@
 import BaseManager from '../../components/base-manager';
-import ElementController from '../element-controller';
+import { IElementController } from '../../types';
 
 export type ElementManagerProps = {
-  elements?: ElementController[];
+  elements?: IElementController[];
 };
 
 /**
@@ -10,7 +10,7 @@ export type ElementManagerProps = {
  */
 export default class ElementManager extends BaseManager<
   ElementManagerProps,
-  ElementController
+  IElementController
 > {
   constructor(props?: ElementManagerProps) {
     super(props);

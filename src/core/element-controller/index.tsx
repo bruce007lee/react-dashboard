@@ -86,7 +86,7 @@ export default class ElementController implements IElementController {
   }
 
   remove(): void {
-    this.context
+    this.context.getBuilder()?.removeElement(this);
   }
 
   updateView(): void {
