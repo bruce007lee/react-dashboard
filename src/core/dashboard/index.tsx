@@ -93,11 +93,9 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
     getEditData: () => context.getEditData(),
   }));
 
-  const dispacher: IDispatcher = {
+  builder.setDispatcher({
     updateView: () => forceUpdate(),
-  };
-
-  builder.
+  });
 
   return (
     <RenderContextProvider value={context}>
