@@ -1,2 +1,2 @@
-export { useRenderContext } from '../components/render-context';
-export { useElementController } from '../components/element-controller';
+export { useRenderContext } from '../core/render-context';
+export { useElementController } from '../core/element-controller';
