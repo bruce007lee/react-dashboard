@@ -101,7 +101,9 @@ const ElementView: ForwardRefRenderFunction<
       className={classNames(
         sn('element-view'),
         editable ? sn('element-view-editable') : null,
-        hover && !locked && !dragging && !resizing ? sn('element-view-hover') : null,
+        hover && editable && !locked && !dragging && !resizing
+          ? sn('element-view-hover')
+          : null,
         dragging ? sn('element-view-dragging') : null,
         resizing ? sn('element-view-resizing') : null
       )}
