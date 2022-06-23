@@ -1,10 +1,11 @@
-import { createContext, useContext, MutableRefObject } from 'react';
+import { createContext, useContext, MutableRefObject, ReactNode } from 'react';
 import {
   Bounds,
   ElementEntity,
   ComponentMetadata,
   ElementStatus,
 } from '../../types';
+import ElementView from '../element-view';
 import RenderContext from '../render-context';
 
 export type ElementControllerProps = {
