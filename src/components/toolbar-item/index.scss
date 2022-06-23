@@ -3,6 +3,9 @@
 #{$css-prefix}-toolbar-item {
   &-default{
     cursor: pointer;
-    padding: 0 5px;
+    padding: 0 3px;
+    &:hover {
+      background-color: $toolbar-item-hover-bg-color;
+    }
   }
 }

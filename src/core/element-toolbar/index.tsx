@@ -19,19 +19,14 @@ const ElementToolBar: ForwardRefRenderFunction<
   const controller = useElementController();
   const actionManager = ctx.getBuilder().getActionManager();
   const defaultActions = actionManager.getDefaultActions();
-  const [newProps, setNewProps] = useState<ActionProps | void>();
 
-  const createItem = (item: ActionMetadata) => {
-    const { render, invoker, props } = item;
-    const p = { ...props, ...newProps, ...(render ? render(controller) : null) };
-    return (
-      <ToolbarItem
-        key={`element-toolbar-${item.actionName}`}
-        {...p}
-        onClick={() => setNewProps(invoker(controller))}
-      />
-    );
-  };
+  const createItem = (item: ActionMetadata) => (
+    <ToolbarItem
+      key={`element-toolbar-${controller.getId()}-${item.actionName}`}
+      actionMetadata={item}
+      controller={controller}
+    />
+  );
 
   return (
     <div className={sn('element-toolbar')}>

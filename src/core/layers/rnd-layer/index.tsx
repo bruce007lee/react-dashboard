@@ -14,10 +14,15 @@ import { useElementController } from '../../element-controller';
 import { Bounds } from '../../../types';
 import { createPortal } from 'react-dom';
 import { useForceUpdate } from '../../../hooks';
+import classNames from 'classnames';
+import { sn } from '../../../utils';
+
+import './index.scss';
 export interface RndLayerProps {
   containerRef: MutableRefObject<HTMLDivElement>;
   bounds?: Bounds;
   style?: CSSProperties;
+  className?: string;
   onBoundsChange?: (bounds: Bounds) => void;
   onDragStart?: () => void;
   onDragStop?: () => void;
@@ -32,6 +37,7 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
     containerRef,
     bounds: b,
     style,
+    className,
     onBoundsChange,
     onDragStart,
     onDragStop,
@@ -236,6 +242,12 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
     ? createPortal(
         <Rnd
           ref={rndRef}
+          className={classNames(
+            sn('rnd-layer'),
+            className,
+            dragging ? sn('rnd-layer-dragging') : null,
+            resizing ? sn('rnd-layer-resizing') : null
+          )}
           bounds="parent"
           size={{
             width: curBounds.width,
@@ -248,7 +260,6 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
           style={{
             zIndex: 100,
             ...style,
-            border: '1px dashed blue',
             position: 'absolute',
           }}
           onDrag={handleDrag}

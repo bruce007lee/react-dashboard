@@ -16,6 +16,7 @@ export type ElementsBuilderProps = {
   materialManager?: MaterialManager;
   actionManager?: ActionManager;
   elementManager?: ElementManager;
+  dispatcher?: IDispatcher;
   containerRef: MutableRefObject<HTMLDivElement>;
   context: RenderContext;
 };
@@ -25,13 +26,14 @@ export default class ElementsBuilder implements IElementsBuilder {
   private elementManager: ElementManager;
   private materialManager: MaterialManager;
   private actionManager: ActionManager;
-  private dispacher: IDispatcher;
+  private dispatcher: IDispatcher;
 
   constructor(props: ElementsBuilderProps) {
     this.props = props;
     this.materialManager = this.props.materialManager || new MaterialManager();
     this.actionManager = this.props.actionManager || new ActionManager();
     this.elementManager = this.props.elementManager || new ElementManager();
+    this.dispatcher = this.props.dispatcher;
     this.setData(this.props.data);
   }
 
@@ -52,15 +54,15 @@ export default class ElementsBuilder implements IElementsBuilder {
   }
 
   setDispatcher(dispacher: IDispatcher): void {
-    this.dispacher = dispacher;
+    this.dispatcher = dispacher;
   }
 
   getDispatcher(): IDispatcher {
-    return this.dispacher;
+    return this.dispatcher;
   }
 
   updateView(): void {
-    this.dispacher?.updateView();
+    this.dispatcher?.updateView();
   }
 
   setData(data: ElementSchema[]): void {

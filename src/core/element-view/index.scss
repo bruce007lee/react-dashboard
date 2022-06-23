@@ -1,12 +1,19 @@
 @import '../../styles/index.scss';
 
 #{$css-prefix}-element-view {
-  border: 1px solid red;
+  &-editable {
+    outline: 1px dashed$line-color;
+  }
+
   &-dragging {
     opacity: 0.5;
   }
 
   &-resizing {
     opacity: 0.5;
+  }
+
+  &-hover {
+    outline: 1px dashed $line-hover-color;
   }
 }

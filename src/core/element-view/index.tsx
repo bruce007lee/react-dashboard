@@ -72,6 +72,8 @@ const ElementView: ForwardRefRenderFunction<
   };
   const Com = componentMetadata?.componentClass;
   const ctx = useRenderContext();
+  const editable = ctx.getEditable();
+  const { hover, dragging, resizing, locked } = status;
 
   useImperativeHandle(ref, () => ({
     forceUpdate() {
@@ -98,8 +100,10 @@ const ElementView: ForwardRefRenderFunction<
     <div
       className={classNames(
         sn('element-view'),
-        status.dragging ? sn('element-view-dragging') : null,
-        status.resizing ? sn('element-view-resizing') : null
+        editable ? sn('element-view-editable') : null,
+        hover && !locked && !dragging && !resizing ? sn('element-view-hover') : null,
+        dragging ? sn('element-view-dragging') : null,
+        resizing ? sn('element-view-resizing') : null
       )}
       style={{
         position: 'absolute',
@@ -108,13 +112,23 @@ const ElementView: ForwardRefRenderFunction<
         left: bounds.x,
         top: bounds.y,
       }}
+      onMouseEnter={() => {
+        controller.setStatus({
+          hover: true,
+        });
+      }}
+      onMouseLeave={() => {
+        controller.setStatus({
+          hover: false,
+        });
+      }}
     >
       {Com ? (
         <Com props={comProps} />
       ) : (
         <div>{`组件类型 [${componentName}] 不存在`}</div>
       )}
-      {ctx.getEditable() ? (
+      {editable ? (
         <>
           {status.locked ? null : (
             <RndLayer

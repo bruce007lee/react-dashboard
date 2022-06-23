@@ -56,7 +56,7 @@ export default class ElementController implements IElementController {
     this.viewRef = createRef<ElementViewRef>();
   }
 
-  getId = () => this.id;
+  getId = (): string => this.id;
 
   getData(): ElementSchema {
     return this.data;

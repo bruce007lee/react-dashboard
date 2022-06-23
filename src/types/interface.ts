@@ -18,6 +18,7 @@ export interface IRenderContext {
 }
 
 export interface IElementController {
+  getId(): string;
   getData(): ElementSchema;
   getStatus(): ElementStatus;
   setStatus(status: ElementStatus, options?: {replace?: boolean, updateView?}): void;

@@ -10,20 +10,23 @@ export const ACTIONS: ActionMetadata[] = [
       tip: '未锁定',
       iconType: 'unlock',
     },
+    render: (controller) => {
+      const locked = controller.getStatus().locked;
+      return locked
+        ? {
+            tip: '已锁定',
+            iconType: 'lock_fill',
+          }
+        : {
+            tip: '未锁定',
+            iconType: 'unlock',
+          };
+    },
     invoker: (controller) => {
       const locked = controller.getStatus().locked;
       controller.setStatus({
         locked: !locked,
       });
-      return locked
-        ? {
-            tip: '未锁定',
-            iconType: 'unlock',
-          }
-        : {
-            tip: '已锁定',
-            iconType: 'lock_fill',
-          };
     },
   },
 
@@ -32,7 +35,7 @@ export const ACTIONS: ActionMetadata[] = [
     actionName: 'delete',
     props: {
       tip: '删除',
-      iconType: 'unlock',
+      iconType: 'delete',
     },
     invoker: (controller) => {
       controller.remove();

@@ -63,6 +63,10 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
     magnetThreshold,
   });
 
+  const dispatcher: IDispatcher = {
+    updateView: () => forceUpdate(),
+  };
+
   const createBuilder = useCallback<(data: ElementSchema[]) => ElementsBuilder>(
     (data) => {
       const materialManager = new MaterialManager({
@@ -76,6 +80,7 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
         data,
         materialManager,
         actionManager,
+        dispatcher,
         containerRef,
         context,
       });
@@ -86,16 +91,16 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
   );
 
   useEffect(() => {
+    builder?.setDispatcher(dispatcher);
+  });
+
+  useEffect(() => {
     setBuilder(createBuilder(data));
   }, [data]);
 
   useImperativeHandle(ref, () => ({
     getEditData: () => context.getEditData(),
   }));
-
-  builder.setDispatcher({
-    updateView: () => forceUpdate(),
-  });
 
   return (
     <RenderContextProvider value={context}>

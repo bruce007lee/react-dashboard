@@ -5,7 +5,9 @@
   right: 0;
   top: 0;
   z-index: 1000;
-  background-color: #1890ff;
+  background-color: $toolbar-bg-color;
   color: #fff;
   display: flex;
+  border-radius: 0 0 0 5px;
+  overflow: hidden;
 }

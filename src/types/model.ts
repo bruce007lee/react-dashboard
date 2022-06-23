@@ -37,6 +37,7 @@ export type ElementStatus = {
   dragging?: boolean;
   resizing?: boolean;
   locked?: boolean;
+  hover?: boolean;
 };
 
 /**
@@ -74,5 +75,5 @@ export type ActionMetadata = {
   actionName: string;
   props?: ActionProps;
   render?: (controller: IElementController) => ActionProps | void;
-  invoker?: (controller: IElementController) => ActionProps | void;
+  invoker?: (controller: IElementController) => void;
 };

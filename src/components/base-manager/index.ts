@@ -20,9 +20,9 @@ export default abstract class BaseManager<P, T> {
     if (item != null) {
       const newItems = [];
       const items = this.store;
-      items.forEach((item) => {
-        if (!(item[this.getNameKey()] === item || item === item)) {
-          newItems.push(item);
+      items.forEach((it) => {
+        if (!(it[this.getNameKey()] === item || it === item)) {
+          newItems.push(it);
         }
       });
       this.store = newItems;
@@ -41,6 +41,6 @@ export default abstract class BaseManager<P, T> {
 
   find = (fn: (item: T, index: number) => boolean) => this.store.find(fn);
 
-  findByName = (actionName: string) =>
-    this.find((com) => !!actionName && com[this.getNameKey()] === actionName);
+  findByName = (name: string) =>
+    this.find((com) => !!name && com[this.getNameKey()] === name);
 }

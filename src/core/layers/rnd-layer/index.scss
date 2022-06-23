@@ -1,0 +1,11 @@
+@import '../../../styles/index.scss';
+
+#{$css-prefix}-rnd-layer {
+  &-dragging {
+    outline: 1px dashed $line-hover-color;
+  }
+
+  &-resizing {
+    outline: 1px dashed $line-hover-color;
+  }
+}

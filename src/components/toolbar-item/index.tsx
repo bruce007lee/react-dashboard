@@ -1,12 +1,14 @@
 import { ForwardRefRenderFunction, forwardRef, FC } from 'react';
-import { ActionProps } from '../../types';
+import { useForceUpdate } from '../../hooks';
+import { ActionMetadata, ActionProps, IElementController } from '../../types';
 import { sn } from '../../utils';
 import Icon from '../icon';
 
 import './index.scss';
 
 export type ToolbarItemProps = ActionProps & {
-  onClick?: () => void;
+  actionMetadata: ActionMetadata;
+  controller: IElementController;
 };
 
 export type ToolbarItemRef = {};
@@ -22,10 +24,25 @@ const DefaultItem: FC<ToolbarItemProps> = ({ iconType, tip }) => {
 const ToolbarItem: ForwardRefRenderFunction<
   ToolbarItemRef,
   ToolbarItemProps
-> = ({ toolbarItemClass: Com = DefaultItem, onClick, ...others }, ref) => {
+> = ({ actionMetadata, controller }, ref) => {
+  const forceUpdate = useForceUpdate();
+  const { props, invoker, render } = actionMetadata;
+  const overwrite = render ? render(controller) : null;
+  const { toolbarItemClass: Com = DefaultItem, ...others } = {
+    ...props,
+    ...overwrite,
+  };
+
+  const handleClick = () => {
+    if (invoker) {
+      invoker(controller);
+      forceUpdate();
+    }
+  };
+
   return (
-    <div className={sn('toolbar-item')} onClick={onClick}>
-      <Com {...others} />
+    <div className={sn('toolbar-item')} onClick={handleClick}>
+      <Com {...others} {...overwrite} />
     </div>
   );
 };
