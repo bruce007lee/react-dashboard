@@ -5,4 +5,19 @@
             margin-right: 10px;
         }
     }
+
+    .main{
+        display: flex;
+    }
+
+    .element-box{
+        width: 120px;
+        padding: 0 10px 0 0;
+        .element-item{
+            border: 1px solid #666;
+            padding: 10px 0;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    }
 }

@@ -3,10 +3,13 @@ import ElementManager from '../core/element-manager';
 import MaterialManager from '../core/material-manager';
 import { DashBoardConfig, ElementSchema, ElementStatus } from './model';
 
-export interface IDispatcher{
+export interface IDispatcher {
   updateView(): void;
 }
 
+/**
+ * dashboard渲染的上下文
+ */
 export interface IRenderContext {
   getConfig(): DashBoardConfig;
   getBuilder(): IElementsBuilder;
@@ -17,25 +20,36 @@ export interface IRenderContext {
   updateView(): void;
 }
 
+/**
+ * 元素控制器
+ */
 export interface IElementController {
   getId(): string;
   getData(): ElementSchema;
   getStatus(): ElementStatus;
-  setStatus(status: ElementStatus, options?: {replace?: boolean, updateView?}): void;
+  setStatus(
+    status: ElementStatus,
+    options?: { replace?: boolean; updateView? }
+  ): void;
+  getContext(): IRenderContext;
   updateView(): void;
-  remove():void;
+  remove(): void;
 }
 
+/**
+ * 所有元素的渲染和控制器
+ */
 export interface IElementsBuilder {
   getMaterialManager(): MaterialManager;
   getActionManager(): ActionManager;
-  getElementManager(): ElementManager
+  getElementManager(): ElementManager;
   setData(data: ElementSchema[]): void;
   getData(): ElementSchema[];
   getElements(): IElementController[];
+  schemaToElement(element: ElementSchema):IElementController;
   removeElement(element: IElementController): void;
-  removeElements(element: IElementController[]): void;
-  addElement(element: IElementController): void;
-  addElements(element: IElementController[]): void;
+  removeElements(elements: IElementController[]): void;
+  addElement(element: IElementController | ElementSchema): void;
+  addElements(elements: Array<IElementController | ElementSchema>): void;
   updateView(): void;
 }

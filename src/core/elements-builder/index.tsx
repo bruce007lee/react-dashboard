@@ -68,19 +68,8 @@ export default class ElementsBuilder implements IElementsBuilder {
   setData(data: ElementSchema[]): void {
     this.elementManager.removeAll();
     if (data) {
-      data.forEach((element, index) => {
-        this.elementManager.add(
-          new ElementController({
-            index,
-            data: element,
-            componentMetadata: this.materialManager.findByName(
-              element.componentName
-            ),
-            context: this.props.context,
-            containerRef: this.props.containerRef,
-            onChange: this.handleElementChange,
-          })
-        );
+      data.forEach((element) => {
+        this.elementManager.add(this.schemaToElement(element));
       });
     }
   }
@@ -89,6 +78,15 @@ export default class ElementsBuilder implements IElementsBuilder {
     this.elementManager.map((item) => item.getData());
 
   getElements = (): IElementController[] => this.elementManager.getAll();
+
+  schemaToElement = (element: ElementSchema): IElementController =>
+    new ElementController({
+      data: element,
+      componentMetadata: this.materialManager.findByName(element.componentName),
+      context: this.props.context,
+      containerRef: this.props.containerRef,
+      onChange: this.handleElementChange,
+    });
 
   removeElement(element: IElementController): void {
     this.removeElements([element]);
@@ -101,13 +99,19 @@ export default class ElementsBuilder implements IElementsBuilder {
     this.updateView();
   }
 
-  addElement(element: IElementController): void {
-    this.removeElements([element]);
+  addElement(element: IElementController | ElementSchema): void {
+    this.addElements([element]);
   }
 
-  addElements(elements: IElementController[]): void {
+  addElements(elements: Array<IElementController | ElementSchema>): void {
     if (elements) {
-      elements.forEach((el) => this.elementManager.add(el));
+      elements.forEach((el) => {
+        if (el instanceof ElementController) {
+          this.elementManager.add(el);
+        } else {
+          this.elementManager.add(this.schemaToElement(el as ElementSchema));
+        }
+      });
     }
     this.updateView();
   }

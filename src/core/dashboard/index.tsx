@@ -21,6 +21,7 @@ import MaterialManager from '../material-manager';
 import ActionManager from '../action-manager';
 import { ACTIONS, DEFAULT_ACTION_NAMES } from '../../actions';
 import { useForceUpdate } from '../../hooks';
+import ElementTarget from '../element-target';
 export interface DashboardProps
   extends HTMLAttributes<HTMLDivElement>,
     DashBoardConfig {
@@ -104,28 +105,30 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
 
   return (
     <RenderContextProvider value={context}>
-      <div
-        {...others}
-        style={{
-          height: 100,
-          overflow: 'hidden',
-          ...style,
-          position: 'relative',
-        }}
-      >
+      <ElementTarget>
         <div
+          {...others}
           style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            bottom: 0,
-            right: 0,
+            height: 100,
+            overflow: 'hidden',
+            ...style,
+            position: 'relative',
           }}
-          ref={containerRef}
         >
-          {builder ? builder.render() : null}
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              bottom: 0,
+              right: 0,
+            }}
+            ref={containerRef}
+          >
+            {builder ? builder.render() : null}
+          </div>
         </div>
-      </div>
+      </ElementTarget>
     </RenderContextProvider>
   );
 };

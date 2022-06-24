@@ -255,7 +255,6 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
           style={style}
           onDrag={handleDrag}
           onResize={(e, direction, ref, delta, position) => {
-            /*
             setCurBounds({
               ...curBounds,
               width: ref.offsetWidth,
@@ -263,6 +262,8 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
               x: position.x,
               y: position.y,
             });
+
+            /*
             setBounds({
               ...bounds,
               width: ref.offsetWidth,

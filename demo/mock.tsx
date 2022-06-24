@@ -64,3 +64,54 @@ export const mockData: ElementSchema[] = [
     },
   },
 ];
+
+type ElementSourceSchema = {
+  label: string;
+  data: ElementSchema;
+};
+
+export const mockSourceData: ElementSourceSchema[] = [
+  {
+    label: '柱状图',
+    data: {
+      componentName: 'Chart',
+      props: {},
+      bounds: {
+        x: 100,
+        y: 100,
+        width: 400,
+        height: 300,
+      },
+    },
+  },
+
+  {
+    label: 'Item1',
+    data: {
+      componentName: 'Item1',
+      props: {
+        text: '这个是item1',
+      },
+      bounds: {
+        x: 100,
+        y: 100,
+        width: 100,
+        height: 100,
+      },
+    },
+  },
+
+  {
+    label: 'Item2',
+    data: {
+      componentName: 'Item2',
+      props: {},
+      bounds: {
+        x: 100,
+        y: 100,
+        width: 100,
+        height: 100,
+      },
+    },
+  },
+];

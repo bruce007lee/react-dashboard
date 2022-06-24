@@ -18,7 +18,6 @@ import ElementView, { ElementViewRef } from '../element-view';
 import RenderContext from '../render-context';
 
 export type ElementControllerProps = {
-  index: number;
   containerRef: MutableRefObject<HTMLDivElement>;
   componentMetadata: ComponentMetadata;
   data: ElementSchema;
@@ -57,6 +56,10 @@ export default class ElementController implements IElementController {
   }
 
   getId = (): string => this.id;
+
+  getContext(): RenderContext {
+    return this.context;
+  }
 
   getData(): ElementSchema {
     return this.data;
@@ -102,9 +105,9 @@ export default class ElementController implements IElementController {
   };
 
   render(): ReactNode {
-    const { index, containerRef, data, componentMetadata } = this.props;
+    const { containerRef, data, componentMetadata } = this.props;
     return (
-      <ElementContext.Provider key={`element-${index}`} value={this}>
+      <ElementContext.Provider key={`element-${this.id}`} value={this}>
         <ElementView
           ref={this.viewRef}
           containerRef={containerRef}
