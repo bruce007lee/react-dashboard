@@ -1,8 +1,9 @@
 @import '../../styles/index.scss';
 
 #{$css-prefix}-element-view {
+  position: absolute;
+  
   &-editable {
-    outline: 1px dashed$line-color;
   }
 
   &-dragging {
@@ -14,6 +15,5 @@
   }
 
   &-hover {
-    outline: 1px dashed $line-hover-color;
   }
 }

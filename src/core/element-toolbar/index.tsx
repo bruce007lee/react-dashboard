@@ -2,8 +2,7 @@ import { ForwardRefRenderFunction, forwardRef, useState } from 'react';
 import ToolbarItem from '../../components/toolbar-item';
 import { ActionMetadata, ActionProps } from '../../types';
 import { sn } from '../../utils';
-import { useElementController } from '../element-controller';
-import { useRenderContext } from '../render-context';
+import { useElementController, useRenderContext } from '../../hooks';
 
 import './index.scss';
 

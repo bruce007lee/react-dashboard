@@ -2,33 +2,28 @@ import React, {
   ForwardRefRenderFunction,
   forwardRef,
   useEffect,
-  CSSProperties,
-  MutableRefObject,
   useState,
   useRef,
   useCallback,
 } from 'react';
 import { Rnd, DraggableData } from 'react-rnd';
-import { useRenderContext } from '../../render-context';
-import { useElementController } from '../../element-controller';
-import { Bounds } from '../../../types';
 import { createPortal } from 'react-dom';
-import { useForceUpdate } from '../../../hooks';
 import classNames from 'classnames';
+import { useRenderContext, useElementController } from '../../../hooks';
+import { Bounds } from '../../../types';
+import { useForceUpdate } from '../../../hooks';
+import { BaseLayerProps } from '../base-layer';
 import { sn } from '../../../utils';
 
 import './index.scss';
-export interface RndLayerProps {
-  containerRef: MutableRefObject<HTMLDivElement>;
-  bounds?: Bounds;
-  style?: CSSProperties;
-  className?: string;
+
+export type RndLayerProps = BaseLayerProps & {
   onBoundsChange?: (bounds: Bounds) => void;
   onDragStart?: () => void;
   onDragStop?: () => void;
   onResizeStart?: () => void;
   onResizeStop?: () => void;
-}
+};
 
 export type RndLayerRef = {};
 
@@ -257,11 +252,7 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
             x: curBounds.x,
             y: curBounds.y,
           }}
-          style={{
-            zIndex: 100,
-            ...style,
-            position: 'absolute',
-          }}
+          style={style}
           onDrag={handleDrag}
           onResize={(e, direction, ref, delta, position) => {
             /*

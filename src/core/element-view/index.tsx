@@ -9,8 +9,11 @@ import React, {
 } from 'react';
 import { RndLayer } from '../layers';
 import ElementToolbar from '../element-toolbar';
-import { useRenderContext } from '../render-context';
-import { useElementController } from '../element-controller';
+import {
+  useForceUpdate,
+  useRenderContext,
+  useElementController,
+} from '../../hooks';
 import {
   Bounds,
   ElementSchema,
@@ -20,7 +23,7 @@ import {
 import { sn } from '../../utils';
 
 import './index.scss';
-import { useForceUpdate } from '../../hooks';
+import ProxyLayer from '../layers/proxy-layer';
 
 export interface ElementViewProps {
   containerRef: MutableRefObject<HTMLDivElement>;
@@ -62,7 +65,7 @@ const ElementView: ForwardRefRenderFunction<
   const controller = useElementController();
   const forceUpdate = useForceUpdate();
   let { width, height, x, y } = b;
-  let { width: w, height: h, ...others } = style;
+  let { width: w, height: h, ...othersStyle } = style;
   w = (w || width) as number;
   h = (h || height) as number;
   const [bounds, setBounds] = useState<Bounds>({ width: w, height: h, x, y });
@@ -108,22 +111,14 @@ const ElementView: ForwardRefRenderFunction<
         resizing ? sn('element-view-resizing') : null
       )}
       style={{
-        position: 'absolute',
+        ...othersStyle,
         width: bounds.width,
         height: bounds.height,
         left: bounds.x,
         top: bounds.y,
       }}
-      onMouseEnter={() => {
-        controller.setStatus({
-          hover: true,
-        });
-      }}
-      onMouseLeave={() => {
-        controller.setStatus({
-          hover: false,
-        });
-      }}
+      onMouseEnter={() => setStatus({ hover: true })}
+      onMouseLeave={() => setStatus({ hover: false })}
     >
       {Com ? (
         <Com props={comProps} />
@@ -132,6 +127,7 @@ const ElementView: ForwardRefRenderFunction<
       )}
       {editable ? (
         <>
+          <ProxyLayer containerRef={containerRef} bounds={bounds} />
           {status.locked ? null : (
             <RndLayer
               containerRef={containerRef}

@@ -1,6 +1,9 @@
 @import '../../../styles/index.scss';
 
 #{$css-prefix}-rnd-layer {
+  z-index: 101;
+  position: absolute;
+
   &-dragging {
     outline: 1px dashed $line-hover-color;
   }

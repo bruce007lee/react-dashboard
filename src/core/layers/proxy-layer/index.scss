@@ -1,0 +1,11 @@
+@import '../../../styles/index.scss';
+
+#{$css-prefix}-proxy-layer {
+  z-index: 100;
+  position: absolute;
+  outline: 1px dashed $line-color;
+
+  &-hover {
+    outline: 1px dashed $line-hover-color;
+  }
+}
