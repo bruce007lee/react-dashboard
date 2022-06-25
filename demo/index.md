@@ -8,7 +8,22 @@ import ElementSource from '../src/core/element-source';
 import ElementsProvider from '../src/core/elements-provider';
 import './index.scss';
 
-Toast.show('toast 测试');
+const SAVE_KEY = '_demo_data_';
+const save = (data) => {
+  try {
+    localStorage.setItem(SAVE_KEY, JSON.stringify(data));
+  } catch (e) {
+    Toast.show('保存数据失败：' + e.message);
+  }
+};
+const load = () => {
+  try {
+    return JSON.parse(localStorage.getItem(SAVE_KEY));
+  } catch (e) {
+    Toast.show('读取数据失败：' + e.message);
+    return null;
+  }
+};
 
 const ComItem = ({ children, data }) => {
   return (
@@ -20,6 +35,8 @@ const ComItem = ({ children, data }) => {
 
 const App = () => {
   const [editable, setEditable] = useState(true);
+  const [magnet, setMagnet] = useState(true);
+  const [data, setData] = useState(load() || mockData);
   const dashboardRef = useRef(null);
 
   return (
@@ -35,16 +52,39 @@ const App = () => {
           </Button>
           <Button
             onClick={() => {
+              setMagnet(!magnet);
+            }}
+          >
+            {magnet ? '关闭磁吸' : '开启磁吸'}
+          </Button>
+          <Button
+            onClick={() => {
               console.log('schema data:', dashboardRef.current.getEditData());
             }}
           >
             获取schema数据
           </Button>
+          <Button
+            onClick={() => {
+              save(dashboardRef.current.getEditData());
+            }}
+          >
+            保存数据
+          </Button>
+          <Button
+            onClick={() => {
+              setData(load() || []);
+            }}
+          >
+            读取数据
+          </Button>
         </div>
         <div className="main">
           <div className="element-box">
             {mockSourceData.map((source) => (
-              <ComItem key={source.label} data={source.data}>{source.label}</ComItem>
+              <ComItem key={source.label} data={source.data}>
+                {source.label}
+              </ComItem>
             ))}
           </div>
           <Dashboard
@@ -54,8 +94,9 @@ const App = () => {
               width: 800,
               border: '1px solid green',
             }}
+            enableMagnet={magnet}
             editable={editable}
-            data={mockData}
+            data={data}
             components={mockComMetas}
           />
         </div>

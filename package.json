@@ -1,7 +1,7 @@
 {
-  "name": "tiny-ui",
+  "name": "react-dashboard",
   "version": "0.1.0",
-  "description": "react通用组件库",
+  "description": "react dashboard",
   "main": "lib/index.js",
   "module": "es/index.js",
   "types": "lib/index.d.ts",
@@ -14,14 +14,15 @@
   "author": "bruce007lee",
   "keywords": [
     "react",
-    "ui"
+    "dashboard"
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:bruce007lee/tiny-ui.git"
+    "url": "git@github.com:bruce007lee/react-dashboard.git"
   },
   "dependencies": {
     "classnames": "^2.3.1",
+    "lodash": "^4.17.21",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-rnd": "^10.3.7"

@@ -4,6 +4,11 @@
   z-index: 101;
   position: absolute;
 
+  &-ghost{
+    z-index: 101;
+    position: absolute;
+  }
+
   &-dragging {
     outline: 1px dashed $line-hover-color;
   }

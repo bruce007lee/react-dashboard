@@ -10,6 +10,7 @@ import RenderContext from '../render-context';
 import ElementController from '../element-controller';
 import ActionManager from '../action-manager';
 import ElementManager from '../element-manager';
+import { cloneDeep } from '../../utils';
 
 export type ElementsBuilderProps = {
   data: ElementSchema[];
@@ -37,9 +38,15 @@ export default class ElementsBuilder implements IElementsBuilder {
     this.setData(this.props.data);
   }
 
+  /**
+   * @TODO: support lifecycle
+   */
   handleElementChange = (data: ElementSchema) => {
-    console.log('[DEBUG]element change:', data.bounds);
+    //console.log('[DEBUG]element change:', data.bounds);
   };
+
+  getCanvasContainerRef = (): MutableRefObject<HTMLDivElement> =>
+    this.props.containerRef;
 
   getMaterialManager(): MaterialManager {
     return this.materialManager;
@@ -79,14 +86,19 @@ export default class ElementsBuilder implements IElementsBuilder {
 
   getElements = (): IElementController[] => this.elementManager.getAll();
 
-  schemaToElement = (element: ElementSchema): IElementController =>
-    new ElementController({
+  schemaToElement = (element: ElementSchema): IElementController => {
+    if (!element) {
+      return null;
+    }
+    element = cloneDeep(element);
+    return new ElementController({
       data: element,
       componentMetadata: this.materialManager.findByName(element.componentName),
       context: this.props.context,
       containerRef: this.props.containerRef,
       onChange: this.handleElementChange,
     });
+  };
 
   removeElement(element: IElementController): void {
     this.removeElements([element]);

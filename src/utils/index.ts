@@ -1,3 +1,4 @@
+import _cloneDeep from 'lodash/cloneDeep';
 import { prefix } from './variables';
 import domUtil from './dom';
 
@@ -10,6 +11,8 @@ export const genId = () =>
   Math.floor((1 + Math.random()) * 0x10000000)
     .toString(16)
     .substring(1);
+
+export const cloneDeep = _cloneDeep;
 
 /**
  *  比较2个对象指定的key值是否相同

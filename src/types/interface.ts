@@ -1,3 +1,4 @@
+import { MutableRefObject } from 'react';
 import ActionManager from '../core/action-manager';
 import ElementManager from '../core/element-manager';
 import MaterialManager from '../core/material-manager';
@@ -40,6 +41,7 @@ export interface IElementController {
  * 所有元素的渲染和控制器
  */
 export interface IElementsBuilder {
+  getCanvasContainerRef(): MutableRefObject<HTMLDivElement>;
   getMaterialManager(): MaterialManager;
   getActionManager(): ActionManager;
   getElementManager(): ElementManager;

@@ -1,9 +1,9 @@
 import { ForwardRefRenderFunction, forwardRef, ReactNode } from 'react';
-import { useDrop } from 'react-dnd';
+import { DropTargetMonitor, useDrop } from 'react-dnd';
 
 export type DropTargetWrapperProps = {
   children?: ReactNode;
-  onDrop?: (data: any) => void;
+  onDrop?: (data: any, monitor: DropTargetMonitor ) => void;
 };
 
 export type DropTargetWrapperRef = {};
@@ -12,14 +12,15 @@ const DropTargetWrapper: ForwardRefRenderFunction<
   DropTargetWrapperRef,
   DropTargetWrapperProps
 > = ({ children, onDrop }, ref) => {
-  const [{ canDrop, isOver }, drop] = useDrop(() => ({
+  const [{ monitor }, drop] = useDrop(() => ({
     accept: 'BOX',
     drop: (item) => {
       if (onDrop) {
-        onDrop(item);
+        onDrop(item, monitor);
       }
     },
     collect: (monitor) => ({
+      monitor,
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop(),
     }),
