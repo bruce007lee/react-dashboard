@@ -40,13 +40,26 @@ export type ElementStatus = {
   hover?: boolean;
 };
 
+export type ElementProps = {
+  bounds?: Bounds;
+};
+
 /**
  * 元素实体json描述
  */
 export type ElementSchema = {
+  /**
+   * 组件对应在ComponentMetadata中的componentName
+   */
   componentName: string;
-  bounds: Bounds;
+  /**
+   * 对应组件实力的参数
+   */
   props?: any;
+  /**
+   * 元素配置的参数
+   */
+  elementProps?: ElementProps;
   //@TODO: 目前不需要子节点处理
   children?: ElementSchema[];
   [key: string]: any;

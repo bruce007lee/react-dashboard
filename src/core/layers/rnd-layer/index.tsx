@@ -4,7 +4,6 @@ import React, {
   useEffect,
   useState,
   useRef,
-  useCallback,
 } from 'react';
 import { Rnd, DraggableData } from 'react-rnd';
 import { createPortal } from 'react-dom';
@@ -13,7 +12,7 @@ import { useRenderContext, useElementController } from '../../../hooks';
 import { Bounds } from '../../../types';
 import { useForceUpdate } from '../../../hooks';
 import { BaseLayerProps } from '../base-layer';
-import { sn } from '../../../utils';
+import { elementUtil, sn } from '../../../utils';
 
 import './index.scss';
 
@@ -55,15 +54,6 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
   const SPACE = config.magnetSpace;
   const THRESHOLD = config.magnetThreshold;
 
-  const getOffset = useCallback((e: MouseEvent, bounds: Bounds) => {
-    const { clientX, clientY } = e;
-    const { x, y } = bounds;
-    return {
-      x: clientX - x,
-      y: clientY - y,
-    };
-  }, []);
-
   useEffect(() => {
     forceUpdate();
   }, [containerRef.current]);
@@ -89,7 +79,7 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
       let y_ruler = [];
       elements.forEach((el, index) => {
         if (el !== controller) {
-          const { bounds } = el.getData();
+          const bounds = elementUtil.getBounds(el.getData());
 
           //格式：d_拖控组件坐标_对比组件坐标_高度或宽度_元素index
           const d_l_l = [
@@ -269,8 +259,8 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
   const handleDrag = (e: MouseEvent, d: DraggableData) => {
     const b = {
       ...curBounds,
-      x: d.x,
-      y: d.y,
+      x: Math.round(d.x),
+      y: Math.round(d.y),
     };
     setCurBounds(b);
     updateBounds(b);
@@ -311,8 +301,8 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
               const b = {
                 width: ref.offsetWidth,
                 height: ref.offsetHeight,
-                x: position.x,
-                y: position.y,
+                x: Math.round(position.x),
+                y: Math.round(position.y),
               };
               setCurBounds(b);
               updateBounds(b, direction);

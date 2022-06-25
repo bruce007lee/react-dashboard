@@ -13,7 +13,7 @@ import {
   ElementStatus,
   IElementController,
 } from '../../types';
-import { genId } from '../../utils';
+import { cloneDeep, elementUtil, genId, set } from '../../utils';
 import ElementView, { ElementViewRef } from '../element-view';
 import RenderContext from '../render-context';
 
@@ -61,8 +61,8 @@ export default class ElementController implements IElementController {
     return this.context;
   }
 
-  getData(): ElementSchema {
-    return this.data;
+  getData(clone: boolean = true): ElementSchema {
+    return cloneDeep(this.data);
   }
 
   getStatus(): ElementStatus {
@@ -98,7 +98,7 @@ export default class ElementController implements IElementController {
 
   private handleBoundsChange = (bounds: Bounds): void => {
     const { onChange } = this.props;
-    this.data.bounds = bounds;
+    elementUtil.setBounds(this.data, bounds);
     if (onChange) {
       onChange(this.getData());
     }

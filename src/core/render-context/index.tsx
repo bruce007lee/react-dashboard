@@ -35,7 +35,7 @@ export default class RenderContext implements IRenderContext {
   }
 
   getEditData(): ElementSchema[] {
-    return this.builder?.getData() || [];
+    return this.builder?.getData(false) || [];
   }
 
   getElements(): IElementController[] {

@@ -81,8 +81,8 @@ export default class ElementsBuilder implements IElementsBuilder {
     }
   }
 
-  getData = (): ElementSchema[] =>
-    this.elementManager.map((item) => item.getData());
+  getData = (clone: boolean = false): ElementSchema[] =>
+    this.elementManager.map((item) => item.getData(clone));
 
   getElements = (): IElementController[] => this.elementManager.getAll();
 

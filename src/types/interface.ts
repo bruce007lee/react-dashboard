@@ -26,7 +26,7 @@ export interface IRenderContext {
  */
 export interface IElementController {
   getId(): string;
-  getData(): ElementSchema;
+  getData(clone?: boolean): ElementSchema;
   getStatus(): ElementStatus;
   setStatus(
     status: ElementStatus,
@@ -46,7 +46,7 @@ export interface IElementsBuilder {
   getActionManager(): ActionManager;
   getElementManager(): ElementManager;
   setData(data: ElementSchema[]): void;
-  getData(): ElementSchema[];
+  getData(clone?: boolean): ElementSchema[];
   getElements(): IElementController[];
   schemaToElement(element: ElementSchema):IElementController;
   removeElement(element: IElementController): void;

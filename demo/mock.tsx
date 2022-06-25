@@ -33,11 +33,13 @@ export const mockData: ElementSchema[] = [
   {
     componentName: 'Item1',
     props: {},
-    bounds: {
-      x: 0,
-      y: 0,
-      width: 100,
-      height: 100,
+    elementProps: {
+      bounds: {
+        x: 0,
+        y: 0,
+        width: 100,
+        height: 100,
+      },
     },
   },
 
@@ -46,21 +48,25 @@ export const mockData: ElementSchema[] = [
     props: {
       text: '元素2',
     },
-    bounds: {
-      x: 120,
-      y: 0,
-      width: 100,
-      height: 100,
+    elementProps: {
+      bounds: {
+        x: 120,
+        y: 0,
+        width: 100,
+        height: 100,
+      },
     },
   },
   {
     componentName: 'Chart',
     props: {},
-    bounds: {
-      x: 220,
-      y: 110,
-      width: 400,
-      height: 300,
+    elementProps: {
+      bounds: {
+        x: 220,
+        y: 110,
+        width: 400,
+        height: 300,
+      },
     },
   },
 ];
@@ -76,11 +82,13 @@ export const mockSourceData: ElementSourceSchema[] = [
     data: {
       componentName: 'Chart',
       props: {},
-      bounds: {
-        x: 100,
-        y: 100,
-        width: 400,
-        height: 300,
+      elementProps: {
+        bounds: {
+          x: 100,
+          y: 100,
+          width: 400,
+          height: 300,
+        },
       },
     },
   },
@@ -92,11 +100,13 @@ export const mockSourceData: ElementSourceSchema[] = [
       props: {
         text: '这个是item1',
       },
-      bounds: {
-        x: 100,
-        y: 100,
-        width: 100,
-        height: 100,
+      elementProps: {
+        bounds: {
+          x: 100,
+          y: 100,
+          width: 100,
+          height: 100,
+        },
       },
     },
   },
@@ -106,11 +116,13 @@ export const mockSourceData: ElementSourceSchema[] = [
     data: {
       componentName: 'Item2',
       props: {},
-      bounds: {
-        x: 100,
-        y: 100,
-        width: 100,
-        height: 100,
+      elementProps: {
+        bounds: {
+          x: 100,
+          y: 100,
+          width: 100,
+          height: 100,
+        },
       },
     },
   },

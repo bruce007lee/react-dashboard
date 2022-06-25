@@ -20,7 +20,7 @@ import {
   ComponentMetadata,
   ElementStatus,
 } from '../../types';
-import { sn } from '../../utils';
+import { elementUtil, sn } from '../../utils';
 
 import './index.scss';
 import ProxyLayer from '../layers/proxy-layer';
@@ -57,11 +57,8 @@ const ElementView: ForwardRefRenderFunction<
   { containerRef, style = {}, data, componentMetadata, onBoundsChange },
   ref
 ) => {
-  const {
-    componentName,
-    bounds: b = { x: 0, y: 0, width: 100, height: 100 },
-    props: comProps,
-  } = data;
+  const { componentName, props: comProps } = data;
+  const b = elementUtil.getBounds(data);
   const controller = useElementController();
   const forceUpdate = useForceUpdate();
   let { width, height, x, y } = b;
