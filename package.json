@@ -51,9 +51,10 @@
     "typedoc-plugin-markdown": "~3.5.0",
     "typescript": "^3.7.5"
   },
-  "files":[
+  "files": [
     "/lib",
-    "/es"
+    "/es",
+    "/build"
   ],
-  "homepage": "https://github.com/bruce007lee/smart-dashboard"
+  "homepage": "https://unpkg.com/smart-dashboard@0.1.0/build/index.html"
 }

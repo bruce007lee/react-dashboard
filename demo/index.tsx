@@ -18,7 +18,7 @@ const save = (data) => {
 };
 const load = () => {
   try {
-    return JSON.parse(localStorage.getItem(SAVE_KEY) || '');
+    return JSON.parse(localStorage.getItem(SAVE_KEY) || '[]');
   } catch (e) {
     Toast.show('读取数据失败：' + e.message);
     return null;

@@ -1,4 +1,4 @@
-# react-dashboard
+# smart-dashboard
 
 ## 介绍
 react实现的dashboard看板
@@ -10,3 +10,4 @@ react实现的dashboard看板
 
 ## 使用方法
 TODO：使用方法待补充
+
