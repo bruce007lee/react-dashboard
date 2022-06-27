@@ -35,7 +35,7 @@ export interface IElementController {
   getId(): string;
   getData(clone?: boolean): ElementSchema;
   getStatus(): ElementStatus;
-  setStatus(status: ElementStatus, options?: { replace?: boolean; updateView? }): void;
+  setStatus(status: ElementStatus, options?: { replace?: boolean; updateView?: boolean }): void;
   getContext(): IRenderContext;
   updateView(): void;
   remove(): void;
