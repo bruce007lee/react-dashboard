@@ -31,6 +31,7 @@
     "react-rnd": "^10.3.7"
   },
   "devDependencies": {
+    "@alib/build-scripts": "^0.1.0",
     "@ant-design/plots": "^1.0.9",
     "@iceworks/spec": "^1.6.0",
     "@types/classnames": "^2.2.9",
@@ -49,5 +50,9 @@
     "typedoc-plugin-markdown": "~3.5.0",
     "typescript": "^3.7.5"
   },
-  "homepage": "https://unpkg.com/tiny-ui@0.1.0/build/index.html"
+  "files":[
+    "/lib",
+    "/es"
+  ],
+  "homepage": "https://unpkg.com/react-dashboard@0.1.0/build/index.html"
 }
