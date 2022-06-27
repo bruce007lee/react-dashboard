@@ -1,5 +1,5 @@
 {
-  "name": "react-dashboard",
+  "name": "smart-dashboard",
   "version": "0.1.0",
   "description": "react dashboard",
   "main": "lib/index.js",
@@ -9,6 +9,7 @@
     "doc": "typedoc --options typedoc.json",
     "start": "build-scripts start",
     "build": "build-scripts build",
+    "publish": "npm run build && npm publish",
     "lint": "npm run eslint && npm run stylelint",
     "eslint": "eslint --cache --ext .js,.jsx ./",
     "stylelint": "stylelint --allow-empty-input ./**/*.scss",
