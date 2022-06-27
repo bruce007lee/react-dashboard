@@ -22,7 +22,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:bruce007lee/react-dashboard.git"
+    "url": "git@github.com:bruce007lee/smart-dashboard.git"
   },
   "dependencies": {
     "classnames": "^2.3.1",
@@ -54,6 +54,5 @@
   "files":[
     "/lib",
     "/es"
-  ],
-  "homepage": "https://unpkg.com/react-dashboard@0.1.0/build/index.html"
+  ]
 }
