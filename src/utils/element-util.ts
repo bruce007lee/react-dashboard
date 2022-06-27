@@ -1,3 +1,4 @@
+import ElementController from '../core/element-controller';
 import { Bounds, ElementSchema } from '../types';
 import { set } from './misc';
 
@@ -7,4 +8,58 @@ export default {
 
   setBounds: (schema: ElementSchema, bounds: Bounds): void =>
     set(schema, 'elementProps.bounds', bounds),
+
+  moveToPrev(controller: ElementController, updateView: boolean = true): void {
+    const builder = controller.getContext().getBuilder();
+    const manager = builder.getElementManager();
+    const idx = manager.getIndex(controller);
+    manager.remove(idx);
+    manager.add(controller, idx - 1);
+    if (updateView) {
+      builder.updateView();
+    }
+  },
+
+  moveToNext(controller: ElementController, updateView: boolean = true): void {
+    const builder = controller.getContext().getBuilder();
+    const manager = builder.getElementManager();
+    const idx = manager.getIndex(controller);
+    manager.remove(idx);
+    manager.add(controller, idx + 1);
+    if (updateView) {
+      builder.updateView();
+    }
+  },
+
+  moveTo(
+    controller: ElementController,
+    index: number,
+    updateView: boolean = true
+  ): void {
+    const builder = controller.getContext().getBuilder();
+    const manager = builder.getElementManager();
+    const idx = manager.getIndex(controller);
+    manager.remove(idx);
+    if (index > idx) {
+      index = index - 1;
+    }
+    manager.add(controller, index);
+    if (updateView) {
+      builder.updateView();
+    }
+  },
+
+  moveToFirst(controller: ElementController, updateView: boolean = true): void {
+    this.moveTo(controller, 0, updateView);
+  },
+
+  moveToLast(
+    this,
+    controller: ElementController,
+    updateView: boolean = true
+  ): void {
+    const builder = controller.getContext().getBuilder();
+    const manager = builder.getElementManager();
+    this.moveTo(controller, manager.getAll().length, updateView);
+  },
 };

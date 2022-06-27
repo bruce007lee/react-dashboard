@@ -1,8 +1,8 @@
 @font-face {
   font-family: "react-dashboard-icons"; /* Project id 3480931 */
-  src: url('iconfont.woff2?t=1655997321247') format('woff2'),
-       url('iconfont.woff?t=1655997321247') format('woff'),
-       url('iconfont.ttf?t=1655997321247') format('truetype');
+  src: url('iconfont.woff2?t=1656305888560') format('woff2'),
+       url('iconfont.woff?t=1656305888560') format('woff'),
+       url('iconfont.ttf?t=1656305888560') format('truetype');
 }
 
 .react-dashboard-icons {
@@ -11,6 +11,22 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-react-dashboard-arrowtop:before {
+  content: "\e627";
+}
+
+.icon-react-dashboard-arrowdown:before {
+  content: "\e629";
+}
+
+.icon-react-dashboard-arrowbottoml:before {
+  content: "\e6a1";
+}
+
+.icon-react-dashboard-arrowtopl:before {
+  content: "\e6b1";
 }
 
 .icon-react-dashboard-delete:before {

@@ -13,7 +13,7 @@ import {
   ElementStatus,
   IElementController,
 } from '../../types';
-import { cloneDeep, elementUtil, genId, set } from '../../utils';
+import { cloneDeep, elementUtil, genId } from '../../utils';
 import ElementView, { ElementViewRef } from '../element-view';
 import RenderContext from '../render-context';
 
@@ -94,6 +94,26 @@ export default class ElementController implements IElementController {
 
   updateView(): void {
     this.viewRef.current?.forceUpdate();
+  }
+
+  moveToPrev(): void {
+    elementUtil.moveToPrev(this);
+  }
+
+  moveToNext(): void {
+    elementUtil.moveToNext(this);
+  }
+
+  moveToFirst(): void {
+    elementUtil.moveToFirst(this);
+  }
+
+  moveToLast(): void {
+    elementUtil.moveToLast(this);
+  }
+
+  moveTo(index: number) {
+    elementUtil.moveTo(this, index);
   }
 
   private handleBoundsChange = (bounds: Bounds): void => {

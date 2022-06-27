@@ -118,7 +118,7 @@ const ElementView: ForwardRefRenderFunction<
       onMouseLeave={() => setStatus({ hover: false })}
     >
       {Com ? (
-        <Com props={comProps} />
+        <Com {...comProps} />
       ) : (
         <div>{`组件类型 [${componentName}] 不存在`}</div>
       )}

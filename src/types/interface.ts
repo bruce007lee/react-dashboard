@@ -35,6 +35,11 @@ export interface IElementController {
   getContext(): IRenderContext;
   updateView(): void;
   remove(): void;
+  moveToPrev(): void;
+  moveToNext(): void;
+  moveToFirst(): void;
+  moveToLast(): void;
+  moveTo(index: number);
 }
 
 /**
