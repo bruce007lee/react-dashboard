@@ -69,8 +69,27 @@ export type ElementSchema = {
  * 物料元件的实体
  */
 export type ComponentMetadata = {
+  /**
+   * 组件名
+   */
   componentName: string;
+  /**
+   * 组件实现react类
+   */
   componentClass: ElementType;
+  /**
+   * 组件元素toolbar上的actions，对应ActionMetadata中的actionName
+   * 注意此配置会在默认的toolbarActions上添加，
+   * 如果要覆盖请用toolbarActions
+   */
+  extraToolbarActions?: string[];
+  /**
+   * 组件元素toolbar上的actions,会替换default配置
+   */
+  toolbarActions?: string[];
+  /**
+   * 默认组件参数
+   */
   props?: { [key: string]: any };
 };
 

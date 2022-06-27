@@ -13,10 +13,11 @@ export type ToolbarItemProps = ActionProps & {
 
 export type ToolbarItemRef = {};
 
-const DefaultItem: FC<ToolbarItemProps> = ({ iconType, tip }) => {
+const DefaultItem: FC<ToolbarItemProps> = ({ iconType, tip, label }) => {
   return (
     <div className={sn('toolbar-item-default')} title={tip}>
       <Icon type={iconType} />
+      {label ? <span className="toolbar-item-label">{label}</span> : null}
     </div>
   );
 };

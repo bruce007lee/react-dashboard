@@ -2,10 +2,17 @@
 
 #{$css-prefix}-toolbar-item {
   &-default{
+    display: flex;
+    align-items: center;
     cursor: pointer;
     padding: 0 3px;
     &:hover {
       background-color: $toolbar-item-hover-bg-color;
     }
+  }
+  .toolbar-item-label{
+    display: inline-block;
+    font-size: 12px;
+    white-space: nowrap;
   }
 }

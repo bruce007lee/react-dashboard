@@ -136,7 +136,9 @@ const ElementView: ForwardRefRenderFunction<
               onResizeStop={() => setStatus({ resizing: false })}
             />
           )}
-          <ElementToolbar />
+          {status.hover ? (
+            <ElementToolbar componentMetadata={componentMetadata} />
+          ) : null}
         </>
       ) : null}
     </div>

@@ -2,7 +2,9 @@
 import React, { useState, useRef } from 'react';
 import { Button } from 'antd';
 import Dashboard from '../src/index';
-import { mockData, mockComMetas, mockSourceData } from './mock';
+import actionMetas from './action-metadata';
+import materialMetas from './material-metadata';
+import { mockData, mockSourceData } from './mock';
 import Toast from '../src/components/toast';
 import ElementSource from '../src/core/element-source';
 import ElementsProvider from '../src/core/elements-provider';
@@ -97,7 +99,8 @@ const App = () => {
             enableMagnet={magnet}
             editable={editable}
             data={data}
-            components={mockComMetas}
+            actions={actionMetas}
+            components={materialMetas}
           />
         </div>
       </div>

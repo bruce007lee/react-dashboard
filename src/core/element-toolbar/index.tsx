@@ -1,23 +1,31 @@
 import { ForwardRefRenderFunction, forwardRef, useState } from 'react';
 import ToolbarItem from '../../components/toolbar-item';
-import { ActionMetadata, ActionProps } from '../../types';
+import { ActionMetadata, ComponentMetadata } from '../../types';
 import { sn } from '../../utils';
 import { useElementController, useRenderContext } from '../../hooks';
 
 import './index.scss';
 
-export type ElementToolBarProps = {};
+export type ElementToolBarProps = {
+  componentMetadata: ComponentMetadata;
+};
 
 export type ElementToolBarRef = {};
 
 const ElementToolBar: ForwardRefRenderFunction<
   ElementToolBarRef,
   ElementToolBarProps
-> = ({}, ref) => {
+> = ({ componentMetadata }, ref) => {
   const ctx = useRenderContext();
   const controller = useElementController();
   const actionManager = ctx.getBuilder().getActionManager();
-  const defaultActions = actionManager.getDefaultActions();
+  const defaultToolbarActionNames = actionManager.getDefaultToolbarActionNames();
+  const extraToolbarActions = componentMetadata.extraToolbarActions || [];
+  let toolbarActions = componentMetadata.toolbarActions;
+  
+  if(!toolbarActions){
+    toolbarActions = [].concat(extraToolbarActions, defaultToolbarActionNames);
+  }
 
   const createItem = (item: ActionMetadata) => (
     <ToolbarItem
@@ -29,7 +37,7 @@ const ElementToolBar: ForwardRefRenderFunction<
 
   return (
     <div className={sn('element-toolbar')}>
-      {defaultActions.map((item) => createItem(item))}
+      {actionManager.getActionsByNames(toolbarActions).map((item) => createItem(item))}
     </div>
   );
 };

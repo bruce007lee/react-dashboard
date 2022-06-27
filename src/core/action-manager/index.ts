@@ -1,9 +1,10 @@
 import BaseManager from '../../components/base-manager';
+import { ACTIONS, DEFAULT_ACTION_NAMES } from '../../actions';
 import { ActionMetadata } from '../../types';
 
 export type ActionManagerProps = {
   actions?: ActionMetadata[];
-  defaultActionNames?: string[];
+  defaultToolbarActionNames?: string[];
 };
 
 /**
@@ -13,23 +14,34 @@ export default class ActionManager extends BaseManager<
   ActionManagerProps,
   ActionMetadata
 > {
-  protected defaultActionNames: string[] = [];
+  protected defaultToolbarActionNames: string[] = [...DEFAULT_ACTION_NAMES];
 
   constructor(props?: ActionManagerProps) {
     super(props);
-    if (props?.actions) {
-      this.store = this.store.concat(props.actions);
-    }
-    if (props?.defaultActionNames) {
-      this.defaultActionNames = this.defaultActionNames.concat(
-        props.defaultActionNames
+    this.addActions(ACTIONS);//添加默认的
+    this.addActions(props?.actions);
+    if (props?.defaultToolbarActionNames) {
+      this.defaultToolbarActionNames = this.defaultToolbarActionNames.concat(
+        props.defaultToolbarActionNames
       );
     }
   }
 
-  getDefaultActions(): ActionMetadata[] {
+  addActions(actions: ActionMetadata[]) {
+    if (actions && actions.length > 0) {
+      this.store = [].concat(
+        this.store.filter((item) =>
+        actions.some(
+            (newItem) => item.actionName !== newItem.actionName
+          )
+        ),
+        actions
+      );
+    }
+  }
+
+  getActionsByNames(names: string[]): ActionMetadata[] {
     const rs = [];
-    const names = this.defaultActionNames;
     let action = null;
     names.forEach((name) => {
       action = this.findByName(name);
@@ -39,6 +51,11 @@ export default class ActionManager extends BaseManager<
     });
     return rs;
   }
+
+  getDefaultToolbarActionNames = (): string[] => this.defaultToolbarActionNames;
+
+  getDefaultToolbarActions = (): ActionMetadata[] =>
+    this.getActionsByNames(this.defaultToolbarActionNames);
 
   protected getNameKey = (): string => 'actionName';
 }

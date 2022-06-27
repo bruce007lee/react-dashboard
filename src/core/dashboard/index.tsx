@@ -19,7 +19,6 @@ import ElementsBuilder from '../elements-builder';
 import RenderContext, { RenderContextProvider } from '../render-context';
 import MaterialManager from '../material-manager';
 import ActionManager from '../action-manager';
-import { ACTIONS, DEFAULT_ACTION_NAMES } from '../../actions';
 import { useForceUpdate } from '../../hooks';
 import ElementTarget from '../element-target';
 export interface DashboardProps
@@ -28,7 +27,7 @@ export interface DashboardProps
   data: ElementSchema[];
   components: ComponentMetadata[];
   actions?: ActionMetadata[];
-  defaultActionNames?: string[];
+  defaultToolbarActionNames?: string[];
 }
 
 export type DashboardRef = {
@@ -42,8 +41,8 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
   {
     data,
     components,
-    actions = ACTIONS,
-    defaultActionNames = DEFAULT_ACTION_NAMES,
+    actions,
+    defaultToolbarActionNames,
     style,
     editable,
     enableMagnet = true,
@@ -75,7 +74,7 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
       });
       const actionManager = new ActionManager({
         actions,
-        defaultActionNames,
+        defaultToolbarActionNames,
       });
       const b = new ElementsBuilder({
         data,
