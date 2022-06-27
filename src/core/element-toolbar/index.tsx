@@ -21,7 +21,7 @@ const ElementToolBar: ForwardRefRenderFunction<ElementToolBarRef, ElementToolBar
   const actionManager = ctx.getBuilder().getActionManager();
   const defaultToolbarActionNames = actionManager.getDefaultToolbarActionNames();
   const extraToolbarActions = componentMetadata.extraToolbarActions || [];
-  let toolbarActions = componentMetadata.toolbarActions;
+  let { toolbarActions } = componentMetadata;
 
   if (!toolbarActions) {
     toolbarActions = [].concat(extraToolbarActions, defaultToolbarActionNames);

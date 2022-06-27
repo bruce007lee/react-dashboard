@@ -1,6 +1,6 @@
 import { ActionMetadata } from '../types';
 
-//锁定
+// 锁定
 export const lockAction: ActionMetadata = {
   actionName: 'lock',
   props: {
@@ -8,26 +8,18 @@ export const lockAction: ActionMetadata = {
     iconType: 'unlock',
   },
   render: (controller) => {
-    const locked = controller.getStatus().locked;
-    return locked
-      ? {
-          tip: '已锁定',
-          iconType: 'lock_fill',
-        }
-      : {
-          tip: '未锁定',
-          iconType: 'unlock',
-        };
+    const { locked } = controller.getStatus();
+    return locked ? { tip: '已锁定', iconType: 'lock_fill' } : { tip: '未锁定', iconType: 'unlock' };
   },
   invoker: (controller) => {
-    const locked = controller.getStatus().locked;
+    const { locked } = controller.getStatus();
     controller.setStatus({
       locked: !locked,
     });
   },
 };
 
-//删除
+// 删除
 export const deleteAction: ActionMetadata = {
   actionName: 'delete',
   props: {
@@ -39,7 +31,7 @@ export const deleteAction: ActionMetadata = {
   },
 };
 
-//上移
+// 上移
 export const moveUpAction: ActionMetadata = {
   actionName: 'moveUp',
   props: {
@@ -51,7 +43,7 @@ export const moveUpAction: ActionMetadata = {
   },
 };
 
-//下移
+// 下移
 export const moveDownAction: ActionMetadata = {
   actionName: 'moveDown',
   props: {
@@ -63,7 +55,7 @@ export const moveDownAction: ActionMetadata = {
   },
 };
 
-//移动到顶层
+// 移动到顶层
 export const moveTopAction: ActionMetadata = {
   actionName: 'moveTop',
   props: {
@@ -75,7 +67,7 @@ export const moveTopAction: ActionMetadata = {
   },
 };
 
-//移动到底层
+// 移动到底层
 export const moveBottomAction: ActionMetadata = {
   actionName: 'moveBottom',
   props: {
@@ -88,10 +80,10 @@ export const moveBottomAction: ActionMetadata = {
 };
 
 export const DEFAULT_ACTION_NAMES: string[] = [
-  //'moveTop',
-  //'moveBottom',
-  //'moveUp',
-  //'moveDown',
+  // 'moveTop',
+  // 'moveBottom',
+  // 'moveUp',
+  // 'moveDown',
   'lock',
   'delete',
 ];

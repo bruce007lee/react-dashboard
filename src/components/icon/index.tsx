@@ -18,7 +18,7 @@ const Icon: FC<IconProps> = ({
   prefix = 'icon-react-dashboard-',
   type,
 }) => {
-  return <span className={classNames(sn('icon'), fontClass, prefix + type, className)} style={style}></span>;
+  return <span className={classNames(sn('icon'), fontClass, prefix + type, className)} style={style} />;
 };
 
 export default Icon;

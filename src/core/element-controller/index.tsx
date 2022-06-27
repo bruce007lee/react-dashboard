@@ -30,7 +30,7 @@ export default class ElementController implements IElementController {
   private status: ElementStatus;
   private viewRef: RefObject<ElementViewRef>;
   private context: RenderContext;
-  public id = genId();
+  id = genId();
   constructor(props: ElementControllerProps) {
     this.props = props;
     this.data = { ...props.data };

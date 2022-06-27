@@ -37,7 +37,7 @@ export default class ElementsBuilder implements IElementsBuilder {
    * @TODO: support lifecycle
    */
   handleElementChange = (data: ElementSchema) => {
-    //console.log('[DEBUG]element change:', data.bounds);
+    // console.log('[DEBUG]element change:', data.bounds);
   };
 
   getCanvasContainerRef = (): MutableRefObject<HTMLDivElement> => this.props.containerRef;

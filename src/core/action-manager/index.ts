@@ -15,7 +15,7 @@ export default class ActionManager extends BaseManager<ActionManagerProps, Actio
 
   constructor(props?: ActionManagerProps) {
     super(props);
-    this.addActions(ACTIONS); //添加默认的
+    this.addActions(ACTIONS); // 添加默认的
     this.addActions(props?.actions);
     if (props?.defaultToolbarActionNames) {
       this.defaultToolbarActionNames = this.defaultToolbarActionNames.concat(props.defaultToolbarActionNames);

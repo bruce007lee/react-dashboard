@@ -35,7 +35,7 @@ export default {
     const idx = manager.getIndex(controller);
     manager.remove(idx);
     if (index > idx) {
-      index = index - 1;
+      index -= 1;
     }
     manager.add(controller, index);
     if (updateView) {

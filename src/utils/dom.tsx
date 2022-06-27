@@ -75,7 +75,7 @@ export default {
     if (typeof getComputedStyle !== 'undefined' && dom.nodeType === 1) {
       return getComputedStyle(dom, null)?.getPropertyValue(styleKey);
     } else {
-      /**@ts-ignore */
+      /** @ts-ignore */
       return dom.currentStyle?.[styleKey];
     }
   },

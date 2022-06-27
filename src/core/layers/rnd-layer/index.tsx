@@ -64,7 +64,7 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
         if (el !== controller) {
           const bounds = elementUtil.getBounds(el.getData());
 
-          //格式：d_拖控组件坐标_对比组件坐标_高度或宽度_元素index
+          // 格式：d_拖控组件坐标_对比组件坐标_高度或宽度_元素index
           const d_l_l = [curBounds.x - bounds.x, bounds.x, curBounds.x + curBounds.width - bounds.x, index];
           const d_l_r = [
             curBounds.x - bounds.x - bounds.width,
@@ -124,7 +124,7 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
             }
           }
 
-          //固定间隔距离的吸附
+          // 固定间隔距离的吸附
           if (curBounds.x > bounds.x + bounds.width) {
             // 左面
             x_ruler.push([d_l_r[0] - SPACE, d_l_r[1] + SPACE, d_l_r[2] - SPACE, index]);
@@ -163,7 +163,7 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
         }
       });
 
-      //排序取最近的坐标
+      // 排序取最近的坐标
       const sort = (a, b) => {
         a = Math.abs(a[0]);
         b = Math.abs(b[0]);

@@ -65,7 +65,7 @@ export type ElementSchema = {
    * 元素配置的参数
    */
   elementProps?: ElementProps;
-  //@TODO: 目前不需要子节点处理
+  // @TODO: 目前不需要子节点处理
   children?: ElementSchema[];
   [key: string]: any;
 };
