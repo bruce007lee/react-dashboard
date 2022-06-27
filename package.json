@@ -10,7 +10,9 @@
     "start": "build-scripts start",
     "build": "build-scripts build",
     "lint": "npm run eslint && npm run stylelint",
-    "eslint": "eslint --cache --ext .js,.jsx ./",
+    "lint:fix": "npm run eslint:fix && npm run stylelint",
+    "eslint": "eslint --cache --ext .js,.jsx,.tsx,.ts ./",
+    "eslint:fix": "eslint --cache --fix --ext .js,.jsx,.tsx,.ts ./",
     "stylelint": "stylelint --allow-empty-input ./**/*.scss",
     "prettier": "prettier --write \"./{src,demo}/**/*.{tsx,js,jsx,json,css,ts,scss,less}\""
   },

@@ -1,8 +1,8 @@
 import { MutableRefObject } from 'react';
-import ActionManager from '../core/action-manager';
-import ElementManager from '../core/element-manager';
-import MaterialManager from '../core/material-manager';
-import { DashBoardConfig, ElementSchema, ElementStatus } from './model';
+import type ActionManager from '../core/action-manager';
+import type ElementManager from '../core/element-manager';
+import type MaterialManager from '../core/material-manager';
+import type { DashBoardConfig, ElementSchema, ElementStatus } from './model';
 
 export interface IDispatcher {
   updateView(): void;

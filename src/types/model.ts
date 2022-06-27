@@ -1,5 +1,5 @@
 import { ElementType } from 'react';
-import { IElementController } from './interface';
+import type { IElementController } from './interface';
 
 /**
  * 上下文中的全局设置类参数

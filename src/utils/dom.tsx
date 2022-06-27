@@ -10,22 +10,23 @@ export default {
     bottom: number;
     right: number;
   } {
-    let pageWidth = 0,
-      pageHeight = 0;
+    let pageWidth = 0;
+    let pageHeight = 0;
 
-    //标准模式
-    if (document.compatMode == 'CSS1Compat') {
+    // 标准模式
+    if (document.compatMode === 'CSS1Compat') {
       pageWidth = document.documentElement.clientWidth;
       pageHeight = document.documentElement.clientHeight;
-      //怪异模式
+      // 怪异模式
     } else {
       pageWidth = document.body.clientWidth;
       pageHeight = document.body.clientHeight;
     }
 
-    if (typeof pageWidth != 'number') {
+    if (typeof pageWidth !== 'number') {
       // 这个包含scrollbar，正常不应该取这个，这里只是做兜底
-      (pageWidth = window.innerWidth), (pageHeight = window.innerHeight);
+      pageWidth = window.innerWidth;
+      pageHeight = window.innerHeight;
     }
 
     return {

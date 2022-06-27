@@ -2,9 +2,8 @@ import React, { ForwardRefRenderFunction, forwardRef, useEffect, useState, useRe
 import { Rnd, DraggableData } from 'react-rnd';
 import { createPortal } from 'react-dom';
 import classNames from 'classnames';
-import { useRenderContext, useElementController } from '../../../hooks';
+import { useRenderContext, useElementController, useForceUpdate } from '../../../hooks';
 import { Bounds } from '../../../types';
-import { useForceUpdate } from '../../../hooks';
 import { BaseLayerProps } from '../base-layer';
 import { elementUtil, sn } from '../../../utils';
 

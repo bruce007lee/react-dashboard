@@ -13,15 +13,19 @@ const DropTargetWrapper: ForwardRefRenderFunction<DropTargetWrapperRef, DropTarg
   { children, onDrop, accept, ...others },
   ref,
 ) => {
-  const [{ monitor }, drop] = useDrop(() => ({
+  const [
+    {
+      /*isOver, canDrop*/
+    },
+    drop,
+  ] = useDrop(() => ({
     accept: accept,
-    drop: (item) => {
+    drop: (item, monitor) => {
       if (onDrop) {
         onDrop(item, monitor);
       }
     },
     collect: (monitor) => ({
-      monitor,
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop(),
     }),
