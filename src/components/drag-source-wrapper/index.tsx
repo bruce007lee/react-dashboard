@@ -1,9 +1,17 @@
-import { ForwardRefRenderFunction, forwardRef, ReactNode } from 'react';
+import {
+  ForwardRefRenderFunction,
+  forwardRef,
+  ReactNode,
+  CSSProperties,
+  HTMLAttributes,
+} from 'react';
 import { useDrag } from 'react-dnd';
 
-export type DragSourceWrapperProps = {
+export type DragSourceWrapperProps = HTMLAttributes<HTMLDivElement> & {
+  accept?: string;
   children?: ReactNode;
   data?: any;
+  style?: CSSProperties;
 };
 
 export type DragSourceWrapperRef = {};
@@ -11,9 +19,9 @@ export type DragSourceWrapperRef = {};
 const DragSourceWrapper: ForwardRefRenderFunction<
   DragSourceWrapperRef,
   DragSourceWrapperProps
-> = ({ children, data }, ref) => {
+> = ({ children, style, data, accept, ...others }, ref) => {
   const [{ isDragging }, drag, dragPreview] = useDrag(() => ({
-    type: 'BOX',
+    type: accept,
     item: data,
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
@@ -21,7 +29,11 @@ const DragSourceWrapper: ForwardRefRenderFunction<
   }));
 
   return (
-    <div ref={dragPreview} style={{ opacity: isDragging ? 0.5 : 1 }}>
+    <div
+      {...others}
+      ref={dragPreview}
+      style={{ ...style, opacity: isDragging ? 0.5 : 1 }}
+    >
       <div ref={drag}>{children}</div>
     </div>
   );

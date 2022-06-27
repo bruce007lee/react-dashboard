@@ -7,7 +7,10 @@ import React, {
   useCallback,
   HTMLAttributes,
   useImperativeHandle,
+  MutableRefObject,
+  CSSProperties,
 } from 'react';
+import classNames from 'classnames';
 import {
   ComponentMetadata,
   ElementSchema,
@@ -21,13 +24,31 @@ import MaterialManager from '../material-manager';
 import ActionManager from '../action-manager';
 import { useForceUpdate } from '../../hooks';
 import ElementTarget from '../element-target';
+import { sn } from '../../utils';
+
 export interface DashboardProps
   extends HTMLAttributes<HTMLDivElement>,
     DashBoardConfig {
-  data: ElementSchema[];
-  components: ComponentMetadata[];
+  /**
+   * 显示数据的schema
+   */
+  data?: ElementSchema[];
+  /**
+   * 组件的物料配置
+   */
+  components?: ComponentMetadata[];
+  /**
+   * 组件的toolbar功能配置
+   */
   actions?: ActionMetadata[];
+  /**
+   * 默认显示的组件的toolbar功能
+   */
   defaultToolbarActionNames?: string[];
+  /**
+   * 组件属性设置的面板容器
+   */
+  setterContainerRef?: MutableRefObject<HTMLDivElement>;
 }
 
 export type DashboardRef = {
@@ -35,6 +56,10 @@ export type DashboardRef = {
    * 获取编辑的数据
    */
   getEditData: () => ElementSchema[];
+  /**
+   * 获取渲染的上下文
+   */
+  getRenderContext: () => RenderContext;
 };
 
 const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
@@ -48,6 +73,8 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
     enableMagnet = true,
     magnetSpace = 16,
     magnetThreshold = 10,
+    dndAccept,
+    className,
     ...others
   },
   ref
@@ -61,6 +88,7 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
     enableMagnet,
     magnetSpace,
     magnetThreshold,
+    dndAccept,
   });
 
   const dispatcher: IDispatcher = {
@@ -100,34 +128,35 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
 
   useImperativeHandle(ref, () => ({
     getEditData: () => context.getEditData(),
+    getRenderContext: () => context,
   }));
+
+  const innerStyle: CSSProperties = {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  };
 
   return (
     <RenderContextProvider value={context}>
-      <ElementTarget>
-        <div
-          {...others}
-          style={{
-            height: 100,
-            overflow: 'hidden',
-            ...style,
-            position: 'relative',
-          }}
-        >
-          <div
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              bottom: 0,
-              right: 0,
-            }}
-            ref={containerRef}
-          >
+      <div
+        {...others}
+        className={classNames(sn('canvas'), className)}
+        style={{
+          height: 100,
+          overflow: 'hidden',
+          ...style,
+          position: 'relative',
+        }}
+      >
+        <ElementTarget style={innerStyle}>
+          <div style={innerStyle} ref={containerRef}>
             {builder ? builder.render() : null}
           </div>
-        </div>
-      </ElementTarget>
+        </ElementTarget>
+      </div>
     </RenderContextProvider>
   );
 };

@@ -9,6 +9,13 @@ export interface IDispatcher {
 }
 
 /**
+ * 添加元素时拖控的上下文
+ */
+export interface IElementsProviderContext {
+   accept: string;
+}
+
+/**
  * dashboard渲染的上下文
  */
 export interface IRenderContext {
