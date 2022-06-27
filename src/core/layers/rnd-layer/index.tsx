@@ -1,10 +1,4 @@
-import React, {
-  ForwardRefRenderFunction,
-  forwardRef,
-  useEffect,
-  useState,
-  useRef,
-} from 'react';
+import React, { ForwardRefRenderFunction, forwardRef, useEffect, useState, useRef } from 'react';
 import { Rnd, DraggableData } from 'react-rnd';
 import { createPortal } from 'react-dom';
 import classNames from 'classnames';
@@ -27,18 +21,8 @@ export type RndLayerProps = BaseLayerProps & {
 export type RndLayerRef = {};
 
 const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
-  {
-    containerRef,
-    bounds: b,
-    style,
-    className,
-    onBoundsChange,
-    onDragStart,
-    onDragStop,
-    onResizeStart,
-    onResizeStop,
-  },
-  ref
+  { containerRef, bounds: b, style, className, onBoundsChange, onDragStart, onDragStop, onResizeStart, onResizeStop },
+  ref,
 ) => {
   const context = useRenderContext();
   const controller = useElementController();
@@ -82,24 +66,14 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
           const bounds = elementUtil.getBounds(el.getData());
 
           //格式：d_拖控组件坐标_对比组件坐标_高度或宽度_元素index
-          const d_l_l = [
-            curBounds.x - bounds.x,
-            bounds.x,
-            curBounds.x + curBounds.width - bounds.x,
-            index,
-          ];
+          const d_l_l = [curBounds.x - bounds.x, bounds.x, curBounds.x + curBounds.width - bounds.x, index];
           const d_l_r = [
             curBounds.x - bounds.x - bounds.width,
             bounds.x + bounds.width,
             curBounds.x + curBounds.width - bounds.x - bounds.width,
             index,
           ];
-          const d_t_t = [
-            curBounds.y - bounds.y,
-            bounds.y,
-            curBounds.y + curBounds.height - bounds.y,
-            index,
-          ];
+          const d_t_t = [curBounds.y - bounds.y, bounds.y, curBounds.y + curBounds.height - bounds.y, index];
           const d_t_b = [
             curBounds.y - bounds.y - bounds.height,
             bounds.y + bounds.height,
@@ -154,12 +128,7 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
           //固定间隔距离的吸附
           if (curBounds.x > bounds.x + bounds.width) {
             // 左面
-            x_ruler.push([
-              d_l_r[0] - SPACE,
-              d_l_r[1] + SPACE,
-              d_l_r[2] - SPACE,
-              index,
-            ]);
+            x_ruler.push([d_l_r[0] - SPACE, d_l_r[1] + SPACE, d_l_r[2] - SPACE, index]);
 
             if (d && d.indexOf('left') < 0) {
               x_ruler.pop();
@@ -168,12 +137,7 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
 
           if (curBounds.x + curBounds.width < bounds.x) {
             // 右面
-            x_ruler.push([
-              d_r_l[0] + SPACE,
-              d_r_l[1] - SPACE,
-              d_r_l[2] - SPACE,
-              index,
-            ]);
+            x_ruler.push([d_r_l[0] + SPACE, d_r_l[1] - SPACE, d_r_l[2] - SPACE, index]);
 
             if (d && d.indexOf('right') < 0) {
               x_ruler.pop();
@@ -182,12 +146,7 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
 
           if (curBounds.y > bounds.y + bounds.height) {
             // 上面
-            y_ruler.push([
-              d_t_b[0] - SPACE,
-              d_t_b[1] + SPACE,
-              d_t_b[2] - SPACE,
-              index,
-            ]);
+            y_ruler.push([d_t_b[0] - SPACE, d_t_b[1] + SPACE, d_t_b[2] - SPACE, index]);
 
             if (d && d.indexOf('top') < 0) {
               y_ruler.pop();
@@ -196,12 +155,7 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
 
           if (curBounds.y + curBounds.height < bounds.y) {
             // 下面
-            y_ruler.push([
-              d_b_t[0] + SPACE,
-              d_b_t[1] - SPACE,
-              d_b_t[2] - SPACE,
-              index,
-            ]);
+            y_ruler.push([d_b_t[0] + SPACE, d_b_t[1] - SPACE, d_b_t[2] - SPACE, index]);
 
             if (d && d.indexOf('bottom') < 0) {
               y_ruler.pop();
@@ -274,7 +228,7 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
               sn('rnd-layer'),
               className,
               dragging ? sn('rnd-layer-dragging') : null,
-              resizing ? sn('rnd-layer-resizing') : null
+              resizing ? sn('rnd-layer-resizing') : null,
             )}
             style={{
               width: ghostBounds.width,
@@ -337,7 +291,7 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
             }}
           />
         </>,
-        containerRef.current
+        containerRef.current,
       )
     : null;
 };

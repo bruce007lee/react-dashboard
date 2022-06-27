@@ -1,12 +1,11 @@
 @font-face {
-  font-family: "react-dashboard-icons"; /* Project id 3480931 */
-  src: url('iconfont.woff2?t=1656305888560') format('woff2'),
-       url('iconfont.woff?t=1656305888560') format('woff'),
-       url('iconfont.ttf?t=1656305888560') format('truetype');
+  font-family: 'react-dashboard-icons'; /* Project id 3480931 */
+  src: url('iconfont.woff2?t=1656305888560') format('woff2'), url('iconfont.woff?t=1656305888560') format('woff'),
+    url('iconfont.ttf?t=1656305888560') format('truetype');
 }
 
 .react-dashboard-icons {
-  font-family: "react-dashboard-icons" !important;
+  font-family: 'react-dashboard-icons' !important;
   font-size: 16px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
@@ -14,30 +13,29 @@
 }
 
 .icon-react-dashboard-arrowtop:before {
-  content: "\e627";
+  content: '\e627';
 }
 
 .icon-react-dashboard-arrowdown:before {
-  content: "\e629";
+  content: '\e629';
 }
 
 .icon-react-dashboard-arrowbottoml:before {
-  content: "\e6a1";
+  content: '\e6a1';
 }
 
 .icon-react-dashboard-arrowtopl:before {
-  content: "\e6b1";
+  content: '\e6b1';
 }
 
 .icon-react-dashboard-delete:before {
-  content: "\e67e";
+  content: '\e67e';
 }
 
 .icon-react-dashboard-lock_fill:before {
-  content: "\e70a";
+  content: '\e70a';
 }
 
 .icon-react-dashboard-unlock:before {
-  content: "\e73a";
+  content: '\e73a';
 }
-

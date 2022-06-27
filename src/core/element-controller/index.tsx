@@ -1,18 +1,5 @@
-import {
-  createContext,
-  useContext,
-  MutableRefObject,
-  ReactNode,
-  createRef,
-  RefObject,
-} from 'react';
-import {
-  Bounds,
-  ElementSchema,
-  ComponentMetadata,
-  ElementStatus,
-  IElementController,
-} from '../../types';
+import { createContext, useContext, MutableRefObject, ReactNode, createRef, RefObject } from 'react';
+import { Bounds, ElementSchema, ComponentMetadata, ElementStatus, IElementController } from '../../types';
 import { cloneDeep, elementUtil, genId } from '../../utils';
 import ElementView, { ElementViewRef } from '../element-view';
 import RenderContext from '../render-context';
@@ -69,10 +56,7 @@ export default class ElementController implements IElementController {
     return this.status;
   }
 
-  setStatus(
-    status: ElementStatus,
-    options?: { replace: boolean; updateView: boolean }
-  ): void {
+  setStatus(status: ElementStatus, options?: { replace: boolean; updateView: boolean }): void {
     options = {
       replace: false,
       updateView: true,

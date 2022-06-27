@@ -21,11 +21,7 @@ export const set = _set;
  * @param obj2
  * @param keys
  */
-export const equals = (
-  obj1: { [key: string]: any },
-  obj2: { [key: string]: any },
-  keys?: string[]
-) => {
+export const equals = (obj1: { [key: string]: any }, obj2: { [key: string]: any }, keys?: string[]) => {
   if (keys == null) {
     keys = Object.keys(obj1 || {});
   }

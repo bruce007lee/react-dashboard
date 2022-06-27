@@ -83,10 +83,7 @@ export default {
     return obj?.nodeType === 1 && obj?.cloneNode;
   },
 
-  createNode(
-    tag: string = 'div',
-    root: HTMLElement = document.body
-  ): HTMLElement {
+  createNode(tag: string = 'div', root: HTMLElement = document.body): HTMLElement {
     const node = document.createElement(tag);
     root.appendChild(node);
     return node;

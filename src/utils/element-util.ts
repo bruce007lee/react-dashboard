@@ -3,11 +3,9 @@ import { Bounds, ElementSchema } from '../types';
 import { set } from './misc';
 
 export default {
-  getBounds: (schema: ElementSchema): Bounds =>
-    schema?.elementProps?.bounds || { x: 0, y: 0, width: 100, height: 100 },
+  getBounds: (schema: ElementSchema): Bounds => schema?.elementProps?.bounds || { x: 0, y: 0, width: 100, height: 100 },
 
-  setBounds: (schema: ElementSchema, bounds: Bounds): void =>
-    set(schema, 'elementProps.bounds', bounds),
+  setBounds: (schema: ElementSchema, bounds: Bounds): void => set(schema, 'elementProps.bounds', bounds),
 
   moveToPrev(controller: ElementController, updateView: boolean = true): void {
     const builder = controller.getContext().getBuilder();
@@ -31,11 +29,7 @@ export default {
     }
   },
 
-  moveTo(
-    controller: ElementController,
-    index: number,
-    updateView: boolean = true
-  ): void {
+  moveTo(controller: ElementController, index: number, updateView: boolean = true): void {
     const builder = controller.getContext().getBuilder();
     const manager = builder.getElementManager();
     const idx = manager.getIndex(controller);
@@ -53,11 +47,7 @@ export default {
     this.moveTo(controller, 0, updateView);
   },
 
-  moveToLast(
-    this,
-    controller: ElementController,
-    updateView: boolean = true
-  ): void {
+  moveToLast(this, controller: ElementController, updateView: boolean = true): void {
     const builder = controller.getContext().getBuilder();
     const manager = builder.getElementManager();
     this.moveTo(controller, manager.getAll().length, updateView);

@@ -13,7 +13,7 @@ export type ProxyLayerRef = {};
 
 const ProxyLayer: ForwardRefRenderFunction<ProxyLayerRef, ProxyLayerProps> = (
   { containerRef, style, className, bounds },
-  ref
+  ref,
 ) => {
   const controller = useElementController();
   const status = controller.getStatus();
@@ -25,9 +25,7 @@ const ProxyLayer: ForwardRefRenderFunction<ProxyLayerRef, ProxyLayerProps> = (
           className={classNames(
             sn('proxy-layer'),
             className,
-            hover && !locked && !dragging && !resizing
-              ? sn('proxy-layer-hover')
-              : null
+            hover && !locked && !dragging && !resizing ? sn('proxy-layer-hover') : null,
           )}
           style={{
             ...style,
@@ -37,7 +35,7 @@ const ProxyLayer: ForwardRefRenderFunction<ProxyLayerRef, ProxyLayerProps> = (
             top: bounds.y,
           }}
         />,
-        containerRef.current
+        containerRef.current,
       )
     : null;
 };

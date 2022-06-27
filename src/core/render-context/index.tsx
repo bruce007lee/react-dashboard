@@ -30,7 +30,7 @@ export default class RenderContext implements IRenderContext {
     this.builder = builder;
   }
 
-  getBuilder():IElementsBuilder {
+  getBuilder(): IElementsBuilder {
     return this.builder;
   }
 
@@ -63,10 +63,7 @@ export type RenderContextProviderProps = {
   value: RenderContext;
 };
 
-export const RenderContextProvider: FC<RenderContextProviderProps> = ({
-  value,
-  children,
-}) => {
+export const RenderContextProvider: FC<RenderContextProviderProps> = ({ value, children }) => {
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
 

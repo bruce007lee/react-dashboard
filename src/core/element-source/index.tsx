@@ -10,13 +10,7 @@ export type ElementSourceProps = HTMLAttributes<HTMLDivElement> & {
   data: ElementSchema;
 };
 
-const ElementSource: FC<ElementSourceProps> = ({
-  children,
-  accept,
-  data,
-  className,
-  ...others
-}) => {
+const ElementSource: FC<ElementSourceProps> = ({ children, accept, data, className, ...others }) => {
   const providerCtx = useElementsProviderContext();
   if (!accept && providerCtx) {
     accept = providerCtx.accept;
@@ -27,12 +21,7 @@ const ElementSource: FC<ElementSourceProps> = ({
   }
 
   return (
-    <DragSourceWrapper
-      {...others}
-      className={classNames(sn('dnd-source'), className)}
-      accept={accept}
-      data={data}
-    >
+    <DragSourceWrapper {...others} className={classNames(sn('dnd-source'), className)} accept={accept} data={data}>
       {children}
     </DragSourceWrapper>
   );

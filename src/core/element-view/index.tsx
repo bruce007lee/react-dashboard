@@ -9,17 +9,8 @@ import React, {
 } from 'react';
 import { RndLayer, ProxyLayer } from '../layers';
 import ElementToolbar from '../element-toolbar';
-import {
-  useForceUpdate,
-  useRenderContext,
-  useElementController,
-} from '../../hooks';
-import {
-  Bounds,
-  ElementSchema,
-  ComponentMetadata,
-  ElementStatus,
-} from '../../types';
+import { useForceUpdate, useRenderContext, useElementController } from '../../hooks';
+import { Bounds, ElementSchema, ComponentMetadata, ElementStatus } from '../../types';
 import { elementUtil, sn } from '../../utils';
 
 import './index.scss';
@@ -49,12 +40,9 @@ export type ElementViewRef = {
   forceUpdate(): void;
 };
 
-const ElementView: ForwardRefRenderFunction<
-  ElementViewRef,
-  ElementViewProps
-> = (
+const ElementView: ForwardRefRenderFunction<ElementViewRef, ElementViewProps> = (
   { containerRef, style = {}, data, componentMetadata, onBoundsChange },
-  ref
+  ref,
 ) => {
   const { componentName, props: comProps } = data;
   const b = elementUtil.getBounds(data);
@@ -100,11 +88,9 @@ const ElementView: ForwardRefRenderFunction<
       className={classNames(
         sn('element-view'),
         editable ? sn('element-view-editable') : null,
-        hover && editable && !locked && !dragging && !resizing
-          ? sn('element-view-hover')
-          : null,
+        hover && editable && !locked && !dragging && !resizing ? sn('element-view-hover') : null,
         dragging ? sn('element-view-dragging') : null,
-        resizing ? sn('element-view-resizing') : null
+        resizing ? sn('element-view-resizing') : null,
       )}
       style={{
         ...othersStyle,
@@ -116,11 +102,7 @@ const ElementView: ForwardRefRenderFunction<
       onMouseEnter={() => setStatus({ hover: true })}
       onMouseLeave={() => setStatus({ hover: false })}
     >
-      {Com ? (
-        <Com {...comProps} />
-      ) : (
-        <div>{`组件类型 [${componentName}] 不存在`}</div>
-      )}
+      {Com ? <Com {...comProps} /> : <div>{`组件类型 [${componentName}] 不存在`}</div>}
       {editable ? (
         <>
           <ProxyLayer containerRef={containerRef} bounds={bounds} />
@@ -135,9 +117,7 @@ const ElementView: ForwardRefRenderFunction<
               onResizeStop={() => setStatus({ resizing: false })}
             />
           )}
-          {status.hover ? (
-            <ElementToolbar componentMetadata={componentMetadata} />
-          ) : null}
+          {status.hover ? <ElementToolbar componentMetadata={componentMetadata} /> : null}
         </>
       ) : null}
     </div>

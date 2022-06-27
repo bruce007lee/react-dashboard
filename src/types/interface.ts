@@ -12,7 +12,7 @@ export interface IDispatcher {
  * 添加元素时拖控的上下文
  */
 export interface IElementsProviderContext {
-   accept: string;
+  accept: string;
 }
 
 /**
@@ -35,10 +35,7 @@ export interface IElementController {
   getId(): string;
   getData(clone?: boolean): ElementSchema;
   getStatus(): ElementStatus;
-  setStatus(
-    status: ElementStatus,
-    options?: { replace?: boolean; updateView? }
-  ): void;
+  setStatus(status: ElementStatus, options?: { replace?: boolean; updateView? }): void;
   getContext(): IRenderContext;
   updateView(): void;
   remove(): void;
@@ -60,7 +57,7 @@ export interface IElementsBuilder {
   setData(data: ElementSchema[]): void;
   getData(clone?: boolean): ElementSchema[];
   getElements(): IElementController[];
-  schemaToElement(element: ElementSchema):IElementController;
+  schemaToElement(element: ElementSchema): IElementController;
   removeElement(element: IElementController): void;
   removeElements(elements: IElementController[]): void;
   addElement(element: IElementController | ElementSchema): void;

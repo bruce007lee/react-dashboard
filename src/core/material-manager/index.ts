@@ -8,10 +8,7 @@ export type MaterialManagerProps = {
 /**
  * 物料管理器，用于管理注册的组件描述配置
  */
-export default class MaterialManager extends BaseManager<
-  MaterialManagerProps,
-  ComponentMetadata
-> {
+export default class MaterialManager extends BaseManager<MaterialManagerProps, ComponentMetadata> {
   constructor(props?: MaterialManagerProps) {
     super(props);
     if (props?.components) {

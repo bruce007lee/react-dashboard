@@ -8,10 +8,7 @@ export type ElementManagerProps = {
 /**
  * 物料管理器，用于管理注册的组件描述配置
  */
-export default class ElementManager extends BaseManager<
-  ElementManagerProps,
-  IElementController
-> {
+export default class ElementManager extends BaseManager<ElementManagerProps, IElementController> {
   constructor(props?: ElementManagerProps) {
     super(props);
     if (props?.elements) {

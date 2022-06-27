@@ -71,11 +71,10 @@ const DemoColumn: FC = () => {
     },
   };
   const cfg: any = {};
-  if(ctx.getEditable()){
-    cfg.animation = false
+  if (ctx.getEditable()) {
+    cfg.animation = false;
   }
   return <Column {...cfg} {...config} />;
 };
 
 export default DemoColumn;
-

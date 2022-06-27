@@ -12,18 +12,18 @@ export type ElementToolBarProps = {
 
 export type ElementToolBarRef = {};
 
-const ElementToolBar: ForwardRefRenderFunction<
-  ElementToolBarRef,
-  ElementToolBarProps
-> = ({ componentMetadata }, ref) => {
+const ElementToolBar: ForwardRefRenderFunction<ElementToolBarRef, ElementToolBarProps> = (
+  { componentMetadata },
+  ref,
+) => {
   const ctx = useRenderContext();
   const controller = useElementController();
   const actionManager = ctx.getBuilder().getActionManager();
   const defaultToolbarActionNames = actionManager.getDefaultToolbarActionNames();
   const extraToolbarActions = componentMetadata.extraToolbarActions || [];
   let toolbarActions = componentMetadata.toolbarActions;
-  
-  if(!toolbarActions){
+
+  if (!toolbarActions) {
     toolbarActions = [].concat(extraToolbarActions, defaultToolbarActionNames);
   }
 

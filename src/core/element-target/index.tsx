@@ -25,7 +25,7 @@ const ElementTarget: FC<ElementTargetProps> = ({ children, className, ...others 
       className={classNames(sn('dnd-target'), className)}
       accept={accept}
       onDrop={(data: ElementSchema, monitor) => {
-        if(!context.getConfig().editable){
+        if (!context.getConfig().editable) {
           // 不可编辑时不能添加
           return;
         }

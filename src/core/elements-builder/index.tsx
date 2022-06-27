@@ -1,10 +1,5 @@
 import { ReactNode, MutableRefObject } from 'react';
-import {
-  ElementSchema,
-  IDispatcher,
-  IElementController,
-  IElementsBuilder,
-} from '../../types';
+import { ElementSchema, IDispatcher, IElementController, IElementsBuilder } from '../../types';
 import MaterialManager from '../material-manager';
 import RenderContext from '../render-context';
 import ElementController from '../element-controller';
@@ -45,8 +40,7 @@ export default class ElementsBuilder implements IElementsBuilder {
     //console.log('[DEBUG]element change:', data.bounds);
   };
 
-  getCanvasContainerRef = (): MutableRefObject<HTMLDivElement> =>
-    this.props.containerRef;
+  getCanvasContainerRef = (): MutableRefObject<HTMLDivElement> => this.props.containerRef;
 
   getMaterialManager(): MaterialManager {
     return this.materialManager;
@@ -81,8 +75,7 @@ export default class ElementsBuilder implements IElementsBuilder {
     }
   }
 
-  getData = (clone: boolean = false): ElementSchema[] =>
-    this.elementManager.map((item) => item.getData(clone));
+  getData = (clone: boolean = false): ElementSchema[] => this.elementManager.map((item) => item.getData(clone));
 
   getElements = (): IElementController[] => this.elementManager.getAll();
 
@@ -128,9 +121,7 @@ export default class ElementsBuilder implements IElementsBuilder {
     this.updateView();
   }
 
-  createElementView = (element: IElementController): ReactNode =>
-    (element as ElementController).render();
+  createElementView = (element: IElementController): ReactNode => (element as ElementController).render();
 
-  render = (): ReactNode =>
-    this.elementManager.getAll().map((item) => this.createElementView(item));
+  render = (): ReactNode => this.elementManager.getAll().map((item) => this.createElementView(item));
 }

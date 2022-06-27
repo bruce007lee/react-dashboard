@@ -11,13 +11,7 @@ import React, {
   CSSProperties,
 } from 'react';
 import classNames from 'classnames';
-import {
-  ComponentMetadata,
-  ElementSchema,
-  DashBoardConfig,
-  ActionMetadata,
-  IDispatcher,
-} from '../../types';
+import { ComponentMetadata, ElementSchema, DashBoardConfig, ActionMetadata, IDispatcher } from '../../types';
 import ElementsBuilder from '../elements-builder';
 import RenderContext, { RenderContextProvider } from '../render-context';
 import MaterialManager from '../material-manager';
@@ -28,9 +22,7 @@ import { sn } from '../../utils';
 
 import './index.scss';
 
-export interface DashboardProps
-  extends HTMLAttributes<HTMLDivElement>,
-    DashBoardConfig {
+export interface DashboardProps extends HTMLAttributes<HTMLDivElement>, DashBoardConfig {
   /**
    * 显示数据的schema
    */
@@ -79,7 +71,7 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
     className,
     ...others
   },
-  ref
+  ref,
 ) => {
   const forceUpdate = useForceUpdate();
   const [context] = useState<RenderContext>(() => new RenderContext());
@@ -117,7 +109,7 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
       context.setBuilder(b);
       return b;
     },
-    [containerRef, context]
+    [containerRef, context],
   );
 
   useEffect(() => {

@@ -1,15 +1,7 @@
-import {
-  ForwardRefRenderFunction,
-  forwardRef,
-  ReactNode,
-  HTMLAttributes,
-} from 'react';
+import { ForwardRefRenderFunction, forwardRef, ReactNode, HTMLAttributes } from 'react';
 import { DropTargetMonitor, useDrop } from 'react-dnd';
 
-export type DropTargetWrapperProps = Omit<
-  HTMLAttributes<HTMLDivElement>,
-  'onDrop'
-> & {
+export type DropTargetWrapperProps = Omit<HTMLAttributes<HTMLDivElement>, 'onDrop'> & {
   accept?: string;
   children?: ReactNode;
   onDrop?: (data: any, monitor: DropTargetMonitor) => void;
@@ -17,10 +9,10 @@ export type DropTargetWrapperProps = Omit<
 
 export type DropTargetWrapperRef = {};
 
-const DropTargetWrapper: ForwardRefRenderFunction<
-  DropTargetWrapperRef,
-  DropTargetWrapperProps
-> = ({ children, onDrop, accept, ...others }, ref) => {
+const DropTargetWrapper: ForwardRefRenderFunction<DropTargetWrapperRef, DropTargetWrapperProps> = (
+  { children, onDrop, accept, ...others },
+  ref,
+) => {
   const [{ monitor }, drop] = useDrop(() => ({
     accept: accept,
     drop: (item) => {

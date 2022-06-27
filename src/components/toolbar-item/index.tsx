@@ -22,10 +22,10 @@ const DefaultItem: FC<ToolbarItemProps> = ({ iconType, tip, label }) => {
   );
 };
 
-const ToolbarItem: ForwardRefRenderFunction<
-  ToolbarItemRef,
-  ToolbarItemProps
-> = ({ actionMetadata, controller }, ref) => {
+const ToolbarItem: ForwardRefRenderFunction<ToolbarItemRef, ToolbarItemProps> = (
+  { actionMetadata, controller },
+  ref,
+) => {
   const forceUpdate = useForceUpdate();
   const { props, invoker, render } = actionMetadata;
   const overwrite = render ? render(controller) : null;

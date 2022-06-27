@@ -82,18 +82,14 @@ const App = () => {
         <div className="main">
           <div className="element-box">
             {mockSourceData.map((source) => (
-              <ComItem
-                key={source.label}
-                data={source.data}
-                dashboardRef={dashboardRef}
-              >
+              <ComItem key={source.label} data={source.data} dashboardRef={dashboardRef}>
                 {source.label}
               </ComItem>
             ))}
           </div>
           <div className="dashboard-box">
             <Dashboard
-              className='dashboard'
+              className="dashboard"
               ref={dashboardRef}
               enableMagnet={magnet}
               editable={editable}

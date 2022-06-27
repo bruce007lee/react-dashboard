@@ -16,12 +16,7 @@ export type ToastFC<T> = {
   show: (msg: ReactNode) => void;
 } & FC<T>;
 
-const Toast: ToastFC<ToastProps> = ({
-  onHide,
-  content,
-  animDuring = 500,
-  during = 2000,
-}) => {
+const Toast: ToastFC<ToastProps> = ({ onHide, content, animDuring = 500, during = 2000 }) => {
   const [visible, setVisible] = useState<boolean>(true);
   const [startHide, setStartHide] = useState<boolean>(false);
   useEffect(() => {
@@ -50,9 +45,7 @@ const Toast: ToastFC<ToastProps> = ({
   }
   return (
     <div className={sn('toast')}>
-      <div className={classNames('main', startHide ? 'hide' : null)}>
-        {content}
-      </div>
+      <div className={classNames('main', startHide ? 'hide' : null)}>{content}</div>
     </div>
   );
 };

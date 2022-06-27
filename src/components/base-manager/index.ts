@@ -66,6 +66,5 @@ export default abstract class BaseManager<P, T extends { [key: string]: any }> {
 
   find = (fn: (item: T, index: number) => boolean) => this.store.find(fn);
 
-  findByName = (name: string) =>
-    this.find((com) => !!name && com[this.getNameKey()] === name);
+  findByName = (name: string) => this.find((com) => !!name && com[this.getNameKey()] === name);
 }
