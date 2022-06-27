@@ -91,19 +91,17 @@ const App = () => {
               </ComItem>
             ))}
           </div>
-          <Dashboard
-            ref={dashboardRef}
-            style={{
-              height: 1000,
-              width: 800,
-              border: '1px solid green',
-            }}
-            enableMagnet={magnet}
-            editable={editable}
-            data={data}
-            actions={actionMetas}
-            components={materialMetas}
-          />
+          <div className="dashboard-box">
+            <Dashboard
+              className='dashboard'
+              ref={dashboardRef}
+              enableMagnet={magnet}
+              editable={editable}
+              data={data}
+              actions={actionMetas}
+              components={materialMetas}
+            />
+          </div>
         </div>
       </ElementsProvider>
     </div>

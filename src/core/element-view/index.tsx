@@ -7,7 +7,7 @@ import React, {
   useState,
   useImperativeHandle,
 } from 'react';
-import { RndLayer } from '../layers';
+import { RndLayer, ProxyLayer } from '../layers';
 import ElementToolbar from '../element-toolbar';
 import {
   useForceUpdate,
@@ -23,7 +23,6 @@ import {
 import { elementUtil, sn } from '../../utils';
 
 import './index.scss';
-import ProxyLayer from '../layers/proxy-layer';
 
 export interface ElementViewProps {
   containerRef: MutableRefObject<HTMLDivElement>;

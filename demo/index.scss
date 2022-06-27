@@ -10,6 +10,17 @@
         display: flex;
     }
 
+    .dashboard-box{
+        height: 1000px;
+        width: 800px;
+        overflow: hidden;
+        border: 1px solid green;
+        .dashboard{
+            height: 1000px;
+            width: 800px;
+        }
+    }
+
     .element-box{
         width: 120px;
         padding: 0 10px 0 0;

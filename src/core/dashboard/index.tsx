@@ -26,6 +26,8 @@ import { useForceUpdate } from '../../hooks';
 import ElementTarget from '../element-target';
 import { sn } from '../../utils';
 
+import './index.scss';
+
 export interface DashboardProps
   extends HTMLAttributes<HTMLDivElement>,
     DashBoardConfig {
@@ -145,8 +147,6 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
         {...others}
         className={classNames(sn('canvas'), className)}
         style={{
-          height: 100,
-          overflow: 'hidden',
           ...style,
           position: 'relative',
         }}
