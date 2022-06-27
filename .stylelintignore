@@ -5,3 +5,6 @@ demo/
 
 # node 覆盖率文件
 coverage/
+
+# 项目需要忽略的目录
+src/styles/icons/
