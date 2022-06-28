@@ -2,15 +2,19 @@ import { ComponentMetadata } from '../src/index';
 
 import { BarChart, PieChart } from './chart';
 
-const Item1 = ({ text = '内容', color }) => {
-  return <div style={{ color, wordBreak: 'break-all' }}>{text}</div>;
+const Item1 = ({ text = '内容', color, alignItems }) => {
+  return (
+    <div style={{ color, wordBreak: 'break-all', display: 'flex', alignItems, width: '100%', height: '100%' }}>
+      {text}
+    </div>
+  );
 };
 
-const Item2 = () => {
+const Item2 = ({ title = '标题', content = '内容' }) => {
   return (
-    <div>
-      <div style={{ backgroundColor: '#eee' }}>标题：</div>
-      <div>测试拖控内容</div>
+    <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
+      <div style={{ backgroundColor: '#eee' }}>{title}</div>
+      <div style={{ whiteSpace: 'pre' }}>{content}</div>
     </div>
   );
 };
@@ -30,6 +34,30 @@ const comMetas: ComponentMetadata[] = [
           name: 'text',
           setter: {
             componentName: 'StringSetter',
+          },
+        },
+        //位置
+        {
+          label: '竖直对齐',
+          name: 'alignItems',
+          setter: {
+            componentName: 'SelectSetter',
+            props: {
+              options: [
+                {
+                  label: '顶部',
+                  value: 'flex-start',
+                },
+                {
+                  label: '中间',
+                  value: 'center',
+                },
+                {
+                  label: '底部',
+                  value: 'flex-end',
+                },
+              ],
+            },
           },
         },
         //对应设置Item1的color属性
@@ -68,6 +96,22 @@ const comMetas: ComponentMetadata[] = [
     componentClass: Item2,
     configure: {
       extraToolbarActions: ['showInfo'],
+      props: [
+        {
+          label: '标题',
+          name: 'title',
+          setter: {
+            componentName: 'StringSetter',
+          },
+        },
+        {
+          label: '内容',
+          name: 'content',
+          setter: {
+            componentName: 'TextAreaSetter',
+          },
+        },
+      ],
     },
   },
   {

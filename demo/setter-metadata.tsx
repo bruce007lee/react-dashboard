@@ -17,6 +17,21 @@ const StringSetter: SetterRenderFunction = ({ fieldConfig, getValue, setValue })
 };
 
 /**
+ * string textarea类型设置器
+ */
+const TextAreaSetter: SetterRenderFunction = ({ fieldConfig, getValue, setValue }) => {
+  const value = getValue();
+  return (
+    <div className="setter-field">
+      <span className="label">{fieldConfig.label}</span>
+      <span className="detail">
+        <Input.TextArea value={value} onChange={(e) => setValue(e.target.value)} />
+      </span>
+    </div>
+  );
+};
+
+/**
  * string选单类型设置器
  */
 const SelectSetter: SetterRenderFunction<{ options: { label; value }[] } & ISetterProps> = ({
@@ -43,6 +58,10 @@ const setterMetas: SetterMetadata[] = [
   {
     componentName: 'StringSetter',
     componentClass: StringSetter,
+  },
+  {
+    componentName: 'TextAreaSetter',
+    componentClass: TextAreaSetter,
   },
   {
     componentName: 'SelectSetter',
