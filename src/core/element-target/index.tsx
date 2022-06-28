@@ -24,11 +24,11 @@ const ElementTarget: FC<ElementTargetProps> = ({ children, className, ...others 
       {...others}
       className={classNames(sn('dnd-target'), className)}
       accept={accept}
+      canDrop={(data: ElementSchema, monitor) => {
+        // 不可编辑时不能添加
+        return context.getConfig().editable;
+      }}
       onDrop={(data: ElementSchema, monitor) => {
-        if (!context.getConfig().editable) {
-          // 不可编辑时不能添加
-          return;
-        }
         const builder = context.getBuilder();
         const offset = monitor.getClientOffset();
         const ct = builder.getCanvasContainerRef().current;

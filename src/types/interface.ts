@@ -1,8 +1,9 @@
-import { MutableRefObject } from 'react';
+import { FC, MutableRefObject } from 'react';
 import type ActionManager from '../core/action-manager';
 import type ElementManager from '../core/element-manager';
 import type MaterialManager from '../core/material-manager';
-import type { DashBoardConfig, ElementSchema, ElementStatus } from './model';
+import type SetterManager from '../core/setter-manager';
+import type { DashBoardConfig, ElementSchema, ElementStatus, FieldConfig } from './model';
 
 export interface IDispatcher {
   updateView(): void;
@@ -34,6 +35,8 @@ export interface IRenderContext {
 export interface IElementController {
   getId(): string;
   getData(clone?: boolean): ElementSchema;
+  setData(data: ElementSchema): void;
+  setSelectd(selected: boolean): void;
   getStatus(): ElementStatus;
   setStatus(status: ElementStatus, options?: { replace?: boolean; updateView?: boolean }): void;
   getContext(): IRenderContext;
@@ -50,10 +53,11 @@ export interface IElementController {
  * 所有元素的渲染和控制器
  */
 export interface IElementsBuilder {
-  getCanvasContainerRef(): MutableRefObject<HTMLDivElement>;
+  getCanvasContainerRef(): MutableRefObject<HTMLElement>;
   getMaterialManager(): MaterialManager;
   getActionManager(): ActionManager;
   getElementManager(): ElementManager;
+  getSetterManager(): SetterManager;
   setData(data: ElementSchema[]): void;
   getData(clone?: boolean): ElementSchema[];
   getElements(): IElementController[];
@@ -64,3 +68,12 @@ export interface IElementsBuilder {
   addElements(elements: Array<IElementController | ElementSchema>): void;
   updateView(): void;
 }
+
+export interface ISetterProps {
+  setValue(val: any): void;
+  getValue(): any;
+  getDefaultValue(): any;
+  fieldConfig: FieldConfig;
+}
+
+export interface SetterRenderFunction<T extends ISetterProps = ISetterProps> extends FC<T> {}

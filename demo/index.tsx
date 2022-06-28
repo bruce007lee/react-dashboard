@@ -6,6 +6,8 @@ import materialMetas from './material-metadata';
 import { mockData, mockSourceData } from './mock';
 import Toast from '../src/components/toast';
 import ElementSource from '../src/core/element-source';
+import setterMetas from './setter-metadata';
+
 import './index.scss';
 
 const SAVE_KEY = '_demo_data_';
@@ -17,10 +19,9 @@ const save = (data) => {
   }
 };
 const load = () => {
-  
   try {
     const schema = localStorage.getItem(SAVE_KEY);
-    if(!schema){
+    if (!schema) {
       return null;
     }
     return JSON.parse(localStorage.getItem(SAVE_KEY) || '[]');
@@ -42,6 +43,7 @@ const App = () => {
   const [editable, setEditable] = useState(true);
   const [magnet, setMagnet] = useState(true);
   const [data, setData] = useState(load() || mockData);
+  const setterContainerRef = useRef<HTMLDivElement>(null);
   const dashboardRef = useRef<DashboardRef>(null);
 
   return (
@@ -96,12 +98,18 @@ const App = () => {
             <Dashboard
               className="dashboard"
               ref={dashboardRef}
+              setterContainerRef={setterContainerRef}
               enableMagnet={magnet}
               editable={editable}
               data={data}
               actions={actionMetas}
               components={materialMetas}
+              setters={setterMetas}
             />
+          </div>
+          <div className="setter-box">
+            <div className="box-section-title">属性设置</div>
+            <div className="setter-panel" ref={setterContainerRef} />
           </div>
         </div>
       </ElementsProvider>

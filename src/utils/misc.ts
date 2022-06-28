@@ -1,5 +1,6 @@
 import _cloneDeep from 'lodash/cloneDeep';
 import _set from 'lodash/set';
+import _get from 'lodash/get';
 import { prefix } from './variables';
 
 export const sn = (styleName) => `${prefix}-${styleName}`;
@@ -14,6 +15,7 @@ export const genId = () =>
 
 export const cloneDeep = _cloneDeep;
 export const set = _set;
+export const get = _get;
 
 /**
  *  比较2个对象指定的key值是否相同

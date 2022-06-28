@@ -9,13 +9,22 @@ import React, {
   useImperativeHandle,
   MutableRefObject,
   CSSProperties,
+  RefObject,
 } from 'react';
 import classNames from 'classnames';
-import { ComponentMetadata, ElementSchema, DashBoardConfig, ActionMetadata, IDispatcher } from '../../types';
+import {
+  ComponentMetadata,
+  ElementSchema,
+  DashBoardConfig,
+  ActionMetadata,
+  IDispatcher,
+  SetterMetadata,
+} from '../../types';
 import ElementsBuilder from '../elements-builder';
 import RenderContext, { RenderContextProvider } from '../render-context';
 import MaterialManager from '../material-manager';
 import ActionManager from '../action-manager';
+import SetterManager from '../setter-manager';
 import { useForceUpdate } from '../../hooks';
 import ElementTarget from '../element-target';
 import { sn } from '../../utils';
@@ -36,13 +45,17 @@ export interface DashboardProps extends HTMLAttributes<HTMLDivElement>, DashBoar
    */
   actions?: ActionMetadata[];
   /**
+   * 组件属性setter配置
+   */
+  setters?: SetterMetadata[];
+  /**
    * 默认显示的组件的toolbar功能
    */
   defaultToolbarActionNames?: string[];
   /**
    * 组件属性设置的面板容器
    */
-  setterContainerRef?: MutableRefObject<HTMLDivElement>;
+  setterContainerRef?: MutableRefObject<HTMLElement> | RefObject<HTMLElement>;
 }
 
 export type DashboardRef = {
@@ -61,6 +74,7 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
     data,
     components,
     actions,
+    setters,
     defaultToolbarActionNames,
     style,
     editable,
@@ -69,6 +83,7 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
     magnetThreshold = 10,
     dndAccept,
     className,
+    setterContainerRef,
     ...others
   },
   ref,
@@ -76,7 +91,7 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
   const forceUpdate = useForceUpdate();
   const [context] = useState<RenderContext>(() => new RenderContext());
   const [builder, setBuilder] = useState<ElementsBuilder>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const canvasContainerRef = useRef<HTMLDivElement>(null);
   context.setConfig({
     editable,
     enableMagnet,
@@ -98,18 +113,23 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
         actions,
         defaultToolbarActionNames,
       });
+      const setterManager = new SetterManager({
+        setters,
+      });
       const b = new ElementsBuilder({
         data,
         materialManager,
         actionManager,
+        setterManager,
         dispatcher,
-        containerRef,
+        canvasContainerRef,
+        setterContainerRef,
         context,
       });
       context.setBuilder(b);
       return b;
     },
-    [containerRef, context],
+    [canvasContainerRef, context],
   );
 
   useEffect(() => {
@@ -144,7 +164,7 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
         }}
       >
         <ElementTarget style={innerStyle}>
-          <div style={innerStyle} ref={containerRef}>
+          <div style={innerStyle} ref={canvasContainerRef}>
             {builder ? builder.render() : null}
           </div>
         </ElementTarget>

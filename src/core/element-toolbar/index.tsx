@@ -20,11 +20,11 @@ const ElementToolBar: ForwardRefRenderFunction<ElementToolBarRef, ElementToolBar
   const controller = useElementController();
   const actionManager = ctx.getBuilder().getActionManager();
   const defaultToolbarActionNames = actionManager.getDefaultToolbarActionNames();
-  const extraToolbarActions = componentMetadata.extraToolbarActions || [];
-  let { toolbarActions } = componentMetadata;
+  const configure = componentMetadata.configure || {};
+  let { toolbarActions, extraToolbarActions } = configure;
 
   if (!toolbarActions) {
-    toolbarActions = [].concat(extraToolbarActions, defaultToolbarActionNames);
+    toolbarActions = [].concat(extraToolbarActions || [], defaultToolbarActionNames);
   }
 
   const createItem = (item: ActionMetadata) => (

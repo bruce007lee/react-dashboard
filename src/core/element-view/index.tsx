@@ -6,6 +6,7 @@ import React, {
   MutableRefObject,
   useState,
   useImperativeHandle,
+  RefObject,
 } from 'react';
 import { RndLayer, ProxyLayer } from '../layers';
 import ElementToolbar from '../element-toolbar';
@@ -14,9 +15,11 @@ import { Bounds, ElementSchema, ComponentMetadata, ElementStatus } from '../../t
 import { elementUtil, sn } from '../../utils';
 
 import './index.scss';
+import SettersPanel from '../setters-panel';
 
 export interface ElementViewProps {
-  containerRef: MutableRefObject<HTMLDivElement>;
+  canvasContainerRef: MutableRefObject<HTMLElement> | RefObject<HTMLElement>;
+  setterContainerRef?: MutableRefObject<HTMLElement> | RefObject<HTMLElement>;
   style?: CSSProperties;
   componentMetadata: ComponentMetadata;
   data: ElementSchema;
@@ -41,7 +44,7 @@ export type ElementViewRef = {
 };
 
 const ElementView: ForwardRefRenderFunction<ElementViewRef, ElementViewProps> = (
-  { containerRef, style = {}, data, componentMetadata, onBoundsChange },
+  { canvasContainerRef, setterContainerRef, style = {}, data, componentMetadata, onBoundsChange },
   ref,
 ) => {
   const { componentName, props: comProps } = data;
@@ -105,10 +108,10 @@ const ElementView: ForwardRefRenderFunction<ElementViewRef, ElementViewProps> = 
       {Com ? <Com {...comProps} /> : <div>{`组件类型 [${componentName}] 不存在`}</div>}
       {editable ? (
         <>
-          <ProxyLayer containerRef={containerRef} bounds={bounds} />
+          <ProxyLayer containerRef={canvasContainerRef} bounds={bounds} />
           {status.locked ? null : (
             <RndLayer
-              containerRef={containerRef}
+              containerRef={canvasContainerRef}
               bounds={bounds}
               onBoundsChange={handleBoundsChange}
               onDragStart={() => setStatus({ dragging: true })}
@@ -120,6 +123,7 @@ const ElementView: ForwardRefRenderFunction<ElementViewRef, ElementViewProps> = 
           {status.hover ? <ElementToolbar componentMetadata={componentMetadata} /> : null}
         </>
       ) : null}
+      <SettersPanel containerRef={setterContainerRef} componentMetadata={componentMetadata} />
     </div>
   );
 };

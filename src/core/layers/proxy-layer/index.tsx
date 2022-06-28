@@ -17,7 +17,7 @@ const ProxyLayer: ForwardRefRenderFunction<ProxyLayerRef, ProxyLayerProps> = (
 ) => {
   const controller = useElementController();
   const status = controller.getStatus();
-  const { hover, dragging, resizing, locked } = status;
+  const { hover, dragging, resizing, locked, selected } = status;
 
   return containerRef.current
     ? createPortal(
@@ -26,6 +26,7 @@ const ProxyLayer: ForwardRefRenderFunction<ProxyLayerRef, ProxyLayerProps> = (
             sn('proxy-layer'),
             className,
             hover && !locked && !dragging && !resizing ? sn('proxy-layer-hover') : null,
+            selected ? sn('proxy-layer-selected') : null,
           )}
           style={{
             ...style,

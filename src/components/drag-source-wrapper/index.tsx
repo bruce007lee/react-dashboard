@@ -16,6 +16,9 @@ const DragSourceWrapper: ForwardRefRenderFunction<DragSourceWrapperRef, DragSour
 ) => {
   const [{ isDragging }, drag, dragPreview] = useDrag(() => ({
     type: accept,
+    options: {
+      dropEffect: 'copy',
+    },
     item: data,
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),

@@ -219,6 +219,10 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
     updateBounds(b);
   };
 
+  const handleSelected = () => {
+    controller.setSelectd(true);
+  };
+
   return containerRef.current
     ? createPortal(
         <>
@@ -288,6 +292,7 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
                 onResizeStop();
               }
             }}
+            onClick={handleSelected}
           />
         </>,
         containerRef.current,

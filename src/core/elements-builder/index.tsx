@@ -5,6 +5,7 @@ import RenderContext from '../render-context';
 import ElementController from '../element-controller';
 import ActionManager from '../action-manager';
 import ElementManager from '../element-manager';
+import SetterManager from '../setter-manager';
 import { cloneDeep } from '../../utils';
 
 export type ElementsBuilderProps = {
@@ -12,8 +13,10 @@ export type ElementsBuilderProps = {
   materialManager?: MaterialManager;
   actionManager?: ActionManager;
   elementManager?: ElementManager;
+  setterManager?: SetterManager;
   dispatcher?: IDispatcher;
-  containerRef: MutableRefObject<HTMLDivElement>;
+  canvasContainerRef: MutableRefObject<HTMLElement>;
+  setterContainerRef?: MutableRefObject<HTMLElement>;
   context: RenderContext;
 };
 
@@ -22,6 +25,7 @@ export default class ElementsBuilder implements IElementsBuilder {
   private elementManager: ElementManager;
   private materialManager: MaterialManager;
   private actionManager: ActionManager;
+  private setterManager: SetterManager;
   private dispatcher: IDispatcher;
 
   constructor(props: ElementsBuilderProps) {
@@ -29,6 +33,7 @@ export default class ElementsBuilder implements IElementsBuilder {
     this.materialManager = this.props.materialManager || new MaterialManager();
     this.actionManager = this.props.actionManager || new ActionManager();
     this.elementManager = this.props.elementManager || new ElementManager();
+    this.setterManager = this.props.setterManager || new SetterManager();
     this.dispatcher = this.props.dispatcher;
     this.setData(this.props.data);
   }
@@ -40,7 +45,7 @@ export default class ElementsBuilder implements IElementsBuilder {
     // console.log('[DEBUG]element change:', data.bounds);
   };
 
-  getCanvasContainerRef = (): MutableRefObject<HTMLDivElement> => this.props.containerRef;
+  getCanvasContainerRef = (): MutableRefObject<HTMLElement> => this.props.canvasContainerRef;
 
   getMaterialManager(): MaterialManager {
     return this.materialManager;
@@ -52,6 +57,10 @@ export default class ElementsBuilder implements IElementsBuilder {
 
   getElementManager(): ElementManager {
     return this.elementManager;
+  }
+
+  getSetterManager(): SetterManager {
+    return this.setterManager;
   }
 
   setDispatcher(dispacher: IDispatcher): void {
@@ -88,7 +97,8 @@ export default class ElementsBuilder implements IElementsBuilder {
       data: element,
       componentMetadata: this.materialManager.findByName(element.componentName),
       context: this.props.context,
-      containerRef: this.props.containerRef,
+      canvasContainerRef: this.props.canvasContainerRef,
+      setterContainerRef: this.props.setterContainerRef,
       onChange: this.handleElementChange,
     });
   };

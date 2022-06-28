@@ -43,6 +43,7 @@ export type ElementStatus = {
   resizing?: boolean;
   locked?: boolean;
   hover?: boolean;
+  selected?: boolean;
 };
 
 export type ElementProps = {
@@ -71,6 +72,49 @@ export type ElementSchema = {
 };
 
 /**
+ * toolbar上编辑按钮的配置定义
+ */
+export type ActionMetadata = {
+  actionName: string;
+  props?: ActionProps;
+  render?: (controller: IElementController) => ActionProps | void;
+  invoker?: (controller: IElementController) => void;
+};
+
+/**
+ * 组件属性设置器定义
+ */
+export type SetterMetadata = {
+  /**
+   * 组件名
+   */
+  componentName: string;
+  /**
+   * 组件实现react类
+   */
+  componentClass: ElementType;
+};
+
+/**
+ * field的setter属性配置
+ */
+export type SetterType = {
+  componentName: string;
+  props?: {
+    [key: string]: any;
+  };
+};
+
+/**
+ * 组件的属性编辑定义
+ */
+export type FieldConfig = {
+  label?: string;
+  name: string;
+  setter: SetterType;
+};
+
+/**
  * 物料元件的实体
  */
 export type ComponentMetadata = {
@@ -83,19 +127,24 @@ export type ComponentMetadata = {
    */
   componentClass: ElementType;
   /**
-   * 组件元素toolbar上的actions，对应ActionMetadata中的actionName
-   * 注意此配置会在默认的toolbarActions上添加，
-   * 如果要覆盖请用toolbarActions
+   * 设置
    */
-  extraToolbarActions?: string[];
-  /**
-   * 组件元素toolbar上的actions,会替换default配置
-   */
-  toolbarActions?: string[];
-  /**
-   * 默认组件参数
-   */
-  props?: { [key: string]: any };
+  configure?: {
+    /**
+     * 可编辑的属性定义
+     */
+    props?: FieldConfig[];
+    /**
+     * 组件元素toolbar上的actions，对应ActionMetadata中的actionName
+     * 注意此配置会在默认的toolbarActions上添加，
+     * 如果要覆盖请用toolbarActions
+     */
+    extraToolbarActions?: string[];
+    /**
+     * 组件元素toolbar上的actions,会替换default配置
+     */
+    toolbarActions?: string[];
+  };
 };
 
 export type ActionProps = {
@@ -103,14 +152,4 @@ export type ActionProps = {
   label?: string;
   tip?: string;
   iconType?: string;
-};
-
-/**
- * toolbar上编辑按钮的配置定义
- */
-export type ActionMetadata = {
-  actionName: string;
-  props?: ActionProps;
-  render?: (controller: IElementController) => ActionProps | void;
-  invoker?: (controller: IElementController) => void;
 };

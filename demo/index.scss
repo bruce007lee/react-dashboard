@@ -1,3 +1,6 @@
+//antd组件需要的样式
+@import '~antd/dist/antd.css';
+
 .demo {
   .button-bar {
     padding: 10px 0;
@@ -11,17 +14,16 @@
   }
 
   .dashboard-box {
-    height: 1000px;
-    width: 800px;
     overflow: hidden;
     border: 1px solid green;
     .dashboard {
-      height: 1000px;
+      height: 800px;
       width: 800px;
     }
   }
 
   .element-box {
+    flex-shrink: 0;
     width: 120px;
     padding: 0 10px 0 0;
     .element-item {
@@ -29,6 +31,37 @@
       padding: 10px 0;
       text-align: center;
       margin-bottom: 10px;
+    }
+  }
+
+  .setter-box {
+    flex-shrink: 0;
+    border: 1px solid #666;
+    width: 220px;
+    margin-left: 10px;
+    .box-section-title {
+      padding: 10px;
+      background-color: #eee;
+      font-size: 13px;
+      text-align: center;
+    }
+  }
+
+  .setter-field {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    padding: 5px 10px;
+    .label {
+      white-space: nowrap;
+      padding-right: 10px;
+    }
+
+    .detail {
+      flex: 1;
+      .fill {
+        width: 100%;
+      }
     }
   }
 }

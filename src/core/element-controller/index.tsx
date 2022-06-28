@@ -5,7 +5,8 @@ import ElementView, { ElementViewRef } from '../element-view';
 import RenderContext from '../render-context';
 
 export type ElementControllerProps = {
-  containerRef: MutableRefObject<HTMLDivElement>;
+  canvasContainerRef: MutableRefObject<HTMLElement>;
+  setterContainerRef: MutableRefObject<HTMLElement>;
   componentMetadata: ComponentMetadata;
   data: ElementSchema;
   onChange?: (data: ElementSchema) => void;
@@ -49,7 +50,15 @@ export default class ElementController implements IElementController {
   }
 
   getData(clone: boolean = true): ElementSchema {
-    return cloneDeep(this.data);
+    if (clone) {
+      return cloneDeep(this.data);
+    }
+    return this.data;
+  }
+
+  setData(data: ElementSchema): void {
+    this.data = data;
+    this.updateView();
   }
 
   getStatus(): ElementStatus {
@@ -69,6 +78,27 @@ export default class ElementController implements IElementController {
     }
     if (options.updateView) {
       this.updateView();
+    }
+  }
+
+  setSelectd(selected: boolean): void {
+    if (selected && !this.getStatus().selected) {
+      // 先反选其他
+      this.getContext()
+        .getBuilder()
+        .getElements()
+        .forEach((item) => {
+          item.setStatus({
+            selected: false,
+          });
+        });
+      this.setStatus({
+        selected: true,
+      });
+    } else if (!selected && this.getStatus().selected) {
+      this.setStatus({
+        selected: false,
+      });
     }
   }
 
@@ -109,12 +139,13 @@ export default class ElementController implements IElementController {
   };
 
   render(): ReactNode {
-    const { containerRef, data, componentMetadata } = this.props;
+    const { canvasContainerRef, setterContainerRef, data, componentMetadata } = this.props;
     return (
       <ElementContext.Provider key={`element-${this.id}`} value={this}>
         <ElementView
           ref={this.viewRef}
-          containerRef={containerRef}
+          canvasContainerRef={canvasContainerRef}
+          setterContainerRef={setterContainerRef}
           data={data}
           componentMetadata={componentMetadata}
           onBoundsChange={this.handleBoundsChange}
