@@ -1,6 +1,6 @@
 import { ComponentMetadata } from '../src/index';
 
-import DemoChart from './chart';
+import { BarChart, PieChart } from './chart';
 
 const Item1 = ({ text = '内容', color }) => {
   return <div style={{ color, wordBreak: 'break-all' }}>{text}</div>;
@@ -71,8 +71,23 @@ const comMetas: ComponentMetadata[] = [
     },
   },
   {
-    componentName: 'Chart',
-    componentClass: DemoChart,
+    componentName: 'BarChart',
+    componentClass: BarChart,
+  },
+  {
+    componentName: 'PieChart',
+    componentClass: PieChart,
+    configure: {
+      props: [
+        {
+          label: '文本',
+          name: 'title',
+          setter: {
+            componentName: 'StringSetter',
+          },
+        },
+      ],
+    },
   },
 ];
 

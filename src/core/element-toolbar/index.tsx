@@ -20,7 +20,7 @@ const ElementToolBar: ForwardRefRenderFunction<ElementToolBarRef, ElementToolBar
   const controller = useElementController();
   const actionManager = ctx.getBuilder().getActionManager();
   const defaultToolbarActionNames = actionManager.getDefaultToolbarActionNames();
-  const configure = componentMetadata.configure || {};
+  const configure = componentMetadata?.configure || {};
   let { toolbarActions, extraToolbarActions } = configure;
 
   if (!toolbarActions) {

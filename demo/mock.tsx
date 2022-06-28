@@ -29,7 +29,7 @@ export const mockData: ElementSchema[] = [
     },
   },
   {
-    componentName: 'Chart',
+    componentName: 'BarChart',
     props: {},
     elementProps: {
       bounds: {
@@ -51,7 +51,23 @@ export const mockSourceData: ElementSourceSchema[] = [
   {
     label: '柱状图',
     data: {
-      componentName: 'Chart',
+      componentName: 'BarChart',
+      props: {},
+      elementProps: {
+        bounds: {
+          x: 100,
+          y: 100,
+          width: 400,
+          height: 300,
+        },
+      },
+    },
+  },
+
+  {
+    label: '环状图',
+    data: {
+      componentName: 'PieChart',
       props: {},
       elementProps: {
         bounds: {
