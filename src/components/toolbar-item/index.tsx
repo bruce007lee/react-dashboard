@@ -16,7 +16,7 @@ export type ToolbarItemRef = {};
 const DefaultItem: FC<ToolbarItemProps> = ({ iconType, tip, label }) => {
   return (
     <div className={sn('toolbar-item-default')} title={tip}>
-      <Icon type={iconType} />
+      <Icon type={iconType} className="toolbar-item-icon" />
       {label ? <span className="toolbar-item-label">{label}</span> : null}
     </div>
   );

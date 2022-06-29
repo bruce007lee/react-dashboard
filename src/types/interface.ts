@@ -3,7 +3,7 @@ import type ActionManager from '../core/action-manager';
 import type ElementManager from '../core/element-manager';
 import type MaterialManager from '../core/material-manager';
 import type SetterManager from '../core/setter-manager';
-import type { DashBoardConfig, ElementSchema, ElementStatus, FieldConfig } from './model';
+import type { ComponentMetadata, DashBoardConfig, ElementSchema, ElementStatus, FieldConfig } from './model';
 
 export interface IDispatcher {
   updateView(): void;
@@ -34,6 +34,7 @@ export interface IRenderContext {
  */
 export interface IElementController {
   getId(): string;
+  getComponentMetadata(): ComponentMetadata;
   getData(clone?: boolean): ElementSchema;
   setData(data: ElementSchema): void;
   setSelectd(selected: boolean): void;
@@ -47,6 +48,21 @@ export interface IElementController {
   moveToFirst(): void;
   moveToLast(): void;
   moveTo(index: number);
+}
+
+export interface IElementLifecycle {
+  /**
+   * 在添加组件drop时触发，返回false不添加
+   */
+  onBeforeDrop?: (data: ElementSchema, ctx: IRenderContext) => boolean;
+  /**
+   * 在添加组件drop后触发
+   */
+  onDrop?: (element: IElementController, data: ElementSchema, ctx: IRenderContext) => void;
+  /**
+   * 组件属性改变时触发
+   */
+  onChange?: (element: IElementController, propsType: string, ctx: IRenderContext) => void;
 }
 
 /**
@@ -64,8 +80,8 @@ export interface IElementsBuilder {
   schemaToElement(element: ElementSchema): IElementController;
   removeElement(element: IElementController): void;
   removeElements(elements: IElementController[]): void;
-  addElement(element: IElementController | ElementSchema): void;
-  addElements(elements: Array<IElementController | ElementSchema>): void;
+  addElement(element: IElementController | ElementSchema): IElementController;
+  addElements(elements: Array<IElementController | ElementSchema>): IElementController[];
   updateView(): void;
 }
 

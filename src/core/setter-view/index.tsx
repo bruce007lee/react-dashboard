@@ -1,7 +1,7 @@
 import { ForwardRefRenderFunction, forwardRef } from 'react';
 import { useElementController, useForceUpdate, useRenderContext } from '../../hooks';
 import { FieldConfig, ISetterProps } from '../../types';
-import { set, get } from '../../utils';
+import { set, get, elementUtil } from '../../utils';
 
 export type SetterViewProps = {
   fieldConfig: FieldConfig;
@@ -11,8 +11,7 @@ export type SetterViewRef = {};
 
 const SetterView: ForwardRefRenderFunction<SetterViewRef, SetterViewProps> = ({ fieldConfig }, ref) => {
   const ctx = useRenderContext();
-  const elementController = useElementController();
-  const forceUpdate = useForceUpdate();
+  const controller = useElementController();
   if (!fieldConfig?.setter) {
     return null;
   }
@@ -30,15 +29,21 @@ const SetterView: ForwardRefRenderFunction<SetterViewRef, SetterViewProps> = ({ 
     setValue(val) {
       const fname = fieldConfig.name;
       if (fname) {
-        const data = elementController.getData(false);
-        set(data, `props.${fname}`, val);
-        elementController.setData(data);
+        const data = controller.getData(false);
+        const path = `props.${fname}`;
+        set(data, path, val);
+        controller.setData(data);
+        // handle lifecycle event
+        const lifecycle = elementUtil.getLifecycle(controller.getComponentMetadata());
+        if (lifecycle.onChange) {
+          lifecycle.onChange(this, path, ctx);
+        }
       }
     },
     getValue() {
       const fname = fieldConfig.name;
       if (fname) {
-        const data = elementController.getData(false);
+        const data = controller.getData(false);
         return get(data, `props.${fname}`);
       }
     },

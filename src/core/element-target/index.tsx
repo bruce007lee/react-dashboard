@@ -30,6 +30,15 @@ const ElementTarget: FC<ElementTargetProps> = ({ children, className, ...others 
       }}
       onDrop={(data: ElementSchema, monitor) => {
         const builder = context.getBuilder();
+
+        // handle beforeDrop lifecycle event
+        const meta = builder.getMaterialManager().findByName(data.componentName);
+        const lifecycle = elementUtil.getLifecycle(meta);
+
+        if (lifecycle.onBeforeDrop && lifecycle.onBeforeDrop(data, context) === false) {
+          return;
+        }
+
         const offset = monitor.getClientOffset();
         const ct = builder.getCanvasContainerRef().current;
         const rect = ct.getBoundingClientRect();
@@ -39,7 +48,12 @@ const ElementTarget: FC<ElementTargetProps> = ({ children, className, ...others 
           x: Math.round(offset.x - rect.left),
           y: Math.round(offset.y - rect.top),
         });
-        builder.addElement(data);
+        const elc = builder.addElement(data);
+
+        // handle drop lifecycle event
+        if (lifecycle.onDrop) {
+          lifecycle.onDrop(elc, data, context);
+        }
       }}
     >
       {children}

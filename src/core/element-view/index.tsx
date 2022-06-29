@@ -120,7 +120,7 @@ const ElementView: ForwardRefRenderFunction<ElementViewRef, ElementViewProps> = 
               onResizeStop={() => setStatus({ resizing: false })}
             />
           )}
-          {status.hover ? <ElementToolbar componentMetadata={componentMetadata} /> : null}
+          {status.hover || true ? <ElementToolbar componentMetadata={componentMetadata} /> : null}
         </>
       ) : null}
       <SettersPanel containerRef={setterContainerRef} componentMetadata={componentMetadata} />

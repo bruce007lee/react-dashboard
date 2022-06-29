@@ -38,13 +38,6 @@ export default class ElementsBuilder implements IElementsBuilder {
     this.setData(this.props.data);
   }
 
-  /**
-   * @TODO: support lifecycle
-   */
-  handleElementChange = (data: ElementSchema) => {
-    // console.log('[DEBUG]element change:', data.bounds);
-  };
-
   getCanvasContainerRef = (): MutableRefObject<HTMLElement> => this.props.canvasContainerRef;
 
   getMaterialManager(): MaterialManager {
@@ -99,7 +92,6 @@ export default class ElementsBuilder implements IElementsBuilder {
       context: this.props.context,
       canvasContainerRef: this.props.canvasContainerRef,
       setterContainerRef: this.props.setterContainerRef,
-      onChange: this.handleElementChange,
     });
   };
 
@@ -114,21 +106,26 @@ export default class ElementsBuilder implements IElementsBuilder {
     this.updateView();
   }
 
-  addElement(element: IElementController | ElementSchema): void {
-    this.addElements([element]);
+  addElement(element: IElementController | ElementSchema): IElementController {
+    return this.addElements([element])[0];
   }
 
-  addElements(elements: Array<IElementController | ElementSchema>): void {
+  addElements(elements: Array<IElementController | ElementSchema>): IElementController[] {
+    const rs = [];
     if (elements) {
       elements.forEach((el) => {
         if (el instanceof ElementController) {
+          rs.push(el);
           this.elementManager.add(el);
         } else {
-          this.elementManager.add(this.schemaToElement(el as ElementSchema));
+          const elc = this.schemaToElement(el as ElementSchema);
+          rs.push(elc);
+          this.elementManager.add(elc);
         }
       });
     }
     this.updateView();
+    return rs;
   }
 
   createElementView = (element: IElementController): ReactNode => (element as ElementController).render();

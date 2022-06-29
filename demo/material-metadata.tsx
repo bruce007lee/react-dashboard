@@ -1,5 +1,5 @@
 import { ComponentMetadata } from '../src/index';
-
+import Toast from '../src/components/toast';
 import { BarChart, PieChart } from './chart';
 
 const Item1 = ({ text = '内容', color, alignItems }) => {
@@ -131,6 +131,16 @@ const comMetas: ComponentMetadata[] = [
           },
         },
       ],
+      lifecycle: {
+        onBeforeDrop: (data, ctx) => {
+          // 这里限制只能加1个
+          if (ctx.getElements().find((item) => item.getData(false).componentName === 'PieChart')) {
+            Toast.show('环图最多只能添加一个');
+            return false;
+          }
+          return true;
+        },
+      },
     },
   },
 ];

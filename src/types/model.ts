@@ -1,5 +1,5 @@
 import { ElementType } from 'react';
-import type { IElementController } from './interface';
+import type { IElementController, IElementLifecycle } from './interface';
 
 /**
  * 上下文中的全局设置类参数
@@ -144,6 +144,10 @@ export type ComponentMetadata = {
      * 组件元素toolbar上的actions,会替换default配置
      */
     toolbarActions?: string[];
+    /**
+     * 生命周期事件
+     */
+    lifecycle?: IElementLifecycle;
   };
 };
 

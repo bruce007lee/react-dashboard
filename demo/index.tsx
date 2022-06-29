@@ -7,6 +7,7 @@ import { mockData, mockSourceData } from './mock';
 import Toast from '../src/components/toast';
 import ElementSource from '../src/core/element-source';
 import setterMetas from './setter-metadata';
+import JSONDialog from './json-dialog';
 
 import './index.scss';
 
@@ -66,10 +67,25 @@ const App = () => {
           </Button>
           <Button
             onClick={() => {
-              console.log('schema data:', dashboardRef.current?.getEditData());
+              const json = dashboardRef.current?.getEditData();
+              console.log('schema data:', json);
+              JSONDialog.show({
+                jsonString: JSON.stringify(json, null, 2),
+                onOk: (val) => {
+                  let rs = null;
+                  try {
+                    rs = JSON.parse(val);
+                  } catch (e) {
+                    Toast.show('应用数据错误：' + e.message);
+                  }
+                  if (Array.isArray(rs)) {
+                    setData(rs);
+                  }
+                },
+              });
             }}
           >
-            获取schema数据
+            设置schema数据
           </Button>
           <Button
             onClick={() => {

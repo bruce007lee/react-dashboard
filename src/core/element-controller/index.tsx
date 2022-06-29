@@ -9,7 +9,6 @@ export type ElementControllerProps = {
   setterContainerRef: MutableRefObject<HTMLElement>;
   componentMetadata: ComponentMetadata;
   data: ElementSchema;
-  onChange?: (data: ElementSchema) => void;
   context: RenderContext;
 };
 
@@ -31,7 +30,7 @@ export default class ElementController implements IElementController {
   private status: ElementStatus;
   private viewRef: RefObject<ElementViewRef>;
   private context: RenderContext;
-  id = genId();
+  private id = genId();
   constructor(props: ElementControllerProps) {
     this.props = props;
     this.data = { ...props.data };
@@ -130,11 +129,15 @@ export default class ElementController implements IElementController {
     elementUtil.moveTo(this, index);
   }
 
+  getComponentMetadata(): ComponentMetadata {
+    return this.props.componentMetadata;
+  }
+
   private handleBoundsChange = (bounds: Bounds): void => {
-    const { onChange } = this.props;
     elementUtil.setBounds(this.data, bounds);
-    if (onChange) {
-      onChange(this.getData());
+    const lifecycle = elementUtil.getLifecycle(this.getComponentMetadata());
+    if (lifecycle.onChange) {
+      lifecycle.onChange(this, 'elementProps.bounds', this.context);
     }
   };
 

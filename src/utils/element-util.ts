@@ -1,5 +1,5 @@
 import ElementController from '../core/element-controller';
-import { Bounds, ElementSchema } from '../types';
+import { Bounds, ComponentMetadata, ElementSchema, IElementLifecycle } from '../types';
 import { set } from './misc';
 
 export default {
@@ -51,5 +51,9 @@ export default {
     const builder = controller.getContext().getBuilder();
     const manager = builder.getElementManager();
     this.moveTo(controller, manager.getAll().length, updateView);
+  },
+
+  getLifecycle(componentMetadata: ComponentMetadata): IElementLifecycle {
+    return componentMetadata?.configure?.lifecycle || {};
   },
 };
