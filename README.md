@@ -1,9 +1,10 @@
-[![npm version](https://img.shields.io/npm/v/smart-dashboard.svg?style=flat-square)](https://www.npmjs.com/package/smart-dashboard)
 # smart-dashboard
+
+[![npm version](https://img.shields.io/npm/v/smart-dashboard.svg?style=flat-square)](https://www.npmjs.com/package/smart-dashboard)
 
 ## 介绍
 
-react实现的dashboard看板
+基于react实现的dashboard看板引擎
 
 ## 功能
 

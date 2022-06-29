@@ -34,14 +34,15 @@
     "react-rnd": "^10.3.7"
   },
   "devDependencies": {
-    "@alib/build-scripts": "^0.1.0",
-    "@ant-design/plots": "^1.0.9",
+    "jest": "^26.4.2",
+    "webpack": "^4.27.1",
+    "webpack-dev-server": "^3.7.2",
+    "build-scripts": "^1.0.0",
     "@iceworks/spec": "^1.6.0",
     "@types/classnames": "^2.2.9",
     "@types/react": "^16.8.17",
     "@types/react-dom": "^16.8.4",
-    "antd": "^4.21.4",
-    "build-plugin-component": "^1.0.0",
+    "build-plugin-component": "^1.6.5",
     "build-plugin-fusion": "^0.1.0",
     "build-plugin-moment-locales": "^0.1.0",
     "eslint": "^8.18.0",
@@ -52,7 +53,9 @@
     "stylelint": "^14.9.1",
     "typedoc": "~0.20.25",
     "typedoc-plugin-markdown": "~3.5.0",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.5",
+    "@ant-design/plots": "^1.0.9",
+    "antd": "^4.21.4"
   },
   "files": [
     "/lib",
