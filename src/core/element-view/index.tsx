@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React, {
   ForwardRefRenderFunction,
   forwardRef,
@@ -8,6 +7,7 @@ import React, {
   useImperativeHandle,
   RefObject,
 } from 'react';
+import classNames from 'classnames';
 import { RndLayer, ProxyLayer } from '../layers';
 import ElementToolbar from '../element-toolbar';
 import { useForceUpdate, useRenderContext, useElementController } from '../../hooks';
@@ -87,44 +87,46 @@ const ElementView: ForwardRefRenderFunction<ElementViewRef, ElementViewProps> = 
   };
 
   return (
-    <div
-      className={classNames(
-        sn('element-view'),
-        editable ? sn('element-view-editable') : null,
-        hover && editable && !locked && !dragging && !resizing ? sn('element-view-hover') : null,
-        dragging ? sn('element-view-dragging') : null,
-        resizing ? sn('element-view-resizing') : null,
-      )}
-      style={{
-        ...othersStyle,
-        width: bounds.width,
-        height: bounds.height,
-        left: bounds.x,
-        top: bounds.y,
-      }}
-      onMouseEnter={() => setStatus({ hover: true })}
-      onMouseLeave={() => setStatus({ hover: false })}
-    >
-      {Com ? <Com {...comProps} /> : <div>{`组件类型 [${componentName}] 不存在`}</div>}
-      {editable ? (
-        <>
-          <ProxyLayer containerRef={canvasContainerRef} bounds={bounds} />
-          {status.locked ? null : (
-            <RndLayer
-              containerRef={canvasContainerRef}
-              bounds={bounds}
-              onBoundsChange={handleBoundsChange}
-              onDragStart={() => setStatus({ dragging: true })}
-              onDragStop={() => setStatus({ dragging: false })}
-              onResizeStart={() => setStatus({ resizing: true })}
-              onResizeStop={() => setStatus({ resizing: false })}
-            />
-          )}
-          {status.hover ? <ElementToolbar componentMetadata={componentMetadata} /> : null}
-        </>
-      ) : null}
+    <>
+      <div
+        className={classNames(
+          sn('element-view'),
+          editable ? sn('element-view-editable') : null,
+          hover && editable && !locked && !dragging && !resizing ? sn('element-view-hover') : null,
+          dragging ? sn('element-view-dragging') : null,
+          resizing ? sn('element-view-resizing') : null,
+        )}
+        style={{
+          ...othersStyle,
+          width: bounds.width,
+          height: bounds.height,
+          left: bounds.x,
+          top: bounds.y,
+        }}
+        onMouseEnter={() => setStatus({ hover: true })}
+        onMouseLeave={() => setStatus({ hover: false })}
+      >
+        {Com ? <Com {...comProps} /> : <div>{`组件类型 [${componentName}] 不存在`}</div>}
+        {editable ? (
+          <>
+            <ProxyLayer containerRef={canvasContainerRef} bounds={bounds} />
+            {status.locked ? null : (
+              <RndLayer
+                containerRef={canvasContainerRef}
+                bounds={bounds}
+                onBoundsChange={handleBoundsChange}
+                onDragStart={() => setStatus({ dragging: true })}
+                onDragStop={() => setStatus({ dragging: false })}
+                onResizeStart={() => setStatus({ resizing: true })}
+                onResizeStop={() => setStatus({ resizing: false })}
+              />
+            )}
+            {status.hover ? <ElementToolbar componentMetadata={componentMetadata} /> : null}
+          </>
+        ) : null}
+      </div>
       <SettersPanel containerRef={setterContainerRef} componentMetadata={componentMetadata} />
-    </div>
+    </>
   );
 };
 

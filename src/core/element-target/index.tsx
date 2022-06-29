@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes } from 'react';
+import React, { FC, HTMLAttributes } from 'react';
 import classNames from 'classnames';
 import DropTargetWrapper from '../../components/drop-target-wrapper';
 import { useElementsProviderContext, useRenderContext } from '../../hooks';

@@ -2,8 +2,7 @@
   "compilerOptions": {
     "module": "esNext",
     "target": "es2015",
-    "jsx": "preserve",
-    "jsxFactory": "createElement",
+    "jsx": "react-jsx",
     "moduleResolution": "node",
     "alwaysStrict": true,
     "sourceMap": false,
@@ -22,10 +21,8 @@
     "outDir": "lib",
     "rootDir": "src",
     "baseUrl": ".",
-    "typeRoots": ["node_modules/@rax-types", "node_modules/@types"],
-    "paths": {
-      "rax": ["node_modules/@rax-types/rax"]
-    }
+    "typeRoots": ["node_modules/@types"],
+    "paths": {}
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "lib"]

@@ -1,9 +1,9 @@
-import { ForwardRefRenderFunction, forwardRef, useState } from 'react';
+import React, { ForwardRefRenderFunction, forwardRef } from 'react';
 import classNames from 'classnames';
 import { createPortal } from 'react-dom';
 import { BaseLayerProps } from '../base-layer';
 import { sn } from '../../../utils';
-import { useElementController, useRenderContext } from '../../../hooks';
+import { useElementController } from '../../../hooks';
 
 import './index.scss';
 

@@ -1,4 +1,4 @@
-import { FC, createContext, useContext } from 'react';
+import React, { FC, createContext, useContext } from 'react';
 import { ElementSchema, DashBoardConfig, IElementsBuilder, IElementController, IRenderContext } from '../../types';
 
 export type RenderContextProps = {

@@ -1,4 +1,4 @@
-import { createContext, useContext, MutableRefObject, ReactNode, createRef, RefObject } from 'react';
+import React, { createContext, useContext, MutableRefObject, ReactNode, createRef, RefObject } from 'react';
 import { Bounds, ElementSchema, ComponentMetadata, ElementStatus, IElementController } from '../../types';
 import { cloneDeep, elementUtil, genId } from '../../utils';
 import ElementView, { ElementViewRef } from '../element-view';

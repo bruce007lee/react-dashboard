@@ -1,4 +1,4 @@
-import { ForwardRefRenderFunction, forwardRef, useState } from 'react';
+import React, { ForwardRefRenderFunction, forwardRef, useState } from 'react';
 import ToolbarItem from '../../components/toolbar-item';
 import { ActionMetadata, ComponentMetadata } from '../../types';
 import { sn } from '../../utils';

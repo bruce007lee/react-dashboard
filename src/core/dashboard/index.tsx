@@ -129,7 +129,7 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
       context.setBuilder(b);
       return b;
     },
-    [canvasContainerRef, context],
+    [canvasContainerRef, setterContainerRef, context],
   );
 
   useEffect(() => {

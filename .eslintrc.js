@@ -13,6 +13,8 @@ module.exports = getESLintConfig('react-ts', {
     '@typescript-eslint/consistent-type-definitions': 'off',
     '@typescript-eslint/no-inferrable-types': 'off',
     'prefer-const': 'warn',
+    "react/jsx-uses-react": "error",
+    "react/react-in-jsx-scope": "error",
     'react/no-unused-prop-types': 'warn',
     '@typescript-eslint/no-shadow': 'off',
   },

@@ -1,5 +1,5 @@
+import React, { CSSProperties, FC } from 'react';
 import classNames from 'classnames';
-import { CSSProperties, FC } from 'react';
 import { sn } from '../../utils';
 import './index.scss';
 

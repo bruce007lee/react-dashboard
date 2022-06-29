@@ -1,7 +1,8 @@
-import { ForwardRefRenderFunction, forwardRef, MutableRefObject, RefObject } from 'react';
+import React, { ForwardRefRenderFunction, forwardRef, MutableRefObject, RefObject } from 'react';
 import { createPortal } from 'react-dom';
 import { ComponentMetadata, FieldConfig } from '../../types';
 import { useElementController } from '../element-controller';
+import { useRenderContext } from '../render-context';
 import SetterView from '../setter-view';
 
 export type SettersPanelProps = {
@@ -16,13 +17,14 @@ const SettersPanel: ForwardRefRenderFunction<SettersPanelRef, SettersPanelProps>
   ref,
 ) => {
   const fieldsProps = componentMetadata?.configure?.props || [];
-  const elementController = useElementController();
+  const ctx = useRenderContext();
+  const controller = useElementController();
 
   const createSetterView = (fieldConfig: FieldConfig, idx: number) => {
-    return <SetterView key={`setter-view-${elementController.getId()}-${idx}`} fieldConfig={fieldConfig} />;
+    return <SetterView key={`setter-view-${controller.getId()}-${idx}`} fieldConfig={fieldConfig} />;
   };
 
-  if (!elementController.getStatus().selected) {
+  if (!controller.getStatus().selected || !ctx.getEditable()) {
     return null;
   }
 

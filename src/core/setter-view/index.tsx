@@ -1,5 +1,5 @@
-import { ForwardRefRenderFunction, forwardRef } from 'react';
-import { useElementController, useForceUpdate, useRenderContext } from '../../hooks';
+import React, { ForwardRefRenderFunction, forwardRef } from 'react';
+import { useElementController, useRenderContext } from '../../hooks';
 import { FieldConfig, ISetterProps } from '../../types';
 import { set, get, elementUtil } from '../../utils';
 

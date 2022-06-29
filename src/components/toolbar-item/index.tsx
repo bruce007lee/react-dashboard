@@ -1,4 +1,4 @@
-import { ForwardRefRenderFunction, forwardRef, FC } from 'react';
+import React, { ForwardRefRenderFunction, forwardRef, FC } from 'react';
 import { useForceUpdate } from '../../hooks';
 import { ActionMetadata, ActionProps, IElementController } from '../../types';
 import { sn } from '../../utils';

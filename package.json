@@ -1,6 +1,6 @@
 {
   "name": "smart-dashboard",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "A react base dashboard engine",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -54,7 +54,7 @@
     "stylelint": "^14.9.1",
     "typedoc": "~0.20.25",
     "typedoc-plugin-markdown": "~3.5.0",
-    "typescript": "^3.7.5",
+    "typescript": "^4.1.6",
     "@ant-design/plots": "^1.0.9",
     "antd": "^4.21.4"
   },
@@ -63,5 +63,5 @@
     "/es",
     "/build"
   ],
-  "homepage": "https://unpkg.com/smart-dashboard@0.1.8/build/index.html"
+  "homepage": "https://unpkg.com/smart-dashboard@0.1.9/build/index.html"
 }

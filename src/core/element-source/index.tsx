@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes } from 'react';
+import React, { FC, HTMLAttributes } from 'react';
 import classNames from 'classnames';
 import DragSourceWrapper from '../../components/drag-source-wrapper';
 import { useElementsProviderContext } from '../../hooks';

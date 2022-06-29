@@ -1,4 +1,4 @@
-import { ReactNode, MutableRefObject } from 'react';
+import React, { ReactNode, MutableRefObject } from 'react';
 import { ElementSchema, IDispatcher, IElementController, IElementsBuilder } from '../../types';
 import MaterialManager from '../material-manager';
 import RenderContext from '../render-context';

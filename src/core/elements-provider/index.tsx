@@ -1,4 +1,4 @@
-import { ForwardRefRenderFunction, forwardRef, ReactNode, createContext, useContext, useMemo } from 'react';
+import React, { ForwardRefRenderFunction, forwardRef, ReactNode, createContext, useContext, useMemo } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { IElementsProviderContext } from '../../types';
