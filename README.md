@@ -1,3 +1,4 @@
+[![npm version](https://img.shields.io/npm/v/smart-dashboard.svg?style=flat-square)](https://www.npmjs.com/package/smart-dashboard)
 # smart-dashboard
 
 ## 介绍
