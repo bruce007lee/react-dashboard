@@ -7,6 +7,8 @@ import { mockData, mockSourceData } from './mock';
 import setterMetas from './setter-metadata';
 import JSONDialog from './json-dialog';
 
+// antd依赖样式
+import 'antd/dist/antd.css';
 import './index.scss';
 
 const SAVE_KEY = '_demo_data_';
