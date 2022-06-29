@@ -9,7 +9,7 @@
     "doc": "typedoc --options typedoc.json",
     "start": "build-scripts start",
     "build": "build-scripts build",
-    "publish": "npm run lint && npm publish",
+    "prepublishOnly": "npm run lint",
     "lint": "npm run eslint && npm run stylelint",
     "lint:fix": "npm run eslint:fix && npm run stylelint",
     "eslint": "eslint --cache --ext .js,.jsx,.tsx,.ts ./",
