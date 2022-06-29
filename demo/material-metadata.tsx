@@ -1,5 +1,4 @@
-import { ComponentMetadata } from '../src/index';
-import Toast from '../src/components/toast';
+import { ComponentMetadata, Toast } from '../src/index';
 import { BarChart, PieChart } from './chart';
 
 const Item1 = ({ text = '内容', color, alignItems }) => {

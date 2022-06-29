@@ -1,11 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { Button } from 'antd';
-import Dashboard, { DashboardRef, ElementsProvider } from '../src/index';
+import Dashboard, { Toast, DashboardRef, ElementsProvider, ElementSource } from '../src/index';
 import actionMetas from './action-metadata';
 import materialMetas from './material-metadata';
 import { mockData, mockSourceData } from './mock';
-import Toast from '../src/components/toast';
-import ElementSource from '../src/core/element-source';
 import setterMetas from './setter-metadata';
 import JSONDialog from './json-dialog';
 
