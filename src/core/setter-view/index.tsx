@@ -48,8 +48,7 @@ const SetterView: ForwardRefRenderFunction<SetterViewRef, SetterViewProps> = ({ 
       }
     },
     getDefaultValue() {
-      // @TODO
-      return null;
+      return fieldConfig?.setter?.defaultValue;
     },
   };
 

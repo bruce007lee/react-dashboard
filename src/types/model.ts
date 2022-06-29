@@ -99,10 +99,20 @@ export type SetterMetadata = {
  * field的setter属性配置
  */
 export type SetterType = {
+  /**
+   * 对用的setter组件名
+   */
   componentName: string;
+  /**
+   * setter组件的属性props
+   */
   props?: {
     [key: string]: any;
   };
+  /**
+   * 组件的默认值
+   */
+  defaultValue?: any;
 };
 
 /**
@@ -126,6 +136,10 @@ export type ComponentMetadata = {
    * 组件实现react类
    */
   componentClass: ElementType;
+  /**
+   * 显示的组件名
+   */
+  displayName?: string;
   /**
    * 设置
    */

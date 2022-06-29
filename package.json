@@ -1,6 +1,6 @@
 {
   "name": "smart-dashboard",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "A react base dashboard engine",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -63,5 +63,5 @@
     "/es",
     "/build"
   ],
-  "homepage": "https://unpkg.com/smart-dashboard@0.1.7/build/index.html"
+  "homepage": "https://unpkg.com/smart-dashboard@0.1.8/build/index.html"
 }
