@@ -18,6 +18,7 @@
     "prettier": "prettier --write \"./{src,demo}/**/*.{tsx,js,jsx,json,css,ts,scss,less}\""
   },
   "author": "bruce007lee",
+  "license": "MIT",
   "keywords": [
     "react",
     "dashboard"
