@@ -12,6 +12,7 @@ module.exports = getESLintConfig('react-ts', {
     '@typescript-eslint/method-signature-style': 'off',
     '@typescript-eslint/consistent-type-definitions': 'off',
     '@typescript-eslint/no-inferrable-types': 'off',
+    'no-undef': 'error',
     'prefer-const': 'warn',
     "react/jsx-uses-react": "error",
     "react/react-in-jsx-scope": "error",
