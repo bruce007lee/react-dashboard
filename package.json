@@ -1,6 +1,6 @@
 {
   "name": "smart-dashboard",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "A react base dashboard engine",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -62,12 +62,13 @@
     "webpack-dev-server": "^3.7.2"
   },
   "peerDependencies": {
-    "stylelint": "^14.9.1"
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   },
   "files": [
     "/lib",
     "/es",
     "/build"
   ],
-  "homepage": "https://unpkg.com/smart-dashboard@0.1.11/build/index.html"
+  "homepage": "https://unpkg.com/smart-dashboard@0.1.12/build/index.html"
 }
