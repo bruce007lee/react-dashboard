@@ -1,6 +1,6 @@
 {
   "name": "smart-dashboard",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "A react base dashboard engine",
   "main": "lib/index.js",
   "module": "es/index.js",
