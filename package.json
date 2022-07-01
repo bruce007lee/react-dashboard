@@ -50,6 +50,7 @@
     "build-scripts": "^1.0.0",
     "eslint": "^8.18.0",
     "eslint-config-prettier": "^8.5.0",
+    "stylelint-config-ali": "^0.4.2",
     "husky": "^8.0.1",
     "jest": "^26.4.2",
     "prettier": "^2.0.5",
