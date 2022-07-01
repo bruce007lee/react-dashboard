@@ -1,4 +1,4 @@
-import { ActionMetadata } from '../types';
+import { ActionMetadatax } from '../types';
 
 // 锁定
 export const lockAction: ActionMetadata = {
