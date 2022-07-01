@@ -9,7 +9,7 @@
     "doc": "typedoc --options typedoc.json",
     "start": "build-scripts start",
     "build": "build-scripts build",
-    "prepare": "husky install && npm run initHusky",
+    "postinstall": "husky install && npm run initHusky",
     "prepublishOnly": "npm run lint && npm run build",
     "initHusky": "git add .husky/pre-commit",
     "lint": "npm run eslint && npm run stylelint",
