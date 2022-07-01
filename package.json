@@ -39,7 +39,6 @@
   },
   "devDependencies": {
     "@ant-design/plots": "^1.0.9",
-    "@iceworks/spec": "^1.6.0",
     "@types/classnames": "^2.2.9",
     "@types/react": "^16.8.17",
     "@types/react-dom": "^16.8.4",
