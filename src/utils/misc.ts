@@ -3,7 +3,7 @@ import _set from 'lodash/set';
 import _get from 'lodash/get';
 import { prefix } from './variables';
 
-export const sn = (styleName) => `${prefix}-${styleName}`;
+export const sn = (styleName?: string) => (styleName ? `${prefix}-${styleName}` : `${prefix}`);
 
 /**
  * 生成随机id
