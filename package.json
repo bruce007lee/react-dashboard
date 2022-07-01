@@ -9,6 +9,7 @@
     "doc": "typedoc --options typedoc.json",
     "start": "build-scripts start",
     "build": "build-scripts build",
+    "test": "echo \"no test\"",
     "postinstall": "husky install && npm run initHusky",
     "prepublishOnly": "npm run lint && npm run build",
     "initHusky": "git add .husky/pre-commit",
@@ -66,5 +67,5 @@
     "/es",
     "/build"
   ],
-  "homepage": "https://unpkg.com/smart-dashboard@0.1.9/build/index.html"
+  "homepage": "https://unpkg.com/smart-dashboard@0.1.10/build/index.html"
 }
