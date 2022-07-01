@@ -1,6 +1,6 @@
 {
   "name": "smart-dashboard",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "A react base dashboard engine",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -38,13 +38,12 @@
   },
   "devDependencies": {
     "@ant-design/plots": "^1.0.9",
+    "antd": "^4.21.4",
     "@iceworks/spec": "^1.6.0",
     "@types/classnames": "^2.2.9",
     "@types/react": "^16.8.17",
     "@types/react-dom": "^16.8.4",
-    "antd": "^4.21.4",
     "build-plugin-component": "^1.6.5",
-    "build-plugin-fusion": "^0.1.0",
     "build-plugin-moment-locales": "^0.1.0",
     "build-scripts": "^1.0.0",
     "eslint": "^8.18.0",
@@ -54,6 +53,8 @@
     "prettier": "^2.0.5",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
+    "stylelint": "^14.9.1",
+    "stylelint-config-ali": "^0.4.2",
     "typedoc": "~0.20.25",
     "typedoc-plugin-markdown": "~3.5.0",
     "typescript": "^4.1.6",
@@ -68,5 +69,5 @@
     "/es",
     "/build"
   ],
-  "homepage": "https://unpkg.com/smart-dashboard@0.1.10/build/index.html"
+  "homepage": "https://unpkg.com/smart-dashboard@0.1.11/build/index.html"
 }
