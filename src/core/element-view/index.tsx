@@ -103,8 +103,8 @@ const ElementView: ForwardRefRenderFunction<ElementViewRef, ElementViewProps> = 
           left: bounds.x,
           top: bounds.y,
         }}
-        onMouseEnter={() => setStatus({ hover: true })}
-        onMouseLeave={() => setStatus({ hover: false })}
+        onMouseEnter={() => editable && setStatus({ hover: true })}
+        onMouseLeave={() => editable && setStatus({ hover: false })}
       >
         {Com ? <Com {...comProps} /> : <div>{`组件类型 [${componentName}] 不存在`}</div>}
         {editable ? (
