@@ -1,10 +1,11 @@
 import { Input, Select } from 'antd';
-import { ISetterProps, SetterMetadata, SetterRenderFunction } from '../src/index';
+import { SetterRenderProps, SetterMetadata, SetterRenderFunction } from '../src/index';
 
 /**
  * string文本类型设置器
  */
-const StringSetter: SetterRenderFunction = ({ fieldConfig, getValue, setValue }) => {
+const StringSetter: SetterRenderFunction = ({ setterProps }) => {
+  const { fieldConfig, getValue, setValue } = setterProps;
   const value = getValue();
   return (
     <div className="setter-field">
@@ -19,7 +20,8 @@ const StringSetter: SetterRenderFunction = ({ fieldConfig, getValue, setValue })
 /**
  * string textarea类型设置器
  */
-const TextAreaSetter: SetterRenderFunction = ({ fieldConfig, getValue, setValue }) => {
+const TextAreaSetter: SetterRenderFunction = ({ setterProps }) => {
+  const { fieldConfig, getValue, setValue } = setterProps;
   const value = getValue();
   return (
     <div className="setter-field">
@@ -34,12 +36,11 @@ const TextAreaSetter: SetterRenderFunction = ({ fieldConfig, getValue, setValue 
 /**
  * string选单类型设置器
  */
-const SelectSetter: SetterRenderFunction<{ options: { label; value }[] } & ISetterProps> = ({
-  fieldConfig,
-  getValue,
-  setValue,
+const SelectSetter: SetterRenderFunction<{ options: { label; value }[] }> = ({
+  setterProps,
   options,
 }) => {
+  const { fieldConfig, getValue, setValue } = setterProps;
   const value = getValue();
   return (
     <div className="setter-field">

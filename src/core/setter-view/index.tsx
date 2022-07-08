@@ -24,7 +24,7 @@ const SetterView: ForwardRefRenderFunction<SetterViewRef, SetterViewProps> = ({ 
 
   const { componentClass: Com } = setterMetadata;
 
-  const setProps: ISetterProps = {
+  const setterProps: ISetterProps = {
     fieldConfig,
     setValue(val) {
       const fname = fieldConfig.name;
@@ -52,7 +52,7 @@ const SetterView: ForwardRefRenderFunction<SetterViewRef, SetterViewProps> = ({ 
     },
   };
 
-  return <Com {...setter.props} {...setProps} />;
+  return <Com {...setter.props} setterProps={setterProps} />;
 };
 
 export default forwardRef(SetterView);

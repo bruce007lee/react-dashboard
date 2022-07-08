@@ -92,4 +92,8 @@ export interface ISetterProps {
   fieldConfig: FieldConfig;
 }
 
-export interface SetterRenderFunction<T extends ISetterProps = ISetterProps> extends FC<T> {}
+export interface SetterRenderProps {
+  setterProps: ISetterProps;
+}
+
+export interface SetterRenderFunction<T = {}> extends FC<T & SetterRenderProps> {}
