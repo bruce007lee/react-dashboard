@@ -1,5 +1,6 @@
 import React, { ReactNode, MutableRefObject } from 'react';
-import { ElementSchema, IDispatcher, IElementController, IElementsBuilder } from '../../types';
+import { createPortal } from 'react-dom';
+import { ElementSchema, IDispatcher, IElementController, IElementsBuilder, IRenderContext } from '../../types';
 import MaterialManager from '../material-manager';
 import RenderContext from '../render-context';
 import ElementController from '../element-controller';
@@ -17,6 +18,7 @@ export type ElementsBuilderProps = {
   dispatcher?: IDispatcher;
   canvasContainerRef: MutableRefObject<HTMLElement>;
   setterContainerRef?: MutableRefObject<HTMLElement>;
+  setterContainerExtraRender?: (props: { renderContext: IRenderContext; [key: string]: any }) => ReactNode;
   context: RenderContext;
 };
 
@@ -130,5 +132,15 @@ export default class ElementsBuilder implements IElementsBuilder {
 
   createElementView = (element: IElementController): ReactNode => (element as ElementController).render();
 
-  render = (): ReactNode => this.elementManager.getAll().map((item) => this.createElementView(item));
+  render = (): ReactNode => {
+    const { setterContainerExtraRender, context, setterContainerRef } = this.props;
+    return (
+      <>
+        {setterContainerRef?.current && setterContainerExtraRender
+          ? createPortal(setterContainerExtraRender({ renderContext: context }), setterContainerRef.current)
+          : null}
+        {this.elementManager.getAll().map((item) => this.createElementView(item))}
+      </>
+    );
+  };
 }

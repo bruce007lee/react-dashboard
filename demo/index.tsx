@@ -123,6 +123,12 @@ const App = () => {
               className="dashboard"
               ref={dashboardRef}
               setterContainerRef={setterContainerRef}
+              setterContainerExtraRender={({ renderContext }) => {
+                if (!renderContext.getElements().find((item) => item.getStatus().selected)) {
+                  return <div>请先左边选择一个组件</div>;
+                }
+                return null;
+              }}
               limitBounds={limitBounds}
               enableMagnet={magnet}
               editable={editable}

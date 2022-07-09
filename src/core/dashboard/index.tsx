@@ -1,4 +1,5 @@
 import React, {
+  ReactNode,
   ForwardRefRenderFunction,
   forwardRef,
   useRef,
@@ -19,6 +20,7 @@ import {
   ActionMetadata,
   IDispatcher,
   SetterMetadata,
+  IRenderContext,
 } from '../../types';
 import ElementsBuilder from '../elements-builder';
 import RenderContext, { RenderContextProvider } from '../render-context';
@@ -56,6 +58,10 @@ export interface DashboardProps extends HTMLAttributes<HTMLDivElement>, DashBoar
    * 组件属性设置的面板容器
    */
   setterContainerRef?: MutableRefObject<HTMLElement> | RefObject<HTMLElement>;
+  /**
+   * 组件属性设置的面板附加的渲染器
+   */
+  setterContainerExtraRender?: (props: { renderContext: IRenderContext; [key: string]: any }) => ReactNode;
 }
 
 export type DashboardRef = {
@@ -66,7 +72,7 @@ export type DashboardRef = {
   /**
    * 获取渲染的上下文
    */
-  getRenderContext: () => RenderContext;
+  getRenderContext: () => IRenderContext;
 };
 
 const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
@@ -85,6 +91,7 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
     dndAccept,
     className,
     setterContainerRef,
+    setterContainerExtraRender,
     ...others
   },
   ref,
@@ -132,6 +139,7 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
         dispatcher,
         canvasContainerRef,
         setterContainerRef,
+        setterContainerExtraRender,
         context,
       });
       context.setBuilder(b);

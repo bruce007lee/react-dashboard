@@ -116,7 +116,8 @@ export default class ElementController implements IElementController {
   }
 
   updateView(): void {
-    this.viewRef.current?.forceUpdate();
+    // this.viewRef.current?.forceUpdate();
+    this.context.getBuilder().updateView();
   }
 
   moveToPrev(): void {
