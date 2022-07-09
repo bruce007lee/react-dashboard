@@ -78,6 +78,7 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
     defaultToolbarActionNames,
     style,
     editable,
+    limitBounds,
     enableMagnet = true,
     magnetSpace = 16,
     magnetThreshold = 10,
@@ -94,6 +95,7 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
   const canvasContainerRef = useRef<HTMLDivElement>(null);
   const elementsProviderCtx = useElementsProviderContext();
   context.setConfig({
+    limitBounds,
     editable,
     enableMagnet,
     magnetSpace,
@@ -101,7 +103,7 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
     dndAccept,
   });
 
-  if(elementsProviderCtx){
+  if (elementsProviderCtx) {
     // 为拖控源添加渲染上下文
     elementsProviderCtx.renderContext = context;
   }

@@ -6,6 +6,10 @@ import type { IElementController, IElementLifecycle } from './interface';
  */
 export type DashBoardConfig = {
   /**
+   * 是否限制拖控的一定区域
+   */
+  limitBounds?: boolean;
+  /**
    * dnd的accept, 不设置为dashboard实例的id
    * 一般通过ElementsProvider来设置，这里设置这个属性
    */

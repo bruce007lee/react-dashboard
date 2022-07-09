@@ -36,10 +36,7 @@ const TextAreaSetter: SetterRenderFunction = ({ setterProps }) => {
 /**
  * string选单类型设置器
  */
-const SelectSetter: SetterRenderFunction<{ options: { label; value }[] }> = ({
-  setterProps,
-  options,
-}) => {
+const SelectSetter: SetterRenderFunction<{ options: { label; value }[] }> = ({ setterProps, options }) => {
   const { fieldConfig, getValue, setValue } = setterProps;
   const value = getValue();
   return (

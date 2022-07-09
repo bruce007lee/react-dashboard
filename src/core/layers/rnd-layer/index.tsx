@@ -32,10 +32,7 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
   const rndRef = useRef<Rnd>(null);
   const [dragging, setDragging] = useState<boolean>(false);
   const [resizing, setResizing] = useState<boolean>(false);
-  const config = context.getConfig();
-  const enableManget = config.enableMagnet;
-  const SPACE = config.magnetSpace;
-  const THRESHOLD = config.magnetThreshold;
+  const { limitBounds, enableMagnet, magnetSpace: SPACE, magnetThreshold: THRESHOLD } = context.getConfig();
 
   useEffect(() => {
     forceUpdate();
@@ -51,7 +48,7 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
    * 做吸附的相关处理
    */
   const updateBounds = (curBounds: Bounds, direction?: string) => {
-    if (enableManget && (resizing || dragging) && context) {
+    if (enableMagnet && (resizing || dragging) && context) {
       // 吸附的功能处理
       const elements = context.getElements();
       const newBounds = {
@@ -243,7 +240,7 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
           <Rnd
             ref={rndRef}
             className={sn('rnd-layer-ghost')}
-            bounds="parent"
+            bounds={limitBounds ? 'parent' : null}
             size={{
               width: curBounds.width,
               height: curBounds.height,

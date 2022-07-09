@@ -42,6 +42,7 @@ const ComItem = ({ children, data }) => {
 
 const App = () => {
   const [editable, setEditable] = useState(true);
+  const [limitBounds, setLimitBounds] = useState(true);
   const [magnet, setMagnet] = useState(true);
   const [data, setData] = useState(load() || mockData);
   const setterContainerRef = useRef<HTMLDivElement>(null);
@@ -57,6 +58,13 @@ const App = () => {
             }}
           >
             {editable ? '关闭编辑' : '开启编辑'}
+          </Button>
+          <Button
+            onClick={() => {
+              setLimitBounds(!limitBounds);
+            }}
+          >
+            {limitBounds ? '关闭限制移动区域' : '开启限制移动区域'}
           </Button>
           <Button
             onClick={() => {
@@ -115,6 +123,7 @@ const App = () => {
               className="dashboard"
               ref={dashboardRef}
               setterContainerRef={setterContainerRef}
+              limitBounds={limitBounds}
               enableMagnet={magnet}
               editable={editable}
               data={data}
