@@ -22,7 +22,7 @@ const ElementTarget: FC<ElementTargetProps> = ({ children, className, ...others 
   return (
     <DropTargetWrapper
       {...others}
-      className={classNames(sn('dnd-target'), className)}
+      className={classNames(sn('element-target'), className)}
       accept={accept}
       canDrop={(data: ElementSchema, monitor) => {
         // 不可编辑时不能添加
@@ -31,11 +31,11 @@ const ElementTarget: FC<ElementTargetProps> = ({ children, className, ...others 
       onDrop={(data: ElementSchema, monitor) => {
         const builder = context.getBuilder();
 
-        // handle beforeDrop lifecycle event
+        // handle beforeAdd lifecycle event
         const meta = builder.getMaterialManager().findByName(data.componentName);
         const lifecycle = elementUtil.getLifecycle(meta);
 
-        if (lifecycle.onBeforeDrop && lifecycle.onBeforeDrop(data, context) === false) {
+        if (lifecycle.onBeforeSourceAdd && lifecycle.onBeforeSourceAdd(data, context) === false) {
           return;
         }
 
@@ -50,9 +50,9 @@ const ElementTarget: FC<ElementTargetProps> = ({ children, className, ...others 
         });
         const elc = builder.addElement(data);
 
-        // handle drop lifecycle event
-        if (lifecycle.onDrop) {
-          lifecycle.onDrop(elc, data, context);
+        // handle add lifecycle event
+        if (lifecycle.onSourceAdd) {
+          lifecycle.onSourceAdd(elc, data, context);
         }
       }}
     >

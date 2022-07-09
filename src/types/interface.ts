@@ -13,7 +13,8 @@ export interface IDispatcher {
  * 添加元素时拖控的上下文
  */
 export interface IElementsProviderContext {
-  accept: string;
+  accept?: string;
+  renderContext?: IRenderContext;
 }
 
 /**
@@ -37,6 +38,7 @@ export interface IElementController {
   getComponentMetadata(): ComponentMetadata;
   getData(clone?: boolean): ElementSchema;
   setData(data: ElementSchema): void;
+  setLocked(locked: boolean): void;
   setSelectd(selected: boolean): void;
   getStatus(): ElementStatus;
   setStatus(status: ElementStatus, options?: { replace?: boolean; updateView?: boolean }): void;
@@ -52,13 +54,13 @@ export interface IElementController {
 
 export interface IElementLifecycle {
   /**
-   * 在添加组件drop时触发，返回false不添加
+   * 在添加组件前触发，返回false不添加
    */
-  onBeforeDrop?: (data: ElementSchema, ctx: IRenderContext) => boolean;
+  onBeforeSourceAdd?: (data: ElementSchema, ctx: IRenderContext) => boolean;
   /**
-   * 在添加组件drop后触发
+   * 在添加组件后触发
    */
-  onDrop?: (element: IElementController, data: ElementSchema, ctx: IRenderContext) => void;
+  onSourceAdd?: (element: IElementController, data: ElementSchema, ctx: IRenderContext) => void;
   /**
    * 组件属性改变时触发
    */

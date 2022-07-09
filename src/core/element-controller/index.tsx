@@ -80,6 +80,16 @@ export default class ElementController implements IElementController {
     }
   }
 
+  setLocked(locked: boolean): void {
+    const status: ElementStatus = {
+      locked,
+    };
+    if (locked) {
+      status.selected = false;
+    }
+    this.setStatus(status);
+  }
+
   setSelectd(selected: boolean): void {
     if (selected && !this.getStatus().selected) {
       // 先反选其他

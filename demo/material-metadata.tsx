@@ -131,7 +131,7 @@ const comMetas: ComponentMetadata[] = [
         },
       ],
       lifecycle: {
-        onBeforeDrop: (data, ctx) => {
+        onBeforeSourceAdd: (data, ctx) => {
           // 这里限制只能加1个
           if (ctx.getElements().find((item) => item.getData(false).componentName === 'PieChart')) {
             Toast.show('环图最多只能添加一个');

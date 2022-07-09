@@ -1,30 +1,97 @@
-import React, { FC, HTMLAttributes } from 'react';
+import React, { forwardRef, ForwardRefRenderFunction, HTMLAttributes, MouseEvent, useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import DragSourceWrapper from '../../components/drag-source-wrapper';
 import { useElementsProviderContext } from '../../hooks';
 import { ElementSchema } from '../../types';
-import { sn } from '../../utils';
+import { cloneDeep, elementUtil, sn } from '../../utils';
+
+export type AddEventType = 'drag' | 'doubleClick';
 
 export type ElementSourceProps = HTMLAttributes<HTMLDivElement> & {
+  /**
+   * 拖控dnd的accept
+   */
   accept?: string;
+  /**
+   * 触发添加的事件
+   * 默认是['drag', 'doubleClick']
+   */
+  addEvents?: AddEventType[];
+  /**
+   * 添加的元素schema数据
+   */
   data: ElementSchema;
 };
 
-const ElementSource: FC<ElementSourceProps> = ({ children, accept, data, className, ...others }) => {
+export type ElementSourceRef = {
+  /**
+   * 手工触发添加到dashboard
+   */
+  add: () => void;
+};
+
+const ElementSource: ForwardRefRenderFunction<ElementSourceRef, ElementSourceProps> = (
+  { children, accept, data, className, onDoubleClick, addEvents = ['drag', 'doubleClick'], ...others },
+  ref,
+) => {
   const providerCtx = useElementsProviderContext();
   if (!accept && providerCtx) {
     accept = providerCtx.accept;
   }
 
-  if (!accept) {
-    return <div {...others}>{children}</div>;
+  const add = () => {
+    const context = providerCtx.renderContext;
+    if (context) {
+      const builder = context.getBuilder();
+
+      // handle beforeAdd lifecycle event
+      const meta = builder.getMaterialManager().findByName(data.componentName);
+      const lifecycle = elementUtil.getLifecycle(meta);
+
+      if (lifecycle.onBeforeSourceAdd && lifecycle.onBeforeSourceAdd(data, context) === false) {
+        return;
+      }
+
+      data = cloneDeep(data);
+      const elc = builder.addElement(data);
+
+      // handle add lifecycle event
+      if (lifecycle.onSourceAdd) {
+        lifecycle.onSourceAdd(elc, data, context);
+      }
+    }
+  };
+
+  const handleDblClick = (e: MouseEvent<HTMLDivElement>) => {
+    add();
+    if (onDoubleClick) {
+      onDoubleClick(e);
+    }
+  };
+
+  useImperativeHandle(ref, () => ({
+    add: () => add(),
+  }));
+
+  if (accept && addEvents?.includes('drag')) {
+    return (
+      <DragSourceWrapper
+        {...others}
+        className={classNames(sn('element-source'), className)}
+        onDoubleClick={handleDblClick}
+        accept={accept}
+        data={data}
+      >
+        {children}
+      </DragSourceWrapper>
+    );
   }
 
   return (
-    <DragSourceWrapper {...others} className={classNames(sn('dnd-source'), className)} accept={accept} data={data}>
+    <div {...others} className={classNames(sn('element-source'), className)} onDoubleClick={handleDblClick}>
       {children}
-    </DragSourceWrapper>
+    </div>
   );
 };
 
-export default ElementSource;
+export default forwardRef(ElementSource);

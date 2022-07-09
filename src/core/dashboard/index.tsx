@@ -25,7 +25,7 @@ import RenderContext, { RenderContextProvider } from '../render-context';
 import MaterialManager from '../material-manager';
 import ActionManager from '../action-manager';
 import SetterManager from '../setter-manager';
-import { useForceUpdate } from '../../hooks';
+import { useElementsProviderContext, useForceUpdate } from '../../hooks';
 import ElementTarget from '../element-target';
 import { sn } from '../../utils';
 
@@ -92,6 +92,7 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
   const [context] = useState<RenderContext>(() => new RenderContext());
   const [builder, setBuilder] = useState<ElementsBuilder>(null);
   const canvasContainerRef = useRef<HTMLDivElement>(null);
+  const elementsProviderCtx = useElementsProviderContext();
   context.setConfig({
     editable,
     enableMagnet,
@@ -99,6 +100,11 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
     magnetThreshold,
     dndAccept,
   });
+
+  if(elementsProviderCtx){
+    // 为拖控源添加渲染上下文
+    elementsProviderCtx.renderContext = context;
+  }
 
   const dispatcher: IDispatcher = {
     updateView: () => forceUpdate(),

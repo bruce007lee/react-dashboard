@@ -32,7 +32,7 @@ const load = () => {
   }
 };
 
-const ComItem = ({ children, data, dashboardRef }) => {
+const ComItem = ({ children, data }) => {
   return (
     <ElementSource data={data}>
       <div className="element-item">{children}</div>
@@ -105,7 +105,7 @@ const App = () => {
         <div className="main">
           <div className="element-box">
             {mockSourceData.map((source) => (
-              <ComItem key={source.label} data={source.data} dashboardRef={dashboardRef}>
+              <ComItem key={source.label} data={source.data}>
                 {source.label}
               </ComItem>
             ))}

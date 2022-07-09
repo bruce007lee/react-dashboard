@@ -13,9 +13,7 @@ export const lockAction: ActionMetadata = {
   },
   invoker: (controller) => {
     const { locked } = controller.getStatus();
-    controller.setStatus({
-      locked: !locked,
-    });
+    controller.setLocked(!locked);
   },
 };
 
