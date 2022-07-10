@@ -1,9 +1,8 @@
 {
   "name": "smart-dashboard",
-  "version": "0.1.18",
+  "version": "0.1.19",
   "description": "A react base dashboard engine",
   "main": "lib/index.js",
-  "module": "es/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "doc": "typedoc --options typedoc.json",
@@ -71,5 +70,5 @@
     "/es",
     "/build"
   ],
-  "homepage": "https://unpkg.com/smart-dashboard@0.1.12/build/index.html"
+  "homepage": "https://unpkg.com/smart-dashboard@0.1.18/build/index.html"
 }
