@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Column, Pie } from '@ant-design/plots';
-import { useRenderContext } from '../src';
+import { useRenderContext } from '../src/index';
 
 export const BarChart = () => {
   const ctx = useRenderContext();

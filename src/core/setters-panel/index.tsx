@@ -1,8 +1,7 @@
 import React, { ForwardRefRenderFunction, forwardRef, MutableRefObject, RefObject } from 'react';
 import { createPortal } from 'react-dom';
 import { ComponentMetadata, FieldConfig } from '../../types';
-import { useElementController } from '../element-controller';
-import { useRenderContext } from '../render-context';
+import { useRenderContext, useElementController } from '../../hooks';
 import SetterView from '../setter-view';
 
 export type SettersPanelProps = {

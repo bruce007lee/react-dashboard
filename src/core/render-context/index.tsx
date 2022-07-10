@@ -1,5 +1,6 @@
-import React, { FC, createContext, useContext } from 'react';
+import React, { FC } from 'react';
 import { ElementSchema, DashBoardConfig, IElementsBuilder, IElementController, IRenderContext } from '../../types';
+import { AppContext } from '../context-factory';
 
 export type RenderContextProps = {
   builder?: IElementsBuilder;
@@ -57,16 +58,10 @@ export default class RenderContext implements IRenderContext {
   }
 }
 
-const AppContext = createContext<IRenderContext>(null);
-
 export type RenderContextProviderProps = {
   value: RenderContext;
 };
 
 export const RenderContextProvider: FC<RenderContextProviderProps> = ({ value, children }) => {
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
-};
-
-export const useRenderContext = (): IRenderContext => {
-  return useContext(AppContext);
 };

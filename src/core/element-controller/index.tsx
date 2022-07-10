@@ -1,6 +1,7 @@
-import React, { createContext, useContext, MutableRefObject, ReactNode, createRef, RefObject } from 'react';
+import React, { MutableRefObject, ReactNode, createRef, RefObject } from 'react';
 import { Bounds, ElementSchema, ComponentMetadata, ElementStatus, IElementController } from '../../types';
 import { cloneDeep, elementUtil, genId } from '../../utils';
+import { ElementControllerContext } from '../context-factory';
 import ElementView, { ElementViewRef } from '../element-view';
 import RenderContext from '../render-context';
 
@@ -10,19 +11,6 @@ export type ElementControllerProps = {
   componentMetadata: ComponentMetadata;
   data: ElementSchema;
   context: RenderContext;
-};
-
-const ElementContext = createContext<IElementController>(null);
-
-export type ElementContextProps = {
-  value: ElementController;
-};
-
-/**
- * 获取当前对应的 ElementController对象
- */
-export const useElementController = (): IElementController => {
-  return useContext(ElementContext);
 };
 export default class ElementController implements IElementController {
   private props: ElementControllerProps;
@@ -155,7 +143,7 @@ export default class ElementController implements IElementController {
   render(): ReactNode {
     const { canvasContainerRef, setterContainerRef, data, componentMetadata } = this.props;
     return (
-      <ElementContext.Provider key={`element-${this.id}`} value={this}>
+      <ElementControllerContext.Provider key={`element-${this.id}`} value={this}>
         <ElementView
           ref={this.viewRef}
           canvasContainerRef={canvasContainerRef}
@@ -164,7 +152,7 @@ export default class ElementController implements IElementController {
           componentMetadata={componentMetadata}
           onBoundsChange={this.handleBoundsChange}
         />
-      </ElementContext.Provider>
+      </ElementControllerContext.Provider>
     );
   }
 }
