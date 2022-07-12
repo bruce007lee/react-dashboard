@@ -30,6 +30,10 @@ export type DashBoardConfig = {
    * 吸附时模块元素间距
    */
   magnetSpace?: number;
+  /**
+   * 缩放设置
+   */
+  scaleRatio?: number;
 };
 
 export type Bounds = {

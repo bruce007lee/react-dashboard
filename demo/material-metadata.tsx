@@ -1,4 +1,4 @@
-import { ComponentMetadata, Toast } from '../src/index';
+import { ComponentMetadata, Toast, useElementController, useRenderContext } from '../src/index';
 import { BarChart, PieChart } from './chart';
 
 const Item1 = ({ text = '内容', color, alignItems }) => {
@@ -14,6 +14,17 @@ const Item2 = ({ title = '标题', content = '内容' }) => {
     <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
       <div style={{ backgroundColor: '#eee' }}>{title}</div>
       <div style={{ whiteSpace: 'pre' }}>{content}</div>
+    </div>
+  );
+};
+
+const Item3 = () => {
+  const ctx = useRenderContext();
+  const controller = useElementController();
+  return (
+    <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
+      <div>缩放率:{ctx.getRealScaleRatio()}</div>
+      <div>数据:{JSON.stringify(controller.getData())}</div>
     </div>
   );
 };
@@ -112,6 +123,10 @@ const comMetas: ComponentMetadata[] = [
         },
       ],
     },
+  },
+  {
+    componentName: 'Item3',
+    componentClass: Item3,
   },
   {
     componentName: 'BarChart',

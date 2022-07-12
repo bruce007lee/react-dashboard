@@ -1,21 +1,21 @@
-import React, {
-  ForwardRefRenderFunction,
-  forwardRef,
-  CSSProperties,
-  MutableRefObject,
-  useState,
-  useImperativeHandle,
-  RefObject,
-} from 'react';
 import classNames from 'classnames';
-import { RndLayer, ProxyLayer } from '../layers';
-import ElementToolbar from '../element-toolbar';
-import { useForceUpdate, useRenderContext, useElementController } from '../../hooks';
-import { Bounds, ElementSchema, ComponentMetadata, ElementStatus } from '../../types';
+import React, {
+  CSSProperties,
+  forwardRef,
+  ForwardRefRenderFunction,
+  MutableRefObject,
+  RefObject,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
+import { useElementController, useForceUpdate, useRenderContext } from '../../hooks';
+import { Bounds, ComponentMetadata, ElementSchema, ElementStatus } from '../../types';
 import { elementUtil, sn } from '../../utils';
-
-import './index.scss';
+import ElementToolbar from '../element-toolbar';
+import { ProxyLayer, RndLayer } from '../layers';
 import SettersPanel from '../setters-panel';
+import './index.scss';
 
 export interface ElementViewProps {
   canvasContainerRef: MutableRefObject<HTMLElement> | RefObject<HTMLElement>;
@@ -27,6 +27,11 @@ export interface ElementViewProps {
 }
 
 export type ElementViewRef = {
+  /**
+   * 获取dom节点
+   */
+  getDom(): HTMLElement;
+
   /**
    * 获取当前编辑的元素数据
    */
@@ -48,6 +53,7 @@ const ElementView: ForwardRefRenderFunction<ElementViewRef, ElementViewProps> = 
   ref,
 ) => {
   const { componentName, props: comProps } = data;
+  const domRef = useRef<HTMLDivElement>();
   const b = elementUtil.getBounds(data);
   const controller = useElementController();
   const forceUpdate = useForceUpdate();
@@ -70,6 +76,10 @@ const ElementView: ForwardRefRenderFunction<ElementViewRef, ElementViewProps> = 
       forceUpdate();
     },
 
+    getDom() {
+      return domRef.current;
+    },
+
     getData() {
       return { ...data, bounds };
     },
@@ -89,6 +99,7 @@ const ElementView: ForwardRefRenderFunction<ElementViewRef, ElementViewProps> = 
   return (
     <>
       <div
+        ref={domRef}
         className={classNames(
           sn('element-view'),
           editable ? sn('element-view-editable') : null,

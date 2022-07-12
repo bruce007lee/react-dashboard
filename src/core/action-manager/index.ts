@@ -1,5 +1,5 @@
-import BaseManager from '../../components/base-manager';
 import { ACTIONS, DEFAULT_ACTION_NAMES } from '../../actions';
+import BaseManager from '../../components/base-manager';
 import { ActionMetadata } from '../../types';
 
 export type ActionManagerProps = {

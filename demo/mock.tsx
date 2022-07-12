@@ -113,4 +113,19 @@ export const mockSourceData: ElementSourceSchema[] = [
       },
     },
   },
+  {
+    label: 'Info组件',
+    data: {
+      componentName: 'Item3',
+      props: {},
+      elementProps: {
+        bounds: {
+          x: 100,
+          y: 100,
+          width: 100,
+          height: 100,
+        },
+      },
+    },
+  },
 ];

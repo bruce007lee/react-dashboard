@@ -1,8 +1,11 @@
 .demo {
   .button-bar {
+    display: flex;
     padding: 10px 0;
-    .ant-btn {
+    .bar-item {
       margin-right: 10px;
+      display: flex;
+      align-items: center;
     }
   }
 

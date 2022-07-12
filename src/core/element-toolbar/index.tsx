@@ -1,9 +1,8 @@
-import React, { ForwardRefRenderFunction, forwardRef, useState } from 'react';
+import React, { forwardRef, ForwardRefRenderFunction } from 'react';
 import ToolbarItem from '../../components/toolbar-item';
+import { useElementController, useRenderContext } from '../../hooks';
 import { ActionMetadata, ComponentMetadata } from '../../types';
 import { sn } from '../../utils';
-import { useElementController, useRenderContext } from '../../hooks';
-
 import './index.scss';
 
 export type ElementToolBarProps = {

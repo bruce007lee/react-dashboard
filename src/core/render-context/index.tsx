@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { ElementSchema, DashBoardConfig, IElementsBuilder, IElementController, IRenderContext } from '../../types';
+import { DashBoardConfig, ElementSchema, IElementController, IElementsBuilder, IRenderContext } from '../../types';
 import { AppContext } from '../context-factory';
 
 export type RenderContextProps = {
@@ -10,6 +10,7 @@ export type RenderContextProps = {
 export default class RenderContext implements IRenderContext {
   private builder: IElementsBuilder;
   private config: DashBoardConfig;
+  private realScaleRatio: number = 1;
   constructor(props?: RenderContextProps) {
     this.builder = props?.builder;
     this.config = props?.config || {};
@@ -55,6 +56,18 @@ export default class RenderContext implements IRenderContext {
     return this.setConfig({
       editable,
     });
+  }
+
+  setRealScaleRatio(scale: number): void {
+    this.realScaleRatio = scale;
+  }
+
+  getRealScaleRatio(): number {
+    return this.realScaleRatio;
+  }
+
+  getScaleRatio(): number {
+    return this.getConfig().scaleRatio;
   }
 }
 

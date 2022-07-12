@@ -1,8 +1,7 @@
-import React, { ReactNode, FC, useEffect, useState } from 'react';
 import classNames from 'classnames';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { domUtil, sn } from '../../utils';
-
 import './index.scss';
 
 export type ToastProps = {

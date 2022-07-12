@@ -1,9 +1,8 @@
-import React, { ForwardRefRenderFunction, forwardRef, FC } from 'react';
+import React, { FC, forwardRef, ForwardRefRenderFunction } from 'react';
 import { useForceUpdate } from '../../hooks';
 import { ActionMetadata, ActionProps, IElementController } from '../../types';
 import { sn } from '../../utils';
 import Icon from '../icon';
-
 import './index.scss';
 
 export type ToolbarItemProps = ActionProps & {

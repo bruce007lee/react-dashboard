@@ -1,6 +1,6 @@
 import _cloneDeep from 'lodash/cloneDeep';
-import _set from 'lodash/set';
 import _get from 'lodash/get';
+import _set from 'lodash/set';
 import { prefix } from './variables';
 
 export const sn = (styleName?: string) => (styleName ? `${prefix}-${styleName}` : `${prefix}`);

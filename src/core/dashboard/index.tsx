@@ -1,36 +1,36 @@
+import classNames from 'classnames';
 import React, {
-  ReactNode,
-  ForwardRefRenderFunction,
+  CSSProperties,
   forwardRef,
+  ForwardRefRenderFunction,
+  HTMLAttributes,
+  MutableRefObject,
+  ReactNode,
+  RefObject,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
   useRef,
   useState,
-  useEffect,
-  useCallback,
-  HTMLAttributes,
-  useImperativeHandle,
-  MutableRefObject,
-  CSSProperties,
-  RefObject,
 } from 'react';
-import classNames from 'classnames';
-import {
-  ComponentMetadata,
-  ElementSchema,
-  DashBoardConfig,
-  ActionMetadata,
-  IDispatcher,
-  SetterMetadata,
-  IRenderContext,
-} from '../../types';
-import ElementsBuilder from '../elements-builder';
-import RenderContext, { RenderContextProvider } from '../render-context';
-import MaterialManager from '../material-manager';
-import ActionManager from '../action-manager';
-import SetterManager from '../setter-manager';
+import ScaleDetector from '../../components/scale-detector';
 import { useElementsProviderContext, useForceUpdate } from '../../hooks';
-import ElementTarget from '../element-target';
+import {
+  ActionMetadata,
+  ComponentMetadata,
+  DashBoardConfig,
+  ElementSchema,
+  IDispatcher,
+  IRenderContext,
+  SetterMetadata,
+} from '../../types';
 import { sn } from '../../utils';
-
+import ActionManager from '../action-manager';
+import ElementTarget from '../element-target';
+import ElementsBuilder from '../elements-builder';
+import MaterialManager from '../material-manager';
+import RenderContext, { RenderContextProvider } from '../render-context';
+import SetterManager from '../setter-manager';
 import './index.scss';
 
 export interface DashboardProps extends HTMLAttributes<HTMLDivElement>, DashBoardConfig {
@@ -89,6 +89,7 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
     magnetSpace = 16,
     magnetThreshold = 10,
     dndAccept,
+    scaleRatio = 1,
     className,
     setterContainerRef,
     setterContainerExtraRender,
@@ -108,6 +109,7 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
     magnetSpace,
     magnetThreshold,
     dndAccept,
+    scaleRatio,
   });
 
   if (elementsProviderCtx) {
@@ -169,6 +171,13 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
     right: 0,
   };
 
+  const scaleStyle: CSSProperties = {};
+  if (scaleRatio && scaleRatio !== 1) {
+    // 缩放的处理
+    scaleStyle.transform = `scale(${scaleRatio})`;
+    scaleStyle.transformOrigin = 'left top';
+  }
+
   return (
     <RenderContextProvider value={context}>
       <div
@@ -180,7 +189,8 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
         }}
       >
         <ElementTarget style={innerStyle}>
-          <div style={innerStyle} ref={canvasContainerRef}>
+          <div style={{ ...innerStyle, ...scaleStyle }} ref={canvasContainerRef}>
+            <ScaleDetector onChange={(scale) => context.setRealScaleRatio(scale)} />
             {builder ? builder.render() : null}
           </div>
         </ElementTarget>

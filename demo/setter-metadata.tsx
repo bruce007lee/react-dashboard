@@ -1,5 +1,5 @@
 import { Input, Select } from 'antd';
-import { SetterRenderProps, SetterMetadata, SetterRenderFunction } from '../src/index';
+import { SetterMetadata, SetterRenderFunction } from '../src/index';
 
 /**
  * string文本类型设置器

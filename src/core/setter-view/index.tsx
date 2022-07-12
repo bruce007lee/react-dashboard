@@ -1,7 +1,7 @@
-import React, { ForwardRefRenderFunction, forwardRef } from 'react';
+import React, { forwardRef, ForwardRefRenderFunction } from 'react';
 import { useElementController, useRenderContext } from '../../hooks';
 import { FieldConfig, ISetterProps } from '../../types';
-import { set, get, elementUtil } from '../../utils';
+import { elementUtil, get, set } from '../../utils';
 
 export type SetterViewProps = {
   fieldConfig: FieldConfig;

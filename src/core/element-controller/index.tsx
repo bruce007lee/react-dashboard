@@ -1,5 +1,5 @@
-import React, { MutableRefObject, ReactNode, createRef, RefObject } from 'react';
-import { Bounds, ElementSchema, ComponentMetadata, ElementStatus, IElementController } from '../../types';
+import React, { createRef, MutableRefObject, ReactNode, RefObject } from 'react';
+import { Bounds, ComponentMetadata, ElementSchema, ElementStatus, IElementController } from '../../types';
 import { cloneDeep, elementUtil, genId } from '../../utils';
 import { ElementControllerContext } from '../context-factory';
 import ElementView, { ElementViewRef } from '../element-view';
@@ -34,6 +34,10 @@ export default class ElementController implements IElementController {
 
   getContext(): RenderContext {
     return this.context;
+  }
+
+  getDom(): HTMLElement {
+    return this.viewRef.current?.getDom();
   }
 
   getData(clone: boolean = true): ElementSchema {

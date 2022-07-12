@@ -95,4 +95,19 @@ export default {
       node.parentElement.removeChild(node);
     }
   },
+
+  /**
+   * 获取当前dom真实的缩放比例
+   */
+  getDomScaleRatio(dom: HTMLElement): number {
+    if (dom && dom.getBoundingClientRect) {
+      if (dom.offsetWidth > dom.offsetHeight) {
+        return dom.getBoundingClientRect().width / dom.offsetWidth;
+      } else {
+        return dom.getBoundingClientRect().height / dom.offsetHeight;
+      }
+    }
+    dom = null;
+    return 1;
+  },
 };

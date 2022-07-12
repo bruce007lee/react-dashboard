@@ -21,13 +21,42 @@ export interface IElementsProviderContext {
  * dashboard渲染的上下文
  */
 export interface IRenderContext {
+  /**
+   * 获取上下文配置
+   */
   getConfig(): DashBoardConfig;
+  /**
+   * 获取元素构建器
+   */
   getBuilder(): IElementsBuilder;
+  /**
+   * 获取编辑数据
+   */
   getEditData(): ElementSchema[];
+  /**
+   * 获取所有元素
+   */
   getElements(): IElementController[];
+  /**
+   * 获取当前是否是编辑状态
+   */
   getEditable(): boolean;
+  /**
+   * 设置当前是否可编辑状态
+   */
   setEditable(editable: boolean);
+  /**
+   * 强制刷新视图
+   */
   updateView(): void;
+  /**
+   * 用于获取当前画布真实的缩放比例
+   */
+  getRealScaleRatio(): number;
+  /**
+   * 用于获取当前画布设置的缩放比例
+   */
+  getScaleRatio(): number;
 }
 
 /**
@@ -35,15 +64,49 @@ export interface IRenderContext {
  */
 export interface IElementController {
   getId(): string;
+  /**
+   * 获取当前组件dom对象
+   */
+  getDom(): HTMLElement;
+  /**
+   * 获取当前组件描述元数据配置
+   */
   getComponentMetadata(): ComponentMetadata;
+  /**
+   * 获取当前组件数据
+   */
   getData(clone?: boolean): ElementSchema;
+  /**
+   * 设置当前组件数据
+   */
   setData(data: ElementSchema): void;
+  /**
+   * 锁定当前组件
+   */
   setLocked(locked: boolean): void;
+  /**
+   * 选中当前组件
+   */
   setSelectd(selected: boolean): void;
+  /**
+   * 获取组件状态集合
+   */
   getStatus(): ElementStatus;
+  /**
+   * 设置组件状态集合
+   */
   setStatus(status: ElementStatus, options?: { replace?: boolean; updateView?: boolean }): void;
+  /**
+   * 获取渲染上下文
+   */
   getContext(): IRenderContext;
+  /**
+   * 强制刷新组件视图
+   */
   updateView(): void;
+  /**
+   * 删除组件
+   */
   remove(): void;
   moveToPrev(): void;
   moveToNext(): void;

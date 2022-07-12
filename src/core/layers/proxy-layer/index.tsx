@@ -1,10 +1,9 @@
-import React, { ForwardRefRenderFunction, forwardRef } from 'react';
 import classNames from 'classnames';
+import React, { forwardRef, ForwardRefRenderFunction } from 'react';
 import { createPortal } from 'react-dom';
-import { BaseLayerProps } from '../base-layer';
-import { sn } from '../../../utils';
 import { useElementController } from '../../../hooks';
-
+import { sn } from '../../../utils';
+import { BaseLayerProps } from '../base-layer';
 import './index.scss';
 
 export type ProxyLayerProps = BaseLayerProps & {};

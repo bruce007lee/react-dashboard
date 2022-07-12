@@ -1,15 +1,14 @@
-import React, { useState, useRef } from 'react';
-import { Button } from 'antd';
-import Dashboard, { Toast, DashboardRef, ElementsProvider, ElementSource } from '../src/index';
+import { Button, Slider } from 'antd';
+// antd依赖样式
+import 'antd/dist/antd.css';
+import React, { useRef, useState } from 'react';
+import Dashboard, { DashboardRef, ElementSource, ElementsProvider, Toast } from '../src/index';
 import actionMetas from './action-metadata';
+import './index.scss';
+import JSONDialog from './json-dialog';
 import materialMetas from './material-metadata';
 import { mockData, mockSourceData } from './mock';
 import setterMetas from './setter-metadata';
-import JSONDialog from './json-dialog';
-
-// antd依赖样式
-import 'antd/dist/antd.css';
-import './index.scss';
 
 const SAVE_KEY = '_demo_data_';
 const save = (data) => {
@@ -41,6 +40,7 @@ const ComItem = ({ children, data }) => {
 };
 
 const App = () => {
+  const [scale, setScale] = useState(1);
   const [editable, setEditable] = useState(true);
   const [limitBounds, setLimitBounds] = useState(true);
   const [magnet, setMagnet] = useState(true);
@@ -53,6 +53,7 @@ const App = () => {
       <ElementsProvider>
         <div className="button-bar">
           <Button
+            className="bar-item"
             onClick={() => {
               setEditable(!editable);
             }}
@@ -60,6 +61,7 @@ const App = () => {
             {editable ? '关闭编辑' : '开启编辑'}
           </Button>
           <Button
+            className="bar-item"
             onClick={() => {
               setLimitBounds(!limitBounds);
             }}
@@ -67,6 +69,7 @@ const App = () => {
             {limitBounds ? '关闭限制移动区域' : '开启限制移动区域'}
           </Button>
           <Button
+            className="bar-item"
             onClick={() => {
               setMagnet(!magnet);
             }}
@@ -74,6 +77,7 @@ const App = () => {
             {magnet ? '关闭磁吸' : '开启磁吸'}
           </Button>
           <Button
+            className="bar-item"
             onClick={() => {
               const json = dashboardRef.current?.getEditData();
               console.log('schema data:', json);
@@ -96,6 +100,7 @@ const App = () => {
             设置schema数据
           </Button>
           <Button
+            className="bar-item"
             onClick={() => {
               save(dashboardRef.current?.getEditData());
             }}
@@ -103,12 +108,26 @@ const App = () => {
             保存数据
           </Button>
           <Button
+            className="bar-item"
             onClick={() => {
               setData(load() || []);
             }}
           >
             读取数据
           </Button>
+          <div className="bar-item">
+            <span>缩放：</span>
+            <Slider
+              style={{ width: 200 }}
+              min={0}
+              max={4}
+              step={0.01}
+              onChange={(val) => {
+                setScale(typeof val === 'number' ? val : 1);
+              }}
+              value={typeof scale === 'number' ? scale : 1}
+            />
+          </div>
         </div>
         <div className="main">
           <div className="element-box">
@@ -121,6 +140,7 @@ const App = () => {
           <div className="dashboard-box">
             <Dashboard
               className="dashboard"
+              scaleRatio={scale}
               ref={dashboardRef}
               setterContainerRef={setterContainerRef}
               setterContainerExtraRender={({ renderContext }) => {

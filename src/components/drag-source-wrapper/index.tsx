@@ -1,4 +1,4 @@
-import React, { ForwardRefRenderFunction, forwardRef, ReactNode, CSSProperties, HTMLAttributes } from 'react';
+import React, { CSSProperties, forwardRef, ForwardRefRenderFunction, HTMLAttributes, ReactNode } from 'react';
 import { useDrag } from 'react-dnd';
 
 export type DragSourceWrapperProps = HTMLAttributes<HTMLDivElement> & {

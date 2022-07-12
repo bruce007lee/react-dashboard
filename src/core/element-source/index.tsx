@@ -1,5 +1,5 @@
-import React, { forwardRef, ForwardRefRenderFunction, HTMLAttributes, MouseEvent, useImperativeHandle } from 'react';
 import classNames from 'classnames';
+import React, { forwardRef, ForwardRefRenderFunction, HTMLAttributes, MouseEvent, useImperativeHandle } from 'react';
 import DragSourceWrapper from '../../components/drag-source-wrapper';
 import { useElementsProviderContext } from '../../hooks';
 import { ElementSchema } from '../../types';

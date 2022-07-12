@@ -1,6 +1,6 @@
+import { Input, Modal } from 'antd';
 import { useState } from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
-import { Modal, Input } from 'antd';
 
 type DlgProp = {
   jsonString: string;

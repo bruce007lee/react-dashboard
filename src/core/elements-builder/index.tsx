@@ -1,13 +1,13 @@
-import React, { ReactNode, MutableRefObject } from 'react';
+import React, { MutableRefObject, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { ElementSchema, IDispatcher, IElementController, IElementsBuilder, IRenderContext } from '../../types';
+import { cloneDeep } from '../../utils';
+import ActionManager from '../action-manager';
+import ElementController from '../element-controller';
+import ElementManager from '../element-manager';
 import MaterialManager from '../material-manager';
 import RenderContext from '../render-context';
-import ElementController from '../element-controller';
-import ActionManager from '../action-manager';
-import ElementManager from '../element-manager';
 import SetterManager from '../setter-manager';
-import { cloneDeep } from '../../utils';
 
 export type ElementsBuilderProps = {
   data: ElementSchema[];

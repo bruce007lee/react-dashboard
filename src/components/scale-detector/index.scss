@@ -1,0 +1,12 @@
+@import '../../styles/index.scss';
+
+#{$css-prefix}-scale-detector {
+  display: block;
+  width: 100px;
+  height: 100px;
+  visibility: hidden;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  position: absolute;
+}

@@ -1,12 +1,11 @@
-import React, { ForwardRefRenderFunction, forwardRef, useEffect, useState, useRef } from 'react';
-import { Rnd, DraggableData } from 'react-rnd';
-import { createPortal } from 'react-dom';
 import classNames from 'classnames';
-import { useRenderContext, useElementController, useForceUpdate } from '../../../hooks';
+import React, { forwardRef, ForwardRefRenderFunction, useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { DraggableData, Rnd } from 'react-rnd';
+import { useElementController, useForceUpdate, useRenderContext } from '../../../hooks';
 import { Bounds } from '../../../types';
-import { BaseLayerProps } from '../base-layer';
 import { elementUtil, sn } from '../../../utils';
-
+import { BaseLayerProps } from '../base-layer';
 import './index.scss';
 
 export type RndLayerProps = BaseLayerProps & {
@@ -220,6 +219,8 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
     controller.setSelectd(true);
   };
 
+  const scale = context.getRealScaleRatio();
+
   return containerRef.current
     ? createPortal(
         <>
@@ -239,6 +240,7 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
           />
           <Rnd
             ref={rndRef}
+            scale={scale}
             className={sn('rnd-layer-ghost')}
             bounds={limitBounds ? 'parent' : null}
             size={{

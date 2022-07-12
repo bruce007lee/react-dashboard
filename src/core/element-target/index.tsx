@@ -1,5 +1,5 @@
-import React, { FC, HTMLAttributes } from 'react';
 import classNames from 'classnames';
+import React, { FC, HTMLAttributes } from 'react';
 import DropTargetWrapper from '../../components/drop-target-wrapper';
 import { useElementsProviderContext, useRenderContext } from '../../hooks';
 import { ElementSchema } from '../../types';
@@ -8,9 +8,9 @@ import { cloneDeep, elementUtil, sn } from '../../utils';
 export type ElementTargetProps = HTMLAttributes<HTMLDivElement> & {};
 
 const ElementTarget: FC<ElementTargetProps> = ({ children, className, ...others }) => {
+  const providerCtx = useElementsProviderContext();
   const context = useRenderContext();
   let accept = context.getConfig().dndAccept;
-  const providerCtx = useElementsProviderContext();
   if (!accept && providerCtx) {
     accept = providerCtx.accept;
   }
@@ -43,10 +43,11 @@ const ElementTarget: FC<ElementTargetProps> = ({ children, className, ...others 
         const ct = builder.getCanvasContainerRef().current;
         const rect = ct.getBoundingClientRect();
         data = cloneDeep(data);
+        const scale = context.getRealScaleRatio();
         elementUtil.setBounds(data, {
           ...elementUtil.getBounds(data),
-          x: Math.round(offset.x - rect.left),
-          y: Math.round(offset.y - rect.top),
+          x: Math.round((offset.x - rect.left) / scale),
+          y: Math.round((offset.y - rect.top) / scale),
         });
         const elc = builder.addElement(data);
 
