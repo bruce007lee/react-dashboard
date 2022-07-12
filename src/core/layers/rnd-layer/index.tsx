@@ -28,6 +28,7 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
   const [bounds, setBounds] = useState<Bounds>(b);
   const [curBounds, setCurBounds] = useState<Bounds>(b);
   const [ghostBounds, setGhostBounds] = useState<Bounds>(b);
+  const canvasBoundsRef = useRef<Bounds>(b);
   const rndRef = useRef<Rnd>(null);
   const [dragging, setDragging] = useState<boolean>(false);
   const [resizing, setResizing] = useState<boolean>(false);
@@ -43,6 +44,19 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
     }
   }, [bounds]);
 
+  const updateCanvasBounds = () => {
+    let dom = context.getBuilder().getCanvasContainerRef().current;
+    if (dom) {
+      canvasBoundsRef.current = {
+        width: dom.offsetWidth,
+        height: dom.offsetHeight,
+        x: 0,
+        y: 0,
+      };
+    }
+    dom = null;
+  };
+
   /**
    * 做吸附的相关处理
    */
@@ -56,11 +70,12 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
 
       let x_ruler = [];
       let y_ruler = [];
+
       elements.forEach((el, index) => {
         if (el !== controller) {
           const bounds = elementUtil.getBounds(el.getData());
 
-          // 格式：d_拖控组件坐标_对比组件坐标_高度或宽度_元素index
+          // 数组格式：拖控组件坐标_对比组件坐标_高度或宽度_元素index
           const d_l_l = [curBounds.x - bounds.x, bounds.x, curBounds.x + curBounds.width - bounds.x, index];
           const d_l_r = [
             curBounds.x - bounds.x - bounds.width,
@@ -158,6 +173,29 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
           }
         }
       });
+
+      const canvasBounds = canvasBoundsRef.current;
+      console.log(canvasBounds);
+      if (canvasBounds) {
+        // 画布边缘
+        const c_l_l = [curBounds.x, 0, curBounds.x + curBounds.width, -1];
+        const c_r_r = [
+          curBounds.x + curBounds.width - canvasBounds.width,
+          canvasBounds.width - curBounds.width,
+          canvasBounds.width - curBounds.x,
+          -1,
+        ];
+        const c_t_t = [curBounds.y, 0, curBounds.y + curBounds.height, -1];
+        const c_b_b = [
+          curBounds.y + curBounds.height - canvasBounds.height,
+          canvasBounds.height - curBounds.height,
+          canvasBounds.height - curBounds.y,
+          -1,
+        ];
+
+        x_ruler = x_ruler.concat([c_l_l, c_r_r]);
+        y_ruler = y_ruler.concat([c_t_t, c_b_b]);
+      }
 
       // 排序取最近的坐标
       const sort = (a, b) => {
@@ -264,6 +302,7 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
               updateBounds(b, direction);
             }}
             onDragStart={(e: MouseEvent, d) => {
+              updateCanvasBounds();
               if (onDragStart) {
                 onDragStart();
               }
@@ -278,6 +317,7 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
               }
             }}
             onResizeStart={() => {
+              updateCanvasBounds();
               if (onResizeStart) {
                 onResizeStart();
               }

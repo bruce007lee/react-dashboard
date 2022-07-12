@@ -16,9 +16,9 @@
   .dashboard-box {
     overflow: hidden;
     border: 1px solid #666;
+    flex: 1;
     .dashboard {
       height: 800px;
-      width: 800px;
     }
   }
 
