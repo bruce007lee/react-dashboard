@@ -189,7 +189,11 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
         }}
       >
         <ElementTarget style={innerStyle}>
-          <div style={{ ...innerStyle, ...scaleStyle }} ref={canvasContainerRef}>
+          <div
+            className={classNames(sn('canvas-container'))}
+            style={{ ...innerStyle, ...scaleStyle }}
+            ref={canvasContainerRef}
+          >
             <ScaleDetector onChange={(scale) => context.setRealScaleRatio(scale)} />
             {builder ? builder.render() : null}
           </div>
