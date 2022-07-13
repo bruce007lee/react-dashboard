@@ -39,6 +39,10 @@ const ElementTarget: FC<ElementTargetProps> = ({ children, className, ...others 
           return;
         }
 
+        if (context.getLifecycle().onBeforeSourceAdd(data, context) === false) {
+          return;
+        }
+
         const offset = monitor.getClientOffset();
         const ct = builder.getCanvasContainerRef().current;
         const rect = ct.getBoundingClientRect();

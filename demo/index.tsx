@@ -156,6 +156,11 @@ const App = () => {
               actions={actionMetas}
               components={materialMetas}
               setters={setterMetas}
+              eventsMonitor={{
+                onElementChange: (controller, type) => {
+                  console.log('[DEBUG]elementChange:', controller.getId(), '|', type);
+                },
+              }}
             />
           </div>
           <div className="setter-box">

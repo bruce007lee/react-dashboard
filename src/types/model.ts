@@ -1,5 +1,5 @@
 import { ElementType } from 'react';
-import type { IElementController, IElementLifecycle } from './interface';
+import type { IDashboardLifecycle, IElementController, IElementLifecycle } from './interface';
 
 /**
  * 上下文中的全局设置类参数
@@ -34,6 +34,10 @@ export type DashBoardConfig = {
    * 缩放设置
    */
   scaleRatio?: number;
+  /**
+   * 事件监听器
+   */
+  eventsMonitor?: Partial<IDashboardLifecycle>;
 };
 
 export type Bounds = {

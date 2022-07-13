@@ -175,7 +175,6 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
       });
 
       const canvasBounds = canvasBoundsRef.current;
-      console.log(canvasBounds);
       if (canvasBounds) {
         // 画布边缘
         const c_l_l = [curBounds.x, 0, curBounds.x + curBounds.width, -1];

@@ -13,6 +13,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import LifecycleAdapter from '../../components/lifecycle-adapter';
 import ScaleDetector from '../../components/scale-detector';
 import { useElementsProviderContext, useForceUpdate } from '../../hooks';
 import {
@@ -93,6 +94,7 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
     className,
     setterContainerRef,
     setterContainerExtraRender,
+    eventsMonitor,
     ...others
   },
   ref,
@@ -110,6 +112,7 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
     magnetThreshold,
     dndAccept,
     scaleRatio,
+    eventsMonitor: new LifecycleAdapter({ lifecycle: eventsMonitor }),
   });
 
   if (elementsProviderCtx) {

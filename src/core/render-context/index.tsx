@@ -1,5 +1,12 @@
 import React, { FC } from 'react';
-import { DashBoardConfig, ElementSchema, IElementController, IElementsBuilder, IRenderContext } from '../../types';
+import {
+  DashBoardConfig,
+  ElementSchema,
+  IDashboardLifecycle,
+  IElementController,
+  IElementsBuilder,
+  IRenderContext,
+} from '../../types';
 import { AppContext } from '../context-factory';
 
 export type RenderContextProps = {
@@ -68,6 +75,10 @@ export default class RenderContext implements IRenderContext {
 
   getScaleRatio(): number {
     return this.getConfig().scaleRatio;
+  }
+
+  getLifecycle(): IDashboardLifecycle {
+    return this.getConfig().eventsMonitor;
   }
 }
 

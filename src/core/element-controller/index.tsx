@@ -142,6 +142,7 @@ export default class ElementController implements IElementController {
     if (lifecycle.onChange) {
       lifecycle.onChange(this, 'elementProps.bounds', this.context);
     }
+    this.context.getLifecycle().onElementChange(this, 'elementProps.bounds', this.context);
   };
 
   render(): ReactNode {

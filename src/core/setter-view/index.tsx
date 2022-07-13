@@ -36,8 +36,9 @@ const SetterView: ForwardRefRenderFunction<SetterViewRef, SetterViewProps> = ({ 
         // handle lifecycle event
         const lifecycle = elementUtil.getLifecycle(controller.getComponentMetadata());
         if (lifecycle.onChange) {
-          lifecycle.onChange(this, path, ctx);
+          lifecycle.onChange(controller, path, ctx);
         }
+        ctx.getLifecycle().onElementChange(controller, path, ctx);
       }
     },
     getValue() {

@@ -57,6 +57,10 @@ export interface IRenderContext {
    * 用于获取当前画布设置的缩放比例
    */
   getScaleRatio(): number;
+  /**
+   * 获取生命周期，用于派发事件
+   */
+  getLifecycle(): IDashboardLifecycle;
 }
 
 /**
@@ -128,6 +132,24 @@ export interface IElementLifecycle {
    * 组件属性改变时触发
    */
   onChange?: (element: IElementController, propsType: string, ctx: IRenderContext) => void;
+}
+
+/**
+ * dashboard生命周期事件的监听器
+ */
+export interface IDashboardLifecycle {
+  /**
+   * 在添加组件前触发，返回false不添加
+   */
+  onBeforeSourceAdd: (data: ElementSchema, ctx: IRenderContext) => boolean;
+  /**
+   * 在添加组件后触发
+   */
+  onSourceAdd: (element: IElementController, data: ElementSchema, ctx: IRenderContext) => void;
+  /**
+   * 组件属性改变时触发
+   */
+  onElementChange: (element: IElementController, propsType: string, ctx: IRenderContext) => void;
 }
 
 /**

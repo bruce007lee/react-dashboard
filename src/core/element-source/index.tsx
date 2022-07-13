@@ -52,6 +52,10 @@ const ElementSource: ForwardRefRenderFunction<ElementSourceRef, ElementSourcePro
         return;
       }
 
+      if (context.getLifecycle().onBeforeSourceAdd(data, context) === false) {
+        return;
+      }
+
       data = cloneDeep(data);
       const elc = builder.addElement(data);
 
