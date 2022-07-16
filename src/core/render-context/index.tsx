@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, MouseEvent } from 'react';
 import {
   DashBoardConfig,
   ElementSchema,
@@ -8,6 +8,7 @@ import {
   IRenderContext,
 } from '../../types';
 import { AppContext } from '../context-factory';
+import type ElementController from '../element-controller';
 
 export type RenderContextProps = {
   builder?: IElementsBuilder;
@@ -78,7 +79,14 @@ export default class RenderContext implements IRenderContext {
   }
 
   getLifecycle(): IDashboardLifecycle {
-    return this.getConfig().eventsMonitor;
+    return this.getConfig().eventsMonitor as IDashboardLifecycle;
+  }
+
+  /**
+   * 处理文档点击事件
+   */
+  handleCanvasClick(e: MouseEvent): void {
+    this.getElements().forEach((item: ElementController) => item.handleCanvasClick(e));
   }
 }
 

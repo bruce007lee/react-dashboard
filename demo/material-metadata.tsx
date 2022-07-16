@@ -1,9 +1,21 @@
+import React from 'react';
 import { ComponentMetadata, Toast, useElementController, useRenderContext } from '../src/index';
 import { BarChart, PieChart } from './chart';
 
 const Item1 = ({ text = '内容', color, alignItems }) => {
   return (
-    <div style={{ color, wordBreak: 'break-all', display: 'flex', alignItems, width: '100%', height: '100%' }}>
+    <div
+      style={{
+        color,
+        whiteSpace: 'pre-wrap',
+        wordBreak: 'break-all',
+        display: 'flex',
+        alignItems,
+        width: '100%',
+        height: '100%',
+        overflow: 'hidden',
+      }}
+    >
       {text}
     </div>
   );
@@ -43,7 +55,10 @@ const comMetas: ComponentMetadata[] = [
           label: '文本',
           name: 'text',
           setter: {
-            componentName: 'StringSetter',
+            componentName: 'TextAreaSetter',
+          },
+          inlineSetter: {
+            componentName: 'InlineTextAreaSetter',
           },
         },
         //位置

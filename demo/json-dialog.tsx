@@ -1,5 +1,5 @@
 import { Input, Modal } from 'antd';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 
 type DlgProp = {

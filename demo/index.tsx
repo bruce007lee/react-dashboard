@@ -42,7 +42,7 @@ const ComItem = ({ children, data }) => {
 const App = () => {
   const [scale, setScale] = useState(1);
   const [editable, setEditable] = useState(true);
-  const [limitBounds, setLimitBounds] = useState(true);
+  const [limitBounds, setLimitBounds] = useState(false);
   const [magnet, setMagnet] = useState(true);
   const [data, setData] = useState(load() || mockData);
   const setterContainerRef = useRef<HTMLDivElement>(null);

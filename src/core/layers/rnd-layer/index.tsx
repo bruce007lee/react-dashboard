@@ -9,6 +9,7 @@ import { BaseLayerProps } from '../base-layer';
 import './index.scss';
 
 export type RndLayerProps = BaseLayerProps & {
+  scale?: number;
   onBoundsChange?: (bounds: Bounds) => void;
   onDragStart?: () => void;
   onDragStop?: () => void;
@@ -19,7 +20,18 @@ export type RndLayerProps = BaseLayerProps & {
 export type RndLayerRef = {};
 
 const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
-  { containerRef, bounds: b, style, className, onBoundsChange, onDragStart, onDragStop, onResizeStart, onResizeStop },
+  {
+    containerRef,
+    bounds: b,
+    style,
+    className,
+    scale = 1,
+    onBoundsChange,
+    onDragStart,
+    onDragStop,
+    onResizeStart,
+    onResizeStop,
+  },
   ref,
 ) => {
   const context = useRenderContext();
@@ -255,8 +267,6 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
   const handleSelected = () => {
     controller.setSelectd(true);
   };
-
-  const scale = context.getRealScaleRatio();
 
   return containerRef.current
     ? createPortal(

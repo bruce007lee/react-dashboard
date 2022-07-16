@@ -5,6 +5,7 @@ import React, {
   ForwardRefRenderFunction,
   MutableRefObject,
   RefObject,
+  useEffect,
   useImperativeHandle,
   useRef,
   useState,
@@ -13,7 +14,7 @@ import { useElementController, useForceUpdate, useRenderContext } from '../../ho
 import { Bounds, ComponentMetadata, ElementSchema, ElementStatus } from '../../types';
 import { elementUtil, sn } from '../../utils';
 import ElementToolbar from '../element-toolbar';
-import { ProxyLayer, RndLayer } from '../layers';
+import { ProxyLayer, RndLayer, SetterLayer } from '../layers';
 import SettersPanel from '../setters-panel';
 import './index.scss';
 
@@ -69,7 +70,12 @@ const ElementView: ForwardRefRenderFunction<ElementViewRef, ElementViewProps> = 
   const Com = componentMetadata?.componentClass;
   const ctx = useRenderContext();
   const editable = ctx.getEditable();
-  const { hover, dragging, resizing, locked } = status;
+  const { hover, dragging, resizing, locked, editing } = status;
+  const [scale, setScale] = useState<number>(() => ctx.getRealScaleRatio());
+
+  useEffect(() => {
+    setScale(ctx.getRealScaleRatio());
+  });
 
   useImperativeHandle(ref, () => ({
     forceUpdate() {
@@ -116,6 +122,7 @@ const ElementView: ForwardRefRenderFunction<ElementViewRef, ElementViewProps> = 
         }}
         onMouseEnter={() => editable && setStatus({ hover: true })}
         onMouseLeave={() => editable && setStatus({ hover: false })}
+        onDoubleClick={() => editable && setStatus({ editing: true })}
       >
         {Com ? <Com {...comProps} /> : <div>{`组件类型 [${componentName}] 不存在`}</div>}
         {editable ? (
@@ -124,6 +131,7 @@ const ElementView: ForwardRefRenderFunction<ElementViewRef, ElementViewProps> = 
             {status.locked ? null : (
               <RndLayer
                 containerRef={canvasContainerRef}
+                scale={scale}
                 bounds={bounds}
                 onBoundsChange={handleBoundsChange}
                 onDragStart={() => setStatus({ dragging: true })}
@@ -132,6 +140,7 @@ const ElementView: ForwardRefRenderFunction<ElementViewRef, ElementViewProps> = 
                 onResizeStop={() => setStatus({ resizing: false })}
               />
             )}
+            {editing ? <SetterLayer containerRef={canvasContainerRef} bounds={bounds} /> : null}
             {status.hover ? <ElementToolbar componentMetadata={componentMetadata} /> : null}
           </>
         ) : null}

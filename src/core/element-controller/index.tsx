@@ -1,4 +1,4 @@
-import React, { createRef, MutableRefObject, ReactNode, RefObject } from 'react';
+import React, { createRef, MouseEvent, MutableRefObject, ReactNode, RefObject } from 'react';
 import { Bounds, ComponentMetadata, ElementSchema, ElementStatus, IElementController } from '../../types';
 import { cloneDeep, elementUtil, genId } from '../../utils';
 import { ElementControllerContext } from '../context-factory';
@@ -134,6 +134,24 @@ export default class ElementController implements IElementController {
 
   getComponentMetadata(): ComponentMetadata {
     return this.props.componentMetadata;
+  }
+
+  handleCanvasClick(e: MouseEvent): void {
+    const { clientX, clientY } = e;
+    const { editing } = this.getStatus();
+    if (editing && this.viewRef.current) {
+      // 处理在行内编辑中的，转为非编辑态
+      let dom = this.viewRef.current.getDom();
+      if (dom) {
+        const { left, top, width, height } = dom.getBoundingClientRect();
+        if (!(clientX > left && clientX < left + width && clientY > top && clientY < top + height)) {
+          this.setStatus({
+            editing: false,
+          });
+        }
+      }
+      dom = null;
+    }
   }
 
   private handleBoundsChange = (bounds: Bounds): void => {

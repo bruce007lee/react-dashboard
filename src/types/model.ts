@@ -51,11 +51,30 @@ export type Bounds = {
  * 元素展示状态
  */
 export type ElementStatus = {
+  /**
+   * 是否是拖控中
+   */
   dragging?: boolean;
+  /**
+   * 是否是缩放中
+   */
   resizing?: boolean;
+  /**
+   * 是否是锁定状态
+   */
   locked?: boolean;
+  /**
+   * 是否是hover状态
+   */
   hover?: boolean;
+  /**
+   * 是否是选中状态
+   */
   selected?: boolean;
+  /**
+   * 是否是行内编辑状态
+   */
+  editing?: boolean;
 };
 
 export type ElementProps = {
@@ -132,8 +151,9 @@ export type SetterType = {
  */
 export type FieldConfig = {
   label?: string;
-  name: string;
-  setter: SetterType;
+  name?: string;
+  setter?: SetterType;
+  inlineSetter?: SetterType;
 };
 
 /**

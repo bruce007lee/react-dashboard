@@ -4,18 +4,22 @@ import { FieldConfig, ISetterProps } from '../../types';
 import { elementUtil, get, set } from '../../utils';
 
 export type SetterViewProps = {
+  setterKey?: string;
   fieldConfig: FieldConfig;
 };
 
 export type SetterViewRef = {};
 
-const SetterView: ForwardRefRenderFunction<SetterViewRef, SetterViewProps> = ({ fieldConfig }, ref) => {
+const SetterView: ForwardRefRenderFunction<SetterViewRef, SetterViewProps> = (
+  { setterKey = 'setter', fieldConfig },
+  ref,
+) => {
   const ctx = useRenderContext();
   const controller = useElementController();
-  if (!fieldConfig?.setter) {
+  if (!fieldConfig?.[setterKey]) {
     return null;
   }
-  const { setter } = fieldConfig;
+  const setter = fieldConfig[setterKey];
   const setterMetadata = ctx.getBuilder().getSetterManager().findByName(setter.componentName);
 
   if (!setterMetadata) {
@@ -32,7 +36,7 @@ const SetterView: ForwardRefRenderFunction<SetterViewRef, SetterViewProps> = ({ 
         const data = controller.getData(false);
         const path = `props.${fname}`;
         set(data, path, val);
-        controller.setData(data);
+        controller.setData({ ...data });
         // handle lifecycle event
         const lifecycle = elementUtil.getLifecycle(controller.getComponentMetadata());
         if (lifecycle.onChange) {

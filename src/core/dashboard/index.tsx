@@ -4,6 +4,7 @@ import React, {
   forwardRef,
   ForwardRefRenderFunction,
   HTMLAttributes,
+  MouseEvent,
   MutableRefObject,
   ReactNode,
   RefObject,
@@ -161,6 +162,20 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
     setBuilder(createBuilder(data));
   }, [data]);
 
+  const handleCanvasClick = (e: MouseEvent) => {
+    const { clientX, clientY } = e;
+    if (canvasContainerRef.current) {
+      let dom = canvasContainerRef.current;
+      if (dom) {
+        const { left, top, width, height } = dom.getBoundingClientRect();
+        if (clientX > left && clientX < left + width && clientY > top && clientY < top + height) {
+          context.handleCanvasClick(e);
+        }
+      }
+      dom = null;
+    }
+  };
+
   useImperativeHandle(ref, () => ({
     getEditData: () => context.getEditData(),
     getRenderContext: () => context,
@@ -192,13 +207,19 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
         }}
       >
         <ElementTarget style={innerStyle}>
-          <div
-            className={classNames(sn('canvas-container'))}
-            style={{ ...innerStyle, ...scaleStyle }}
-            ref={canvasContainerRef}
-          >
-            <ScaleDetector onChange={(scale) => context.setRealScaleRatio(scale)} />
-            {builder ? builder.render() : null}
+          <div className={classNames(sn('canvas-wrapper'))} style={innerStyle} onClick={handleCanvasClick}>
+            {/* 附加的帮助工具容器，比如标尺等 */}
+            <div className={classNames(sn('canvas-extra'))} style={{ ...innerStyle, ...scaleStyle }}>
+              <ScaleDetector onChange={(scale) => context.setRealScaleRatio(scale)} />
+            </div>
+            {/* 元素容器 */}
+            <div
+              className={classNames(sn('canvas-container'))}
+              ref={canvasContainerRef}
+              style={{ ...innerStyle, ...scaleStyle }}
+            >
+              {builder ? builder.render() : null}
+            </div>
           </div>
         </ElementTarget>
       </div>
