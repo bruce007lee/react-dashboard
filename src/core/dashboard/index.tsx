@@ -104,6 +104,7 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
   const [context] = useState<RenderContext>(() => new RenderContext());
   const [builder, setBuilder] = useState<ElementsBuilder>(null);
   const canvasContainerRef = useRef<HTMLDivElement>(null);
+  const canvasWrapperRef = useRef<HTMLDivElement>(null);
   const elementsProviderCtx = useElementsProviderContext();
   context.setConfig({
     limitBounds,
@@ -164,8 +165,8 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
 
   const handleCanvasClick = (e: MouseEvent) => {
     const { clientX, clientY } = e;
-    if (canvasContainerRef.current) {
-      let dom = canvasContainerRef.current;
+    if (canvasWrapperRef.current) {
+      let dom = canvasWrapperRef.current;
       if (dom) {
         const { left, top, width, height } = dom.getBoundingClientRect();
         if (clientX > left && clientX < left + width && clientY > top && clientY < top + height) {
@@ -207,7 +208,12 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
         }}
       >
         <ElementTarget style={innerStyle}>
-          <div className={classNames(sn('canvas-wrapper'))} style={innerStyle} onClick={handleCanvasClick}>
+          <div
+            className={classNames(sn('canvas-wrapper'))}
+            ref={canvasWrapperRef}
+            style={innerStyle}
+            onClick={handleCanvasClick}
+          >
             {/* 附加的帮助工具容器，比如标尺等 */}
             <div className={classNames(sn('canvas-extra'))} style={{ ...innerStyle, ...scaleStyle }}>
               <ScaleDetector onChange={(scale) => context.setRealScaleRatio(scale)} />
