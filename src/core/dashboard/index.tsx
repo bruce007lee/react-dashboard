@@ -64,6 +64,10 @@ export interface DashboardProps extends HTMLAttributes<HTMLDivElement>, DashBoar
    * 组件属性设置的面板附加的渲染器
    */
   setterContainerExtraRender?: (props: { renderContext: IRenderContext; [key: string]: any }) => ReactNode;
+  /**
+   * 画布中附加的显示内容，可以用来添加辅助线等
+   */
+  canvasExtraContent?: ReactNode;
 }
 
 export type DashboardRef = {
@@ -95,6 +99,7 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
     className,
     setterContainerRef,
     setterContainerExtraRender,
+    canvasExtraContent,
     eventsMonitor,
     ...others
   },
@@ -217,6 +222,7 @@ const Dashboard: ForwardRefRenderFunction<DashboardRef, DashboardProps> = (
             {/* 附加的帮助工具容器，比如标尺等 */}
             <div className={classNames(sn('canvas-extra'))} style={{ ...innerStyle, ...scaleStyle }}>
               <ScaleDetector onChange={(scale) => context.setRealScaleRatio(scale)} />
+              {canvasExtraContent}
             </div>
             {/* 元素容器 */}
             <div

@@ -48,6 +48,29 @@ const App = () => {
   const setterContainerRef = useRef<HTMLDivElement>(null);
   const dashboardRef = useRef<DashboardRef>(null);
 
+  const extraContent = (
+    <div
+      style={{
+        borderLeft: '1px dashed red',
+        height: '100%',
+        left: 600,
+        top: 0,
+        position: 'absolute',
+      }}
+    >
+      <div
+        style={{
+          color: 'red',
+          left: 10,
+          top: 100,
+          position: 'absolute',
+        }}
+      >
+        辅助线
+      </div>
+    </div>
+  );
+
   return (
     <div className="demo">
       <ElementsProvider>
@@ -142,6 +165,7 @@ const App = () => {
               className="dashboard"
               scaleRatio={scale}
               ref={dashboardRef}
+              canvasExtraContent={extraContent}
               setterContainerRef={setterContainerRef}
               setterContainerExtraRender={({ renderContext }) => {
                 if (!renderContext.getElements().find((item) => item.getStatus().selected)) {
