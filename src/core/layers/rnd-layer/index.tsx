@@ -287,6 +287,7 @@ const RndLayer: ForwardRefRenderFunction<RndLayerRef, RndLayerProps> = (
           />
           <Rnd
             ref={rndRef}
+            key={`rnd-layer-ghost-${scale}`} // fix sometimes rnd position not correct after change scale
             scale={scale}
             className={sn('rnd-layer-ghost')}
             bounds={limitBounds ? 'parent' : null}
